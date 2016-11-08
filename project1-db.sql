@@ -3,7 +3,7 @@
 -- Partner: Tim Kang
 -- Team Name: The SCHEMAtics
 
-create table Airline(
+create or replace table Airline(
   airline_id varchar2(5) not NULL,
   airline_name varchar2(50) not NULL,
   airline_abbreviation varchar2(10),
@@ -12,7 +12,7 @@ create table Airline(
     primary key (airline_id)
 );
 
-create table Flight(
+create or replace table Flight(
   flight_number varchar2(3) not NULL,
   airline_id varchar2(5),
   plane_type char(4),
@@ -29,7 +29,7 @@ create table Flight(
     foreign key (airline_id) references Airline (airline_id)
 );
 
-create table Plane(
+create or replace table Plane(
   plane_type char(4) not NULL,
   manufacture varchar2(10),
   plane_capacity int,
@@ -42,7 +42,7 @@ create table Plane(
     foreign key (owner_id) references Airline (airline_id)
 )
 
-create table Price(
+create or replace table Price(
   departure_city varchar2(3),
   arrival_city varchar2(3),
   airline_id varchar2(5),
@@ -54,7 +54,7 @@ create table Price(
     foreign key (airline_id) references Airline (airline_id)
 )
 
-create table Customer(
+create or replace table Customer(
   cid varchar2(9),
   salutation varchar2(3),
   first_name varchar2(30),
@@ -71,7 +71,7 @@ create table Customer(
     primary key (cid)
 );
 
-create table Reservation(
+create or replace table Reservation(
   reservation_number varchar2(5),
   cid varchar2(9),
   cost int,
@@ -84,7 +84,7 @@ create table Reservation(
     foreign key (cid) references Customer (cid)
 );
 
-create table Reservation_detail(
+create or replace table Reservation_detail(
   reservation_number varchar2(5),
   flight_number varchar2(3),
   flight_date date,
@@ -97,8 +97,9 @@ create table Reservation_detail(
     foreign key (flight_number) references Flight (flight_number)
 );
 
-create table Date(
+create or replace table Date(
   c_date date
   constraint Date_PK
     primary key (c_date)
 );
+
