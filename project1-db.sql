@@ -23,9 +23,9 @@ create or replace table Flight(
   weekly_schedule varchar2(7),
   constraint Flight_PK
     primary key (flight_number),
-  constraint Flight_FK1
+  constraint Flight_FK_Plane
     foreign key (plane_type) references Plane (plane_type)
-  constraint Flight_FK2
+  constraint Flight_FK_Airline
     foreign key (airline_id) references Airline (airline_id)
 );
 
@@ -40,7 +40,7 @@ create or replace table Plane(
     primary key (plane_type),
   constraint Plane_FK
     foreign key (owner_id) references Airline (airline_id)
-)
+);
 
 create or replace table Price(
   departure_city varchar2(3),
@@ -52,7 +52,7 @@ create or replace table Price(
     primary key (departure_city, arrival_city),
   constraint Price_FK
     foreign key (airline_id) references Airline (airline_id)
-)
+);
 
 create or replace table Customer(
   cid varchar2(9),
@@ -91,9 +91,9 @@ create or replace table Reservation_detail(
   leg int
   constraint Reservation_detail_PK
     primary key (reservation_number, leg),
-  constraint Reservation_detail_FK1
+  constraint Reservation_detail_FK_Res
     foreign key (reservation_number) references Reservation (reservation_number),
-  constraint Reservation_detail_FK2
+  constraint Reservation_detail_FK_Flight
     foreign key (flight_number) references Flight (flight_number)
 );
 
@@ -102,4 +102,3 @@ create or replace table Date(
   constraint Date_PK
     primary key (c_date)
 );
-
