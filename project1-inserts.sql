@@ -33,8 +33,8 @@ insert into Flight values ('002', '00002', 'E145', 'DCA', 'PIT', '1430', '1530',
 insert into Flight values ('003', '00001', 'B737', 'PIT', 'DCA', '1530', '1630', 'SMTWTFS');
 insert into Flight values ('004', '00000', 'A320', 'ALK', 'PIT', '0900', '2200', '-----F-');
 
-insert into Reservation_detail values('00001', '00101', to_date('13-Feb-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 1);
-insert into Reservation_detail values('00000', '00100', to_date('13-Feb-2015 07:00:00', 'DD-MON-YYYY HH24:MI:SS'), 1);
-insert into Reservation_detail values('00002', '00102', to_date('13-Feb-2015 08:30:00', 'DD-MON-YYYY HH24:MI:SS'), 1);
-insert into Reservation_detail values('00003', '00103', to_date('13-Feb-2015 07:30:00', 'DD-MON-YYYY HH24:MI:SS'), 1);
-insert into Reservation_detail values('00004', '00104', to_date('10-Feb-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 1);
+insert into Reservation_detail values('00001', '001', to_date('13-Feb-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 1);
+insert into Reservation_detail values('00000', '000', to_date('13-Feb-2015 07:00:00', 'DD-MON-YYYY HH24:MI:SS'), 1);
+insert into Reservation_detail values('00002', '002', to_date('13-Feb-2015 08:30:00', 'DD-MON-YYYY HH24:MI:SS'), 1);
+insert into Reservation_detail values('00003', '003', to_date('13-Feb-2015 07:30:00', 'DD-MON-YYYY HH24:MI:SS'), 1);
+insert into Reservation_detail values('00004', '004', to_date('10-Feb-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 1);
