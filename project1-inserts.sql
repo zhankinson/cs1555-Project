@@ -21,11 +21,11 @@ insert into Plane values('E145', 'Emraer', 50, to_date('06/15/2010', 'MM/DD/YYYY
 insert into Plane values('B737', 'Boeing', 125, to_date('02/04/2007', 'MM/DD/YYYY'), 2002, '00004');
 insert into Plane values('A330', 'Airbus', 175, to_date('10/10/2008', 'MM/DD/YYYY'), 2000, '00005');
 
-insert into Reservation values('00000', '100', 200, '1111111111111111', to_date('01-JAN-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 'N');
-insert into Reservation values('00001', '101', 150, '1111111111111112', to_date('08-JAN-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 'N');
-insert into Reservation values('00002', '102', 75, '1111111111111113', to_date('22-JAN-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 'Y');
-insert into Reservation values('00003', '103', 175, '1111111111111114', to_date('25-JAN-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 'N');
-insert into Reservation values('00004', '104', 200, '1111111111111115', to_date('17-JAN-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 'Y');
+insert into Reservation values('00000', '00100', 200, '1111111111111111', to_date('01-JAN-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 'N');
+insert into Reservation values('00001', '00101', 150, '1111111111111112', to_date('08-JAN-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 'N');
+insert into Reservation values('00002', '00102', 75, '1111111111111113', to_date('22-JAN-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 'Y');
+insert into Reservation values('00003', '00103', 175, '1111111111111114', to_date('25-JAN-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 'N');
+insert into Reservation values('00004', '00104', 200, '1111111111111115', to_date('17-JAN-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 'Y');
 
 insert into Flight values ('000', '00004', 'B747', 'PIT', 'JFK', '1000', '1120', 'SMTWTFS');
 insert into Flight values ('001', '00003', 'A320', 'JFK', 'PIT', '1120', '1240', 'SMTWTFS');
