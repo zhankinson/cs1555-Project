@@ -39,7 +39,7 @@ create table Flight(
   plane_type char(4),
   departure_city varchar2(3),
   arrival_city varchar2(3),
-  departure_time varchar2(3),
+  departure_time varchar2(4),
   arrival_time varchar2(4),
   weekly_schedule varchar2(7),
   constraint Flight_PK
@@ -110,4 +110,3 @@ create table Date_info(
   constraint Date_PK
     primary key (c_date)
 );
-
