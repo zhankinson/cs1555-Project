@@ -14,3 +14,9 @@ insert into Airline values ('00007', 'Southwest Airlines', 'SWA', 1967);
 insert into Airline values ('00008', 'Virgin Airlines', 'VAL', 1984);
 insert into Airline values ('00009', 'Spirit Airlines', 'SAL', 1980);
 insert into Airline values ('00010', 'Alaska Airlines', 'AKA', 1932);
+
+insert into Plane values('B747', 'Boeing', 200, to_date('09/09/2009', 'MON/DD/YYYY'), 1996, '00001');
+insert into Plane values('A320', 'Airbus', 155, to_date('10/01/2011', 'MON/DD/YYYY'), 2001, '00002');
+insert into Plane values('E145', 'Emraer', 50, to_date('06/15/2010', 'MON/DD/YYYY'), 2008, '00003');
+insert into Plane values('B737', 'Boeing', 125, to_date('02/04/2007', 'MON/DD/YYYY'), 2002, '00004');
+insert into Plane values('A320', 'Airbus', 155, to_date('10/10/2008', 'MON/DD/YYYY'), 2000, '00005');
