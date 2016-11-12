@@ -30,7 +30,7 @@ insert into Reservation values('00004', '00104', 200, '1111111111111115', to_dat
 insert into Flight values ('000', '00004', 'B747', 'PIT', 'JFK', '1000', '1120', 'SMTWTFS');
 insert into Flight values ('001', '00003', 'A320', 'JFK', 'PIT', '1120', '1240', 'SMTWTFS');
 insert into Flight values ('002', '00002', 'E145', 'DCA', 'PIT', '1430', '1530', 'SMTWTFS');
-insert into Flight values ('003', '00001', 'B373', 'PIT', 'DCA', '1530', '1630', 'SMTWTFS');
+insert into Flight values ('003', '00001', 'B737', 'PIT', 'DCA', '1530', '1630', 'SMTWTFS');
 insert into Flight values ('004', '00000', 'A320', 'ALK', 'PIT', '0900', '2200', '-----F-');
 
 insert into Reservation_detail values('00001', '00101', to_date('13-Feb-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 1);
