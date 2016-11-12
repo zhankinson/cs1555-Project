@@ -19,7 +19,7 @@ insert into Plane values('B747', 'Boeing', 200, to_date('09/09/2009', 'MM/DD/YYY
 insert into Plane values('A320', 'Airbus', 155, to_date('10/01/2011', 'MM/DD/YYYY'), 2001, '00002');
 insert into Plane values('E145', 'Emraer', 50, to_date('06/15/2010', 'MM/DD/YYYY'), 2008, '00003');
 insert into Plane values('B737', 'Boeing', 125, to_date('02/04/2007', 'MM/DD/YYYY'), 2002, '00004');
-insert into Plane values('A320', 'Airbus', 155, to_date('10/10/2008', 'MM/DD/YYYY'), 2000, '00005');
+insert into Plane values('A330', 'Airbus', 175, to_date('10/10/2008', 'MM/DD/YYYY'), 2000, '00005');
 
 insert into Reservation values('00000', '100', 200, '1111111111111111', to_date('01-JAN-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 'N');
 insert into Reservation values('00001', '101', 150, '1111111111111112', to_date('08-JAN-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 'N');
