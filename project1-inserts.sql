@@ -1,8 +1,8 @@
-insert into Customer values (100, 'Mr.', 'Gerard', 'Butler', 1111111111111111, to_date('JAN-2020', 'MON-YYYY'), '123 Sweet Dr', 'Pittsburgh', 'PA', '1234567890', 'gbutler@gmail.com', '00000');
-insert into Customer values (101, 'Mrs.', 'Sophia', 'Butler', 1111111111111112, to_date('JAN-2020', 'MON-YYYY'), '123 Sweet Dr', 'Pittsburgh', 'PA', '1234567891', 'sbutler@gmail.com', '00000');
-insert into Customer values (100, 'Mr.', 'Corny', 'Names', 1111111111111113, to_date('NOV-2020', 'MON-YYYY'), '678 Ohara Rd', 'Pittsburgh', 'PA', '1234567892', 'cornNames@gmail.com', '00001');
-insert into Customer values (100, 'Mrs.', 'Funny', 'Names', 1111111111111114, to_date('NOV-2020', 'MON-YYYY'), '678 Ohara Rd', 'Pittsburgh', 'PA', '1234567893', 'funNames@gmail.com', '00001');
-insert into Customer values (100, 'Mr.', 'Noh', 'Waife', 1111111111111115, to_date('MAR-2020', 'MON-YYYY'), '987 Mckee Pl', 'Pittsburgh', 'PA', '1234567894', 'noWife@gmail.com', '00002');
+insert into Customer values ('100', 'Mr.', 'Gerard', 'Butler', '1111111111111111', to_date('JAN-2020', 'MON-YYYY'), '123 Sweet Dr', 'Pittsburgh', 'PA', '1234567890', 'gbutler@gmail.com', '00000');
+insert into Customer values ('101', 'Mrs.', 'Sophia', 'Butler', '1111111111111112', to_date('JAN-2020', 'MON-YYYY'), '123 Sweet Dr', 'Pittsburgh', 'PA', '1234567891', 'sbutler@gmail.com', '00000');
+insert into Customer values ('102', 'Mr.', 'Corny', 'Names', '1111111111111113', to_date('NOV-2020', 'MON-YYYY'), '678 Ohara Rd', 'Pittsburgh', 'PA', '1234567892', 'cornNames@gmail.com', '00001');
+insert into Customer values ('103', 'Mrs.', 'Funny', 'Names', '1111111111111114', to_date('NOV-2020', 'MON-YYYY'), '678 Ohara Rd', 'Pittsburgh', 'PA', '1234567893', 'funNames@gmail.com', '00001');
+insert into Customer values ('104', 'Mr.', 'Noh', 'Waife', '1111111111111115', to_date('MAR-2020', 'MON-YYYY'), '987 Mckee Pl', 'Pittsburgh', 'PA', '1234567894', 'noWife@gmail.com', '00002');
 
 insert into Airline values ('00000', 'Alaska Airlines', 'AKA', 1932);
 insert into Airline values ('00001', 'United Airlines', 'UAL', 1931);
@@ -20,3 +20,10 @@ insert into Plane values('A320', 'Airbus', 155, to_date('10/01/2011', 'MON/DD/YY
 insert into Plane values('E145', 'Emraer', 50, to_date('06/15/2010', 'MON/DD/YYYY'), 2008, '00003');
 insert into Plane values('B737', 'Boeing', 125, to_date('02/04/2007', 'MON/DD/YYYY'), 2002, '00004');
 insert into Plane values('A320', 'Airbus', 155, to_date('10/10/2008', 'MON/DD/YYYY'), 2000, '00005');
+
+insert into Reservation values('00000', '100', 200, '1111111111111111', to_date('01-JAN-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 'N');
+insert into Reservation values('00001', '101', 150, '1111111111111112', to_date('08-JAN-2015-JAN-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 'N');
+insert into Reservation values('00002', '102', 75, '1111111111111113', to_date('22-JAN-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 'Y');
+insert into Reservation values('00003', '103', 175, '1111111111111114', to_date('25-JAN-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 'N');
+insert into Reservation values('00004', '104', 200, '1111111111111115', to_date('17-JAN-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 'Y');
+
