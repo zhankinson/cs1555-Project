@@ -34,3 +34,35 @@ begin
 																	AND ticketed = 'N');
 end;
 /
+
+create or replace view seatingCheck
+as select a.reservation_number, a.flight_number, b.airline_id, b.plane_type, c.plane_capacity
+from Reservation_detail a, Flight b, Plane c
+where (a.flight_number = b.flight_number) 
+	AND (b.plane_type = c.plane_type);
+
+--reservation_detail -> flight_number -> plane 
+create or replace trigger planeUpgrade
+before insert
+on Reservation
+for each row
+begin 
+	update Flight set plane_type = select plane_type
+									from plane
+									where (select plane_capacity
+											from seatingCheck
+											where :new.reservation_number = reservation_number)
+										<  plane_capacity
+										AND ROWNUM=1
+									order by plane_capacity desc)
+		where (select plane_capacity
+			  from seatingCheck
+			  where :new.reservation_number = reservation_number)
+				AND (select plane_capacity
+						from seatingCheck
+						where :new.reservation_number = reservation_number)
+					= (select count(reservation_number)
+						from seatingCheck
+						where :new.reservation_number = reservation_number);
+end;
+/
