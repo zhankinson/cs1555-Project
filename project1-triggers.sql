@@ -47,22 +47,22 @@ before insert
 on Reservation
 for each row
 begin 
-	update Flight set plane_type = select plane_type
-									from plane
-									where (select plane_capacity
-											from seatingCheck
-											where :new.reservation_number = reservation_number)
-										<  plane_capacity
-										AND ROWNUM=1
-									order by plane_capacity desc)
-		where (select plane_capacity
+	update Flight set plane_type = case	
+		when (select plane_capacity
 			  from seatingCheck
 			  where :new.reservation_number = reservation_number)
-				AND (select plane_capacity
+			  = (select count(reservation_number)
+				from seatingCheck
+				where :new.reservation_number = reservation_number)
+		then (select plane_type
+				from plane
+				where (select min(plane_capacity)
 						from seatingCheck
 						where :new.reservation_number = reservation_number)
-					= (select count(reservation_number)
-						from seatingCheck
-						where :new.reservation_number = reservation_number);
+						<  plane_capacity)
+		end
+	where flight_number = (select flight_number
+							from seatingCheck
+							where :new.reservation_number = reservation_number);
 end;
 /
