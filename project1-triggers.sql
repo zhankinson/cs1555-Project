@@ -36,14 +36,14 @@ end;
 /
 
 create or replace view seatingCheck
-as select a.reservation_number, a.flight_number, b.airline_id, b.plane_type, c.plane_capacity
+as select a.reservation_number, a.flight_number, b.airline_id, b.plane_type, b.departure_time, c.plane_capacity
 from Reservation_detail a, Flight b, Plane c
 where (a.flight_number = b.flight_number) 
 	AND (b.plane_type = c.plane_type);
 
 --reservation_detail -> flight_number -> plane 
 create or replace trigger planeUpgrade
-before insert
+before insert 
 on Reservation
 for each row
 begin 
@@ -64,5 +64,45 @@ begin
 	where flight_number = (select flight_number
 							from seatingCheck
 							where :new.reservation_number = reservation_number);
+end;
+/
+
+create or replace trigger cancelReservation
+after insert or update or delete
+on Date_info
+for each row
+begin
+	--delete any with no printed tickets within 12 hours
+	delete from Reservation 
+	where (ticketed = 'N') 
+		AND (Reservation_number = (select Reservation_number
+							  from seatingCheck
+							  where departure_time between departure_time 
+							     AND DATEADD(hh, -12, GETDATE())));
+	--update plane type if capacity can be lowered
+	update Flight set plane_type = case --the when case sees if the next smallest capacity can be filled
+		when (select count(Reservation_number)
+				from seatingCheck	
+				where seatingCheck.flight_number = Flight.flight_number)
+			< (select max(capacity)
+				from plane
+				where capacity < (select capacity
+									from Plane
+									where Flight.plane_type = Plane.plane_type))
+		then (select max(capacity)
+				from plane
+				where capacity < (select capacity
+									from Plane
+									where Flight.plane_type = Plane.plane_type))
+		end
+	where (select count(Reservation_number)
+				from seatingCheck	
+				where seatingCheck.flight_number = Flight.flight_number)
+			< (select max(capacity)
+				from plane
+				where capacity < (select capacity
+									from Plane
+									where Flight.plane_type = Plane.plane_type));
+								
 end;
 /
