@@ -77,7 +77,10 @@ begin
 	where (ticketed = 'N')
 	AND (((:new.c_date - (select r.flight_date
 												from Reservation_detail r
-												where r.reservation_number = reservation_number))*24) < 12);
+												where r.reservation_number = reservation_number
+												AND r.leg = (select d.leg
+																		from Reservation_detail d
+																		where d.flight_date = r.flight_date)))*24) < 12);
 		-- AND (Reservation_number = (select Reservation_number
 		-- 					  from seatingCheck
 		-- 					  where departure_time between departure_time
