@@ -36,7 +36,7 @@ end;
 /
 
 create or replace view seatingCheck
-as select a.reservation_number, a.flight_number, b.airline_id, b.plane_type, c.plane_capacity
+as select a.reservation_number, a.flight_number, b.airline_id, b.plane_type, b,departure_time, c.plane_capacity
 from Reservation_detail a, Flight b, Plane c
 where (a.flight_number = b.flight_number) 
 	AND (b.plane_type = c.plane_type);
@@ -52,6 +52,37 @@ begin
 			  from seatingCheck
 			  where :new.reservation_number = reservation_number)
 			  = (select count(reservation_number)
+				from seatingCheck
+				where :new.reservation_number = reservation_number)
+		then (select plane_type
+				from plane
+				where (select min(plane_capacity)
+						from seatingCheck
+						where :new.reservation_number = reservation_number)
+						<  plane_capacity)
+		end
+	where flight_number = (select flight_number
+							from seatingCheck
+							where :new.reservation_number = reservation_number);
+end;
+/
+
+create or replace trigger cancelReservation
+after insert, update, delete
+on Date_info
+for each row
+begin
+	delete from Reservation 
+	where (ticketed = 'N') 
+	AND (Reservation_number = (select Reservation_number
+							  from seatingCheck
+							  where departure_time between departure_time 
+							     AND DATEADD(hh, -12, GETDATE()));
+	update Flight set plane_type = case	
+		when (select plane_capacity
+			  from seatingCheck
+			  where flight_number = flight_number)
+			  < (select count(reservation_number)
 				from seatingCheck
 				where :new.reservation_number = reservation_number)
 		then (select plane_type
