@@ -73,14 +73,12 @@ on Date_info
 for each row
 begin
 	--delete any with no printed tickets within 12 hours
-	delete from Reservation
-	where (ticketed = 'N')
-	AND (((:new.c_date - (select r.flight_date
-												from Reservation_detail r
-												where r.reservation_number = reservation_number
-												AND r.leg = (select d.leg
-																		from Reservation_detail d
-																		where d.flight_date = r.flight_date)))*24) < 12);
+	delete from Reservation res
+	where (((:new.c_date - (select r.flight_date
+													from Reservation_detail r
+													where r.reservation_number = res.reservation_number)
+													)*24) < 12)
+	and (ticketed = 'N');
 		-- AND (Reservation_number = (select Reservation_number
 		-- 					  from seatingCheck
 		-- 					  where departure_time between departure_time
@@ -93,13 +91,13 @@ begin
 			< (select max(plane_capacity)
 				from plane
 				where plane_capacity < (select plane_capacity
-									from Plane
-									where Flight.plane_type = Plane.plane_type))
+																from Plane
+																where Flight.plane_type = Plane.plane_type))
 		then (select max(plane_capacity)
 				from plane
 				where plane_capacity < (select plane_capacity
-									from Plane
-									where Flight.plane_type = Plane.plane_type))
+																from Plane
+																where Flight.plane_type = Plane.plane_type))
 		end
 	where (select count(Reservation_number)
 				from seatingCheck
@@ -107,8 +105,8 @@ begin
 			< (select max(plane_capacity)
 				from plane
 				where plane_capacity < (select plane_capacity
-									from Plane
-									where Flight.plane_type = Plane.plane_type));
+																from Plane
+																where Flight.plane_type = Plane.plane_type));
 
 end;
 /

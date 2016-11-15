@@ -100,7 +100,8 @@ create table Reservation_detail(
   constraint Reservation_detail_PK
     primary key (reservation_number, leg),
   constraint Reservation_detail_FK_Res
-    foreign key (reservation_number) references Reservation (reservation_number),
+    foreign key (reservation_number) references Reservation (reservation_number)
+    on delete cascade,
   constraint Reservation_detail_FK_Flight
     foreign key (flight_number) references Flight (flight_number)
 );
