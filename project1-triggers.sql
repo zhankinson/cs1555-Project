@@ -44,7 +44,7 @@ where (a.flight_number = b.flight_number)
 --reservation_detail -> flight_number -> plane
 create or replace trigger planeUpgrade
 before insert
-on Reservation
+on Reservation_detail
 for each row
 begin
 	update Flight set plane_type = case
@@ -53,7 +53,7 @@ begin
 			  where :new.reservation_number = reservation_number)
 			  = (select count(reservation_number)
 				from seatingCheck
-				where :new.reservation_number = reservation_number)
+				where :new.flight_number = flight_number)
 		then (select plane_type
 				from plane
 				where (select min(plane_capacity)
