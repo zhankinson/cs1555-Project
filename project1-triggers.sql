@@ -98,18 +98,23 @@ begin
 									from (select plane_type
 											from plane
 											where ((select count(flight_number)
-													from seatingCheck
-													where :new.flight_number = flight_number) < plane_capacity)	
+													from seatingCheck 
+													where :old.flight_number = flight_number) 
+													> (select plane_capacity
+														from plane
+														where plane_capacity < (select count(flight_number)
+																				from seatingCheck
+																				where :old.flight_number = flight_number)))	
 											order by plane_capacity asc)
 									where rownum <= 1)
 	where flight_number = (select flight_number
 							from seatingCheck
-							where :new.flight_number = flight_number) 
+							where :old.flight_number = flight_number) 
 							AND ((select plane_capacity
 								  from seatingCheck
-								  where :new.flight_number = flight_number)
+								  where :old.flight_number = flight_number)
 								  = (select count(flight_number)
 									from seatingCheck
-									where :new.flight_number = flight_number));
+									where :old.flight_number = flight_number));
 end;
 /
