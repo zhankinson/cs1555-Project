@@ -52,12 +52,12 @@ begin
 											from plane
 											where ((select count(flight_number)
 													from seatingCheck
-													where :new.flight_number = flight_number) <  plane_capacity)	
+													where :new.flight_number = flight_number) <  plane_capacity)
 											order by plane_capacity desc)
 									where rownum <= 1)
 	where flight_number = (select flight_number
 							from seatingCheck
-							where :new.flight_number = flight_number) 
+							where :new.flight_number = flight_number)
 							AND ((select plane_capacity
 								  from seatingCheck
 								  where :new.flight_number = flight_number)
@@ -73,14 +73,11 @@ on Date_info
 for each row
 begin
 	--delete any with no printed tickets within 12 hours
-	delete from Reservation
+	delete from Reservation res
 	where (ticketed = 'N')
 	AND (((:new.c_date - (select r.flight_date
 						from Reservation_detail r
-						where r.reservation_number = reservation_number
-						AND r.leg = (select d.leg
-										from Reservation_detail d
-										where d.flight_date = r.flight_date)))*24) < 12);
+						where r.reservation_number = res.reservation_number))*24) < 12);
 		-- AND (Reservation_number = (select Reservation_number
 		-- 					  from seatingCheck
 		-- 					  where departure_time between departure_time
@@ -98,18 +95,18 @@ begin
 									from (select plane_type
 											from plane
 											where ((select count(flight_number)
-													from seatingCheck 
-													where :old.flight_number = flight_number) 
+													from seatingCheck
+													where :old.flight_number = flight_number)
 													> (select plane_capacity
 														from plane
 														where plane_capacity < (select count(flight_number)
 																				from seatingCheck
-																				where :old.flight_number = flight_number)))	
+																				where :old.flight_number = flight_number)))
 											order by plane_capacity asc)
 									where rownum <= 1)
 	where flight_number = (select flight_number
 							from seatingCheck
-							where :old.flight_number = flight_number) 
+							where :old.flight_number = flight_number)
 							AND ((select plane_capacity
 								  from seatingCheck
 								  where :old.flight_number = flight_number)

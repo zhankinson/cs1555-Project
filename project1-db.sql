@@ -28,7 +28,7 @@ create table Plane(
   year int,
   owner_id varchar2(5),
   constraint Plane_PK
-    primary key (plane_type),
+    primary key (plane_type, owner_id),
   constraint Plane_FK
     foreign key (owner_id) references Airline (airline_id)
 );
@@ -45,7 +45,7 @@ create table Flight(
   constraint Flight_PK
     primary key (flight_number),
   constraint Flight_FK_Plane
-    foreign key (plane_type) references Plane (plane_type),
+    foreign key (plane_type, airline_id) references Plane (plane_type, owner_id),
   constraint Flight_FK_Airline
     foreign key (airline_id) references Airline (airline_id)
 );
@@ -86,6 +86,8 @@ create table Reservation(
   credit_card_num varchar2(16),
   reservation_date date,
   ticketed varchar2(1),
+  start_city varchar2(3),
+  end_city varchar2(3),
   constraint Reservation_PK
     primary key (reservation_number),
   constraint Reservation_FK
@@ -100,7 +102,8 @@ create table Reservation_detail(
   constraint Reservation_detail_PK
     primary key (reservation_number, leg),
   constraint Reservation_detail_FK_Res
-    foreign key (reservation_number) references Reservation (reservation_number),
+    foreign key (reservation_number) references Reservation (reservation_number)
+    on delete cascade,
   constraint Reservation_detail_FK_Flight
     foreign key (flight_number) references Flight (flight_number)
 );
