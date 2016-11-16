@@ -47,11 +47,14 @@ before insert
 on Reservation_detail
 for each row
 begin
-	update Flight set plane_type = ((select plane_type
-									from plane
-									where (select count(flight_number)
-									from seatingCheck
-									where :new.flight_number = flight_number) <  plane_capacity))
+	update Flight set plane_type = (select plane_type
+									from (select plane_type
+											from plane
+											where ((select count(flight_number)
+													from seatingCheck
+													where :new.flight_number = flight_number) <  plane_capacity)	
+											order by plane_capacity desc)
+									where rownum <= 1)
 	where flight_number = (select flight_number
 							from seatingCheck
 							where :new.flight_number = flight_number) 
@@ -73,39 +76,40 @@ begin
 	delete from Reservation
 	where (ticketed = 'N')
 	AND (((:new.c_date - (select r.flight_date
-												from Reservation_detail r
-												where r.reservation_number = reservation_number
-												AND r.leg = (select d.leg
-																		from Reservation_detail d
-																		where d.flight_date = r.flight_date)))*24) < 12);
+						from Reservation_detail r
+						where r.reservation_number = reservation_number
+						AND r.leg = (select d.leg
+										from Reservation_detail d
+										where d.flight_date = r.flight_date)))*24) < 12);
 		-- AND (Reservation_number = (select Reservation_number
 		-- 					  from seatingCheck
 		-- 					  where departure_time between departure_time
 		-- 					     AND DATEADD(hh, -12, GETDATE())));
 	--update plane type if capacity can be lowered
-	update Flight set plane_type = case --the when case sees if the next smallest capacity can be filled
-		when (select count(Reservation_number)
-				from seatingCheck
-				where seatingCheck.flight_number = Flight.flight_number)
-			< (select max(plane_capacity)
-				from plane
-				where plane_capacity < (select plane_capacity
-									from Plane
-									where Flight.plane_type = Plane.plane_type))
-		then (select max(plane_capacity)
-				from plane
-				where plane_capacity < (select plane_capacity
-									from Plane
-									where Flight.plane_type = Plane.plane_type))
-		end
-	where (select count(Reservation_number)
-				from seatingCheck
-				where seatingCheck.flight_number = Flight.flight_number)
-			< (select max(plane_capacity)
-				from plane
-				where plane_capacity < (select plane_capacity
-									from Plane
-									where Flight.plane_type = Plane.plane_type));
+end;
+/
 
+create or replace trigger planeDegrade
+after delete
+on Reservation_detail
+for each row
+begin
+	update Flight set plane_type = (select plane_type
+									from (select plane_type
+											from plane
+											where ((select count(flight_number)
+													from seatingCheck
+													where :new.flight_number = flight_number) < plane_capacity)	
+											order by plane_capacity asc)
+									where rownum <= 1)
+	where flight_number = (select flight_number
+							from seatingCheck
+							where :new.flight_number = flight_number) 
+							AND ((select plane_capacity
+								  from seatingCheck
+								  where :new.flight_number = flight_number)
+								  = (select count(flight_number)
+									from seatingCheck
+									where :new.flight_number = flight_number));
 end;
 /
