@@ -55,15 +55,15 @@ begin
 													where :new.flight_number = flight_number) <  plane_capacity) 
 													AND owner_id =  (select owner_id
 																		from seatingCheck
-																		where :new.flight_number = flight_number)
-											order by plane_capacity desc)
+																		where :new.flight_number = flight_number AND ROWNUM <= 1)
+											order by plane_capacity asc)
 									where rownum <= 1)
 	where flight_number = (select flight_number
 							from seatingCheck
-							where :new.flight_number = flight_number)
+							where :new.flight_number = flight_number AND ROWNUM <= 1)
 							AND ((select plane_capacity
 								  from seatingCheck
-								  where :new.flight_number = flight_number)
+								  where :new.flight_number = flight_number  AND ROWNUM <= 1)
 								  = (select count(flight_number)
 									from seatingCheck
 									where :new.flight_number = flight_number));
@@ -86,6 +86,50 @@ begin
 		-- 					  where departure_time between departure_time
 		-- 					     AND DATEADD(hh, -12, GETDATE())));
 	--update plane type if capacity can be lowered
+end;
+/
+
+create or replace view seatingChecking
+as select b.flight_number, b.airline_id, b.plane_type, b.departure_time, c.plane_capacity, c.owner_id
+from Flight b, Plane c
+where (b.plane_type = c.plane_type);
+	
+--reservation_detail -> flight_number -> plane
+create or replace trigger planeDegrade
+after delete
+on Reservation_detail
+for each row
+begin
+	update Flight set plane_type = ((select plane_type
+									from (select plane_type
+										from plane
+										where (plane_capacity <(select plane_capacity
+															  from seatingChecking
+															  where :new.flight_number = flight_number AND ROWNUM <= 1))
+											   AND (owner_id = (select airline_id
+																from flight 
+																where :new.flight_number = flight_number AND ROWNUM <= 1))
+										order by plane_capacity desc)
+									where rownum<=1))
+									
+	where flight_number = (select flight_number
+							from seatingChecking
+							where :new.flight_number = flight_number AND ROWNUM <= 1)
+							AND (((select plane_capacity
+								from (select plane_capacity
+									from plane
+									where ((plane_capacity <(select plane_capacity
+														  from seatingChecking
+														  where :new.flight_number = flight_number AND ROWNUM <= 1))
+										   AND (owner_id = (select airline_id
+															from seatingChecking
+															where :new.flight_number = flight_number AND ROWNUM <= 1)))
+									order by plane_capacity desc)
+								where rownum<=1))
+								  > (select count(flight_number)
+									from seatingChecking
+									where :new.flight_number = flight_number));								
+
 end;
 /
 
