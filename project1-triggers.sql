@@ -36,7 +36,7 @@ end;
 /
 
 create or replace view seatingCheck
-as select a.reservation_number, a.flight_number, b.airline_id, b.plane_type, b.departure_time, c.plane_capacity
+as select a.reservation_number, a.flight_number, b.airline_id, b.plane_type, b.departure_time, c.plane_capacity, c.owner_id
 from Reservation_detail a, Flight b, Plane c
 where (a.flight_number = b.flight_number)
 	AND (b.plane_type = c.plane_type);
@@ -52,7 +52,10 @@ begin
 											from plane
 											where ((select count(flight_number)
 													from seatingCheck
-													where :new.flight_number = flight_number) <  plane_capacity)
+													where :new.flight_number = flight_number) <  plane_capacity) 
+													AND owner_id =  (select owner_id
+																		from seatingCheck
+																		where :new.flight_number = flight_number)
 											order by plane_capacity desc)
 									where rownum <= 1)
 	where flight_number = (select flight_number
@@ -86,32 +89,3 @@ begin
 end;
 /
 
-create or replace trigger planeDegrade
-after delete
-on Reservation_detail
-for each row
-begin
-	update Flight set plane_type = (select plane_type
-									from (select plane_type
-											from plane
-											where ((select count(flight_number)
-													from seatingCheck
-													where :old.flight_number = flight_number)
-													> (select plane_capacity
-														from plane
-														where plane_capacity < (select count(flight_number)
-																				from seatingCheck
-																				where :old.flight_number = flight_number)))
-											order by plane_capacity asc)
-									where rownum <= 1)
-	where flight_number = (select flight_number
-							from seatingCheck
-							where :old.flight_number = flight_number)
-							AND ((select plane_capacity
-								  from seatingCheck
-								  where :old.flight_number = flight_number)
-								  = (select count(flight_number)
-									from seatingCheck
-									where :old.flight_number = flight_number));
-end;
-/
