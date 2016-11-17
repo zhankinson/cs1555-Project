@@ -57,7 +57,7 @@ create table Price(
   high_price int,
   low_price int,
   constraint Price_PK
-    primary key (departure_city, arrival_city),
+    primary key (departure_city, arrival_city, airline_id),
   constraint Price_FK
     foreign key (airline_id) references Airline (airline_id)
 );

@@ -1,3 +1,7 @@
+-- Name: Zachary Hankinson
+-- Username: ZAH15
+-- Partner: Tim Kang
+-- Team Name: The SCHEMAtics
 create or replace view completeTickets
 as select b.departure_city, b.arrival_city, b.departure_time, b.arrival_time, c.reservation_number, c.leg, d.cost, d.ticketed
 from Flight b, Reservation_detail c, Reservation d
@@ -86,11 +90,6 @@ begin
 				(select r.flight_date from Reservation_detail r where r.reservation_number = res.reservation_number)
 				- :new.c_date)
 				 as diff_hours from dual) >= 0);
-
-		-- AND (Reservation_number = (select Reservation_number
-		-- 					  from seatingCheck
-		-- 					  where departure_time between departure_time
-		-- 					     AND DATEADD(hh, -12, GETDATE())));
 	--update plane type if capacity can be lowered
 end;
 /
