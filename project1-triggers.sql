@@ -52,7 +52,7 @@ begin
 											from plane
 											where ((select count(flight_number)
 													from seatingCheck
-													where :new.flight_number = flight_number) <  plane_capacity) 
+													where :new.flight_number = flight_number) <  plane_capacity)
 													AND owner_id =  (select owner_id
 																		from seatingCheck
 																		where :new.flight_number = flight_number AND ROWNUM <= 1)
@@ -78,9 +78,15 @@ begin
 	--delete any with no printed tickets within 12 hours
 	delete from Reservation res
 	where (ticketed = 'N')
-	AND (((:new.c_date - (select r.flight_date
-						from Reservation_detail r
-						where r.reservation_number = res.reservation_number))*24) < 12);
+	AND ((select (
+				(select r.flight_date from Reservation_detail r where r.reservation_number = res.reservation_number)
+				- :new.c_date)
+				 as diff_hours from dual) <= .5)
+	AND ((select (
+				(select r.flight_date from Reservation_detail r where r.reservation_number = res.reservation_number)
+				- :new.c_date)
+				 as diff_hours from dual) >= 0);
+
 		-- AND (Reservation_number = (select Reservation_number
 		-- 					  from seatingCheck
 		-- 					  where departure_time between departure_time
@@ -93,7 +99,7 @@ create or replace view seatingChecking
 as select b.flight_number, b.airline_id, b.plane_type, b.departure_time, c.plane_capacity, c.owner_id
 from Flight b, Plane c
 where (b.plane_type = c.plane_type and b.airline_id = c.owner_id);
-	
+
 --reservation_detail -> flight_number -> plane
 create or replace trigger planeDegrade
 after delete
@@ -107,11 +113,11 @@ begin
 															  from seatingChecking
 															  where :old.flight_number = flight_number AND ROWNUM <= 1))
 											   AND (owner_id = (select airline_id
-																from flight 
+																from flight
 																where :old.flight_number = flight_number AND ROWNUM <= 1))
 										order by plane_capacity desc)
 									where rownum<=1))
-									
+
 	where flight_number = (select flight_number
 							from seatingChecking
 							where :old.flight_number = flight_number AND ROWNUM <= 1)
@@ -131,7 +137,7 @@ begin
 								where rownum<=1))
 								  > (select count(flight_number)
 									from seatingChecking
-									where :old.flight_number = flight_number)) OR 
+									where :old.flight_number = flight_number)) OR
 									(((select plane_capacity
 								from (select plane_capacity
 									from plane
@@ -149,8 +155,7 @@ begin
 								  = (select count(flight_number)
 									from seatingChecking
 									where :old.flight_number = flight_number))
-									);								
+									);
 
 end;
 /
-

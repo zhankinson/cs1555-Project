@@ -24,11 +24,11 @@ insert into Plane values('E145', 'Emraer', 1, to_date('06/15/2010', 'MM/DD/YYYY'
 insert into Plane values('B737', 'Boeing', 1, to_date('02/04/2007', 'MM/DD/YYYY'), 2002, '00001');
 insert into Plane values('A320', 'Airbus', 1, to_date('10/10/2008', 'MM/DD/YYYY'), 2000, '00000');
 
-insert into Reservation values('00000', '00100', 200, '1111111111111111', to_date('01-JAN-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 'N', 'DCA', 'PIT');
-insert into Reservation values('00001', '00101', 150, '1111111111111112', to_date('08-JAN-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 'N', 'DCA', 'PIT');
+insert into Reservation values('00000', '00100', 200, '1111111111111111', to_date('01-JAN-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 'N', 'JFK', 'PIT');
+insert into Reservation values('00001', '00101', 150, '1111111111111112', to_date('08-JAN-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 'N', 'PIT', 'JFK');
 insert into Reservation values('00002', '00102', 75, '1111111111111113', to_date('22-JAN-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 'Y', 'DCA', 'PIT');
-insert into Reservation values('00003', '00103', 175, '1111111111111114', to_date('25-JAN-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 'N', 'DCA', 'PIT');
-insert into Reservation values('00004', '00104', 200, '1111111111111115', to_date('17-JAN-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 'N', 'DCA', 'PIT');
+insert into Reservation values('00003', '00103', 175, '1111111111111114', to_date('25-JAN-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 'N', 'PIT', 'DCA');
+insert into Reservation values('00004', '00104', 200, '1111111111111115', to_date('17-JAN-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 'N', 'ALK', 'PIT');
 
 insert into Flight values ('000', '00004', 'B747', 'PIT', 'JFK', '1000', '1120', 'SMTWTFS');
 insert into Flight values ('001', '00003', 'A320', 'JFK', 'PIT', '1120', '1240', 'SMTWTFS');
@@ -37,7 +37,7 @@ insert into Flight values ('003', '00001', 'B737', 'PIT', 'DCA', '1530', '1630',
 insert into Flight values ('004', '00000', 'A320', 'ALK', 'PIT', '0900', '2200', '-----F-');
 
 insert into Reservation_detail values('00001', '000', to_date('13-Feb-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 1);
-insert into Reservation_detail values('00000', '002', to_date('13-Feb-2015 07:00:00', 'DD-MON-YYYY HH24:MI:SS'), 1);
+insert into Reservation_detail values('00000', '001', to_date('13-Feb-2015 07:00:00', 'DD-MON-YYYY HH24:MI:SS'), 1);
 insert into Reservation_detail values('00002', '002', to_date('13-Feb-2015 08:30:00', 'DD-MON-YYYY HH24:MI:SS'), 1);
 insert into Reservation_detail values('00003', '003', to_date('13-Feb-2015 07:30:00', 'DD-MON-YYYY HH24:MI:SS'), 1);
 insert into Reservation_detail values('00004', '004', to_date('10-Feb-2015 10:00:00', 'DD-MON-YYYY HH24:MI:SS'), 1);
@@ -47,4 +47,3 @@ insert into Price values('JFK', 'PIT', '00003', '175', '150');
 insert into Price values('DCA', 'PIT', '00002', '75', '50');
 insert into Price values('PIT', 'DCA', '00001', '150', '150');
 insert into Price values('ALK', 'PIT', '00000', '200', '150');
-
