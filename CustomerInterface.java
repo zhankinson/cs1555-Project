@@ -212,7 +212,7 @@ public class CustomerInterface {
                    System.out.println("Street " + resultSet.getString(7));
                    System.out.println("City " + resultSet.getString(8));
                    System.out.println("State " + resultSet.getString(9));
-                   System.out.println("Phone Number" + resultSet.getString(10));
+                   System.out.println("Phone Number " + resultSet.getString(10));
                    System.out.println("Email " + resultSet.getString(11));
                    System.out.println("Frequent Miles " + resultSet.getString(12));
                 }
@@ -222,11 +222,7 @@ public class CustomerInterface {
               cityA = reader.next();
               System.out.print("Please enter another city: ");
               cityB = reader.next();
-              query = "select (departure_city, arrival_city, high_price, low_price) from Price "+
-                      "where (departure_city = ? "+
-                      "AND arrival_city = ?) "+
-                      "OR (departure_city = ? "+
-                      "AND arrival_city = ?)";
+              query = "select * from Price where (departure_city = ? AND arrival_city = ?) OR (departure_city = ? AND arrival_city = ?)";
               PreparedStatement pStatement = connection.prepareStatement(query);
               pStatement.setString(1, cityA);
               pStatement.setString(2, cityB);
@@ -235,15 +231,12 @@ public class CustomerInterface {
               try{
                 connection.setAutoCommit(false);
                 resultSet = pStatement.executeQuery();
-                rsmd = resultSet.getMetaData();
                 connection.commit();
-                int colNm = rsmd.getColumnCount();
                 while (resultSet.next()) {
-                  for (int i = 1; i <= colNm; i++) {
-                    if(i>1) System.out.print(", ");
-                    String colVal = resultSet.getString(i);
-                    System.out.print(colVal + " " + rsmd.getColumnName(i));
-                  }
+                  System.out.println("Departure City: "+resultSet.getString(1));
+                  System.out.println("Arrival City: "+resultSet.getString(2));
+                  System.out.println("High Price: "+resultSet.getString(4));
+                  System.out.println("Low Price: "+resultSet.getString(5));
                   System.out.println("");
                 }
               }

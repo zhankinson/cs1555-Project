@@ -121,8 +121,8 @@ public class AdministratorInterface {
               st = connection.createStatement();
               String sql = "load data infile '"+filename+
               "' into table Airline "+
-              " fields terminated by \',\' enclosed by \'\"'"+
-              " lines terminated by \'\\n\'";
+              " fields terminated by \',\' enclosed by \'\'\'"+
+              " lines terminated by \'\r\n\'";
               try{
                 connection.setAutoCommit(false);
                 st.executeUpdate(sql);
@@ -146,8 +146,8 @@ public class AdministratorInterface {
               st = connection.createStatement();
               String sql = "load data infile '"+filename+
               "' into table Flight "+
-              " fields terminated by \',\' enclosed by \'\"'"+
-              " lines terminated by \'\\n\'";
+              " fields terminated by \',\' enclosed by \'\'\'"+
+              " lines terminated by \'\r\n\'";
               try{
                 connection.setAutoCommit(false);
                 st.executeUpdate(sql);
@@ -178,8 +178,8 @@ public class AdministratorInterface {
                 st = connection.createStatement();
                 String sql = "load data infile '"+filename+
                 "' into table Price "+
-                " fields terminated by \',\' enclosed by \'\"'"+
-                " lines terminated by \'\\n\'";
+                " fields terminated by \',\' enclosed by \'\'\'"+
+                " lines terminated by \'\r\n\'";
                 try{
                   connection.setAutoCommit(false);
                   st.executeUpdate(sql);
@@ -241,9 +241,9 @@ public class AdministratorInterface {
               filename = reader.next();
               st = connection.createStatement();
               String sql = "load data infile '"+filename+
-              "' into table Airline "+
-              " fields terminated by \',\' enclosed by \'\"'"+
-              " lines terminated by \'\\n\'";
+              "' into table Plane "+
+              " fields terminated by \',\' enclosed by \'\'\'"+
+              " lines terminated by \'\r\n\'";
               try{
                 connection.setAutoCommit(false);
                 st.executeUpdate(sql);
@@ -265,7 +265,7 @@ public class AdministratorInterface {
               System.out.println("Please supply a flight number and date");
               System.out.print("Flight number: ");
               flightNumber = reader.next();
-              System.out.print("Date (DD-Mon-YY HH24:MI:SS): ");
+              System.out.print("Date (DD-MON-YY HH24:MI:SS): ");
               flightDate = reader.next();
               java.text.SimpleDateFormat df = new java.text.SimpleDateFormat("dd-MMM-yy HH24:mm:ss");
               java.sql.Date formatDate = null;
@@ -294,12 +294,9 @@ public class AdministratorInterface {
                 connection.commit();
                 int colNm = rsmd.getColumnCount();
                 while (resultSet.next()) {
-                  for (int i = 1; i <= colNm; i++) {
-                    if(i>1) System.out.print(", ");
-                    String colVal = resultSet.getString(i);
-                    System.out.print(colVal + " " + rsmd.getColumnName(i));
-                  }
-                  System.out.println("");
+                  System.out.println("Salutation: "+resultSet.getString(1));
+                  System.out.println("First Name: "+resultSet.getString(2));
+                  System.out.println("Last Name: "+resultSet.getString(3));
                 }
               }
               catch(SQLException e){
