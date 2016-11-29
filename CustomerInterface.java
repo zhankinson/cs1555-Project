@@ -52,8 +52,8 @@ public class CustomerInterface {
          connection = DriverManager.getConnection(url, username, password);
          //create a connection to DB on class3.cs.pitt.edu
        }
-       catch(Exception Ex)  //What to do with any exceptions
-       {
+       catch(Exception Ex)
+       { //What to do with any exceptions
          System.out.println("Error connecting to database.  Machine Error: " +
                Ex.toString());
            Ex.printStackTrace();
@@ -113,8 +113,7 @@ public class CustomerInterface {
                     System.out.println("Please Enter Your Last Name");
                     lastName = input.nextLine();
                     query = "Select * from Customer";
-                    resultSet = statement.executeQuery(query);
-                    while(resultSet.next()){
+za                    while(resultSet.next()){
                         if(firstName.equals(resultSet.getString(3)) && lastName.equals(resultSet.getString(4))){
                             System.out.println("Your customer name already exists");
                             loop = false;
@@ -141,7 +140,7 @@ public class CustomerInterface {
                 try{
                   expiration = new java.sql.Date (df.parse(creditCardDate).getTime());
                 }
-                catch (Exception e){
+                catch (SQLException e){
                   e.printStackTrace();
                 }
                 query = "insert into Customer values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

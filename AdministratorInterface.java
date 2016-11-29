@@ -19,7 +19,7 @@ public class AdministratorInterface {
      * @param args the command line arguments
      */
     private Connection connection; //used to hold the jdbc connection to the DB
-    private Statement statement; //used to create an instance of the connection
+    private Statement st; //used to create an instance of the connection
     private ResultSet resultSet; //used to hold the result of your query (if one
                                  // exists)
     private String query;  //this will hold the query we are using
@@ -55,12 +55,12 @@ public class AdministratorInterface {
         String answer;
         String confirm;
         String filename;
-        String d_city;
-        String a_city;
-        String h_price;
-        String l_price;
-        String f_number;
-        String f_date;
+        String departCity;
+        String arriveCity;
+        String highPrice;
+        String lowPrice;
+        String flightNumber;
+        String flightDate;
         boolean whileLoop = true;
 
         System.out.println("Hello Administrator to the future of flight");
@@ -85,10 +85,23 @@ public class AdministratorInterface {
               if(confirm.compareTo("Y")==0 || confirm.compareTo("YES")==0)
               {
                 System.out.println("Deleting all records...");
-                // Statement st = connection.createStatement();
-                // query = "TRUNCATE TABLE *";
-                // st.executeUpdate(query);
-                System.out.println("Delete Successful");
+                st = connection.createStatement();
+                query = "TRUNCATE TABLE *";
+                try{
+                  connection.setAutoCommit(false);
+                  st.executeUpdate(query);
+                  connection.commit();
+                  System.out.println("Delete Successful");
+                }
+                catch(SQLException e){
+                  System.out.println("Error: Delete Unsuccessful");
+                  try {
+                    connection.rollback();
+                  }
+                  catch(SQLException ee){
+                    System.err.println(ee.toString());
+                  }
+                }
               }
               else if(confirm.compareTo("N")==0 || confirm.compareTo("NO")==0)
               {
@@ -102,10 +115,50 @@ public class AdministratorInterface {
             else if(n == 2){
               System.out.print("Please supply a filename: ");
               filename = reader.next();
+              st = connection.createStatement();
+              String sql = "load data infile '"+filename+
+              "' into table Airline "+
+              " fields terminated by \',\' enclosed by \'\"'"+
+              " lines terminated by \'\\n\'";
+              try{
+                connection.setAutoCommit(false);
+                st.executeUpdate(sql);
+                connection.commit();
+                System.out.println("Load Successful");
+              }
+              catch(SQLException e){
+                System.out.println("Error: Load Unsuccessful");
+                try{
+                  connection.rollback();
+                }
+                catch(SQLException ee){
+                  System.err.println(ee.toString());
+                }
+              }
             }
             else if(n == 3){
               System.out.print("Please supply a filename: ");
               filename = reader.next();
+              st = connection.createStatement();
+              String sql = "load data infile '"+filename+
+              "' into table Flight "+
+              " fields terminated by \',\' enclosed by \'\"'"+
+              " lines terminated by \'\\n\'";
+              try{
+                connection.setAutoCommit(false);
+                st.executeUpdate(sql);
+                connection.commit();
+                System.out.println("Load Successful");
+              }
+              catch(SQLException e){
+                System.out.println("Error: Load Unsuccessful");
+                try{
+                  connection.rollback()
+                }
+                catch(SQLException ee){
+                  System.err.println(ee.toString());
+                }
+              }
             }
             else if(n == 4){
               System.out.println("Please selection an option");
@@ -117,18 +170,60 @@ public class AdministratorInterface {
               {
                 System.out.print("Please supply a filename: ");
                 filename = reader.next();
+                st = connection.createStatement();
+                String sql = "load data infile '"+filename+
+                "' into table Price "+
+                " fields terminated by \',\' enclosed by \'\"'"+
+                " lines terminated by \'\\n\'";
+                try{
+                  connection.setAutoCommit(false);
+                  st.executeUpdate(sql);
+                  connection.commit();
+                  System.out.println("Load Successful");
+                }
+                catch(SQLException e){
+                  System.out.println("Error: Load Unsuccessful");
+                  try{
+                    connection.rollback()
+                  }
+                  catch(SQLException ee){
+                    System.err.println(ee.toString());
+                  }
+                }
               }
               else if(answer.compareTo("C") == 0)
               {
                 System.out.println("Please supply: departure city, arrival city, high price and low price");
                 System.out.print("Departure city: ");
-                d_city = reader.next();
+                departCity = reader.next();
                 System.out.print("Arrival city: ");
-                a_city = reader.next();
+                arriveCity = reader.next();
                 System.out.print("High price: ");
-                h_price = reader.next();
+                highPrice = reader.next();
                 System.out.print("Low price: ");
-                l_price = reader.next();
+                lowPrice = reader.next();
+                query = "update Price set high_price = ?, low_price = ?
+                          where departure_city = ? and arrival_city = ?";
+                PreparedStatement pStatement = connection.prepareStatement(query);
+                pStatement.setInt(1, highPrice);
+                pStatement.setInt(2, lowPrice);
+                pStatement.setString(3, departCity);
+                pStatement.setString(4, arriveCity);
+                try{
+                  connection.setAutoCommit(false);
+                  pStatement.executeUpdate();
+                  connection.commit();
+                  System.out.println("Update Successful");
+                }
+                catch(SQLException e){
+                  System.out.println("Error: Update Unsuccessful");
+                  try{
+                    connection.rollback();
+                  }
+                  catch(SQLException ee){
+                    System.err.println(ee.toString());
+                  }
+                }
               }
               else
               {
@@ -138,13 +233,67 @@ public class AdministratorInterface {
             else if(n == 5){
               System.out.print("Please supply a filename: ");
               filename = reader.next();
+              st = connection.createStatement();
+              String sql = "load data infile '"+filename+
+              "' into table Airline "+
+              " fields terminated by \',\' enclosed by \'\"'"+
+              " lines terminated by \'\\n\'";
+              try{
+                connection.setAutoCommit(false);
+                st.executeUpdate(sql);
+                connection.commit();
+                System.out.println("Load Successful");
+              }
+              catch(SQLException e){
+                System.out.println("Error: Load Unsuccessful");
+                try{
+                  connection.rollback()
+                }
+                catch(SQLException ee){
+                  System.err.println(ee.toString());
+                }
+              }
             }
             else if(n == 6){
               System.out.println("Please supply a flight number and date");
               System.out.print("Flight number: ");
-              f_number = reader.next();
-              System.out.print("Date: ");
-              f_date = reader.next();
+              flightNumber = reader.next();
+              System.out.print("Date (DD-MON-YYYY HH24:MI:SS): ");
+              flightDate = reader.next();
+              java.text.SimpleDateFormat df = new java.text.SimpleDateFormat("DD-MON-YYYY HH24:MI:SS");
+              java.sql.Date formatDate = null;
+              try{
+                formatDate = new java.sql.Date (df.parse(flightDate).getTime());
+              }
+              catch (Exception e){
+                e.printStackTrace();
+              }
+              query = "select salutation, first_name, last_name
+                      from Customer
+                      where cid = (select cid
+                                  from Reservation
+                                  where reservation_number = (select reservation_number
+                                                              from Reservation_detail
+                                                              where flight_number = ?
+                                                              AND flight_date = ?))";
+              PreparedStatement pStatement = connection.prepareStatement(query);
+              pStatement.setString(1, flightNumber);
+              pStatement.setDate(2, formatDate);
+              try{
+                connection.setAutoCommit(false);
+                ResultSet resManifest = pStatement.executeQuery();
+                connection.commit();
+                System.out.println(resManifest);
+              }
+              catch(SQLException e){
+                System.out.println("Erro: Cannot Generate Manifest");
+                try{
+                  connection.rollback();
+                }
+                catch(SQLException ee){
+                  System.err.println(ee.toString());
+                }
+              }
             }
             else if(n == 7){
                 System.out.println("Quiting");
