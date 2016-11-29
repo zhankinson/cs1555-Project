@@ -256,7 +256,7 @@ public class CustomerInterface {
               departCity = reader.next();
               System.out.print("Arrival city: ");
               arriveCity = reader.next();
-              query = "select (flight_number, departure_city, arrival_city, arrival_time) "+
+              query = "select * "+
                       "from Flight "+
                       "where departure_city = ? AND arrival_city = ?";
               PreparedStatement pStatement = connection.prepareStatement(query);
@@ -270,9 +270,12 @@ public class CustomerInterface {
                 int colNm = rsmd.getColumnCount();
                 while (resultSet.next()) {
                   for (int i = 1; i <= colNm; i++) {
-                    if(i>1) System.out.print(", ");
-                    String colVal = resultSet.getString(i);
-                    System.out.print(colVal + " " + rsmd.getColumnName(i));
+                    System.out.println("Departure City: "+resultSet.getString(4));
+					System.out.println("Arrival City: "+resultSet.getString(5));
+					System.out.println("Flight Number: "+resultSet.getString(1));
+					System.out.println("Departure Time: "+resultSet.getString(6));
+					System.out.println("Arrival Time: "+resultSet.getString(7));
+					System.out.println("");
                   }
                   System.out.println("");
                 }
