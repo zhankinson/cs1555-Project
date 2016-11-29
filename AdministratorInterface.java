@@ -11,6 +11,7 @@
  */
 
 import java.sql.*;
+import java.util.Date;
 import java.util.Scanner;
 
 public class AdministratorInterface {
@@ -21,9 +22,17 @@ public class AdministratorInterface {
     private Connection connection; //used to hold the jdbc connection to the DB
     private Statement st; //used to create an instance of the connection
     private ResultSet resultSet; //used to hold the result of your query (if one
-                                 // exists)
+    private ResultSetMetaData rsmd; // exists)
     private String query;  //this will hold the query we are using
     private String username, password;
+    private String confirm;
+    private String filename;
+    private String departCity;
+    private String arriveCity;
+    private String highPrice;
+    private String lowPrice;
+    private String flightNumber;
+    private String flightDate;
 
     private boolean loop;
 
@@ -53,14 +62,7 @@ public class AdministratorInterface {
         int n, p;
         Scanner input = new Scanner(System.in);
         String answer;
-        String confirm;
-        String filename;
-        String departCity;
-        String arriveCity;
-        String highPrice;
-        String lowPrice;
-        String flightNumber;
-        String flightDate;
+
         boolean whileLoop = true;
 
         System.out.println("Hello Administrator to the future of flight");
@@ -68,7 +70,7 @@ public class AdministratorInterface {
         System.out.println("1.) Erase Database");
         System.out.println("2.) Load Airline Info");
         System.out.println("3.) Load Schedule Info");
-        System.out.println("4.) Load Pricing Info");
+        System.out.println("4.) Load/Change Pricing Info");
         System.out.println("5.) Load Plane info");
         System.out.println("6.) Generate Passenger Manifest");
         System.out.println("7.) Quit");
@@ -95,6 +97,7 @@ public class AdministratorInterface {
                 }
                 catch(SQLException e){
                   System.out.println("Error: Delete Unsuccessful");
+                  System.err.println(e.toString());
                   try {
                     connection.rollback();
                   }
@@ -128,6 +131,7 @@ public class AdministratorInterface {
               }
               catch(SQLException e){
                 System.out.println("Error: Load Unsuccessful");
+                System.err.println(e.toString());
                 try{
                   connection.rollback();
                 }
@@ -152,6 +156,7 @@ public class AdministratorInterface {
               }
               catch(SQLException e){
                 System.out.println("Error: Load Unsuccessful");
+                System.err.println(e.toString());
                 try{
                   connection.rollback();
                 }
@@ -165,7 +170,7 @@ public class AdministratorInterface {
               System.out.println("Load pricing information: \"L\"");
               System.out.println("OR");
               System.out.println("Change the price of an existing flight: \"C\"");
-              answer = reader.next();
+              answer = reader.next().toUpperCase();
               if(answer.compareTo("L") == 0)
               {
                 System.out.print("Please supply a filename: ");
@@ -183,6 +188,7 @@ public class AdministratorInterface {
                 }
                 catch(SQLException e){
                   System.out.println("Error: Load Unsuccessful");
+                  System.err.println(e.toString());
                   try{
                     connection.rollback();
                   }
@@ -246,6 +252,7 @@ public class AdministratorInterface {
               }
               catch(SQLException e){
                 System.out.println("Error: Load Unsuccessful");
+                System.err.println(e.toString());
                 try{
                   connection.rollback();
                 }
@@ -258,35 +265,46 @@ public class AdministratorInterface {
               System.out.println("Please supply a flight number and date");
               System.out.print("Flight number: ");
               flightNumber = reader.next();
-              System.out.print("Date (DD-MON-YYYY HH24:MI:SS): ");
+              System.out.print("Date (DD-Mon-YY HH24:MI:SS): ");
               flightDate = reader.next();
-              java.text.SimpleDateFormat df = new java.text.SimpleDateFormat("DD-MON-YYYY HH24:MI:SS");
+              java.text.SimpleDateFormat df = new java.text.SimpleDateFormat("dd-MMM-yy HH24:mm:ss");
               java.sql.Date formatDate = null;
               try{
+                // preDate = new java.util.Date(flightDate);
                 formatDate = new java.sql.Date (df.parse(flightDate).getTime());
               }
               catch (Exception e){
                 e.printStackTrace();
               }
-              query = "select salutation, first_name, last_name "+
-                      "from Customer"+
+              query = "select (salutation, first_name, last_name) "+
+                      "from Customer "+
                       "where cid = (select cid "+
                                   "from Reservation "+
                                   "where reservation_number = (select reservation_number "+
                                                               "from Reservation_detail "+
                                                               "where flight_number = ? "+
-                                                              "AND flight_date = ?))";
+                                                              "AND flight_date = to_date(?, 'DD-MON-YYYY HH24:MI:SS')))";
               PreparedStatement pStatement = connection.prepareStatement(query);
               pStatement.setString(1, flightNumber);
               pStatement.setDate(2, formatDate);
               try{
                 connection.setAutoCommit(false);
-                ResultSet resManifest = pStatement.executeQuery();
+                resultSet = pStatement.executeQuery();
+                rsmd = resultSet.getMetaData();
                 connection.commit();
-                System.out.println(resManifest);
+                int colNm = rsmd.getColumnCount();
+                while (resultSet.next()) {
+                  for (int i = 1; i <= colNm; i++) {
+                    if(i>1) System.out.print(", ");
+                    String colVal = resultSet.getString(i);
+                    System.out.print(colVal + " " + rsmd.getColumnName(i));
+                  }
+                  System.out.println("");
+                }
               }
               catch(SQLException e){
-                System.out.println("Erro: Cannot Generate Manifest");
+                System.out.println("Error: Cannot Generate Manifest");
+                System.err.println(e.toString());
                 try{
                   connection.rollback();
                 }
@@ -303,7 +321,7 @@ public class AdministratorInterface {
               System.out.println("1.) Erase Database");
               System.out.println("2.) Load Airline Info");
               System.out.println("3.) Load Schedule Info");
-              System.out.println("4.) Load Pricing Info");
+              System.out.println("4.) Load/Change Pricing Info");
               System.out.println("5.) Load Plane info");
               System.out.println("6.) Generate Passenger Manifest");
               System.out.println("7.) Quit");
