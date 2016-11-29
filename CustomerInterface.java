@@ -317,11 +317,10 @@ public class CustomerInterface {
 					connection.commit();
 					int colNm = rsmd.getColumnCount();
 					while (resultSet.next()) {
-					  for (int i = 1; i <= colNm; i++) {
-						if(i>1) System.out.print(", ");
-						String colVal = resultSet.getString(i);
-						System.out.print(colVal + " " + rsmd.getColumnName(i));
-					  }
+					  System.out.println("Departure City: "+resultSet.getString(1));
+					  System.out.println("Arrival City: "+resultSet.getString(2));
+					  System.out.println("High Price: "+resultSet.getString(4));
+					  System.out.println("Low Price: "+resultSet.getString(5));
 					  System.out.println("");
 					}
 				  }
