@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package customerinterface;
+// package customerinterface;
 
 /**
  *
@@ -36,20 +36,20 @@ public class CustomerInterface {
     private String creditCard;
     private String creditCardDate;
     private boolean loop;
-    
+
     public CustomerInterface() throws SQLException{
        username = "tik12"; //This is your username in oracle
        password = "3886681"; //This is your password in oracle
        try{
          //Register the oracle driver.  This needs the oracle files provided
-         //in the oracle.zip file, unzipped into the local directory and 
+         //in the oracle.zip file, unzipped into the local directory and
          //the class path set to include the local directory
          DriverManager.registerDriver (new oracle.jdbc.driver.OracleDriver());
          //This is the location of the database.  This is the database in oracle
          //provided to the class
-         String url = "jdbc:oracle:thin:@class3.cs.pitt.edu:1521:dbclass"; 
+         String url = "jdbc:oracle:thin:@class3.cs.pitt.edu:1521:dbclass";
 
-         connection = DriverManager.getConnection(url, username, password); 
+         connection = DriverManager.getConnection(url, username, password);
          //create a connection to DB on class3.cs.pitt.edu
        }
        catch(Exception Ex)  //What to do with any exceptions
@@ -58,14 +58,14 @@ public class CustomerInterface {
                Ex.toString());
            Ex.printStackTrace();
        }
-    
+
         Scanner reader = new Scanner(System.in);  // Reading from System.in
         int n, p;
         Scanner input = new Scanner(System.in);
         String answer;
         boolean whileLoop = true;
         while(whileLoop){
-            
+
             System.out.println("Hello Customer to the future of flight");
             System.out.println("Here are you options for the menu (type 1-11)");
             System.out.println("1.) Add Customer");
@@ -81,9 +81,9 @@ public class CustomerInterface {
             System.out.println("11.) Quit");
             System.out.println("Enter a number: ");
             n = reader.nextInt(); // Scans the next token of the input as an int.
-            
+
             if(n == 1){
-                loop = true; 
+                loop = true;
                 while(loop){
                     System.out.println("1.) Mr");
                     System.out.println("2.) Ms");
@@ -137,9 +137,15 @@ public class CustomerInterface {
                 System.out.println("Please Enter Your Credit Card Expiration Date (MM/YYYY)");
                 creditCardDate = input.nextLine();
                 java.text.SimpleDateFormat df = new java.text.SimpleDateFormat("MM/YYYY");
-                java.sql.Date expiration = new java.sql.Date (df.parse(creditCardDate).getTime());
+                java.sql.Date expiration = null;
+                try{
+                  expiration = new java.sql.Date (df.parse(creditCardDate).getTime());
+                }
+                catch (Exception e){
+                  e.printStackTrace();
+                }
                 query = "insert into Customer values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                
+
                 PreparedStatement updateStatement = connection.prepareStatement(query);
                 updateStatement.setString(1, Integer.toString(cid));
                 updateStatement.setString(2, salutation);
@@ -153,7 +159,7 @@ public class CustomerInterface {
                 updateStatement.setString(10, phoneNumber);
                 updateStatement.setString(11, email);
                 updateStatement.setString(12, null);
-                
+
                 updateStatement.executeUpdate();
                 System.out.println("Your PittRewards number is " + Integer.toString(cid));
                 cid++;
@@ -167,7 +173,7 @@ public class CustomerInterface {
                 PreparedStatement updateStatement = connection.prepareStatement(query);
                 updateStatement.setString(1, firstName);
                 updateStatement.setString(2, lastName);
-                
+
                 resultSet = updateStatement.executeQuery();
                 System.out.println("Info on " + firstName + " " + lastName);
                 while(resultSet.next()){
@@ -194,11 +200,11 @@ public class CustomerInterface {
             }
         }
     }
-    
+
     public static void main(String[] args) throws SQLException {
         // TODO code application logic here
         CustomerInterface app = new CustomerInterface();
-        
+
     }
-    
+
 }
