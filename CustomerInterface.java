@@ -120,6 +120,7 @@ public class CustomerInterface {
                     }
                 }
                 loop = true;
+                boolean found = false;
                 while(loop){
                     System.out.println("Please Enter Your First Name");
                     firstName = input.nextLine();
@@ -129,54 +130,59 @@ public class CustomerInterface {
                     statement = connection.createStatement();
                     resultSet = statement.executeQuery(query);
                     while(resultSet.next()){
-                        if(firstName.equals(resultSet.getString(3)) && lastName.equals(resultSet.getString(4)) || resultSet.next() == null){
+                        if(firstName.equals(resultSet.getString(3)) && lastName.equals(resultSet.getString(4))){
                             System.out.println("Your customer name already exists");
-                            loop = false;
+                            found = true;
                             break;
+                        }
+                        else if(resultSet.next() == false){
+                          loop = false;
                         }
                     }
                 }
-                System.out.println("Please Enter Your Street Address");
-                street = input.nextLine();
-                System.out.println("Please Enter Your City");
-                city = input.nextLine();
-                System.out.println("Please Enter Your State");
-                state = input.nextLine();
-                System.out.println("Please Enter Your Phone Number");
-                phoneNumber = input.nextLine();
-                System.out.println("Please Enter Your Email Address");
-                email = input.nextLine();
-                System.out.println("Please Enter Your Credit Card Number");
-                creditCard = input.nextLine();
-                System.out.println("Please Enter Your Credit Card Expiration Date (MM/YYYY)");
-                creditCardDate = input.nextLine();
-                java.text.SimpleDateFormat df = new java.text.SimpleDateFormat("MM/YYYY");
-                java.sql.Date expiration = null;
-                try{
-                  expiration = new java.sql.Date (df.parse(creditCardDate).getTime());
-                }
-                catch (Exception e){
-                  e.printStackTrace();
-                }
-                query = "insert into Customer values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                if(found == false){
+                  System.out.println("Please Enter Your Street Address");
+                  street = input.nextLine();
+                  System.out.println("Please Enter Your City");
+                  city = input.nextLine();
+                  System.out.println("Please Enter Your State");
+                  state = input.nextLine();
+                  System.out.println("Please Enter Your Phone Number");
+                  phoneNumber = input.nextLine();
+                  System.out.println("Please Enter Your Email Address");
+                  email = input.nextLine();
+                  System.out.println("Please Enter Your Credit Card Number");
+                  creditCard = input.nextLine();
+                  System.out.println("Please Enter Your Credit Card Expiration Date (MM/YYYY)");
+                  creditCardDate = input.nextLine();
+                  java.text.SimpleDateFormat df = new java.text.SimpleDateFormat("MM/yyyy");
+                  java.sql.Date expiration = null;
+                  try{
+                    expiration = new java.sql.Date (df.parse(creditCardDate).getTime());
+                  }
+                  catch (Exception e){
+                    e.printStackTrace();
+                  }
+                  query = "insert into Customer values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-                PreparedStatement updateStatement = connection.prepareStatement(query);
-                updateStatement.setString(1, Integer.toString(cid));
-                updateStatement.setString(2, salutation);
-                updateStatement.setString(3, firstName);
-                updateStatement.setString(4, lastName);
-                updateStatement.setString(5, creditCard);
-                updateStatement.setDate(6, expiration);
-                updateStatement.setString(7, street);
-                updateStatement.setString(8, city);
-                updateStatement.setString(9, state);
-                updateStatement.setString(10, phoneNumber);
-                updateStatement.setString(11, email);
-                updateStatement.setString(12, null);
+                  PreparedStatement updateStatement = connection.prepareStatement(query);
+                  updateStatement.setString(1, Integer.toString(cid));
+                  updateStatement.setString(2, salutation);
+                  updateStatement.setString(3, firstName);
+                  updateStatement.setString(4, lastName);
+                  updateStatement.setString(5, creditCard);
+                  updateStatement.setDate(6, expiration);
+                  updateStatement.setString(7, street);
+                  updateStatement.setString(8, city);
+                  updateStatement.setString(9, state);
+                  updateStatement.setString(10, phoneNumber);
+                  updateStatement.setString(11, email);
+                  updateStatement.setString(12, null);
 
-                updateStatement.executeUpdate();
-                System.out.println("Your PittRewards number is " + Integer.toString(cid));
-                cid++;
+                  updateStatement.executeUpdate();
+                  System.out.println("Your PittRewards number is " + Integer.toString(cid));
+                  cid++;
+                }
             }
             else if(n == 2){
                 System.out.println("Please Enter the First Name to search");
@@ -283,7 +289,7 @@ public class CustomerInterface {
               }
             }
 			else if(n == 5){
-				
+
 			}
             else if(n == 11){
                 System.out.println("Quiting");
