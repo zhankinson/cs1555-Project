@@ -289,7 +289,50 @@ public class CustomerInterface {
               }
             }
 			else if(n == 5){
-
+				System.out.print("Please enter a 3-letter city (Example: PIT for Pittsburgh): ");
+				  cityA = reader.next();
+				  System.out.print("Please enter another city: ");
+				  cityB = reader.next();
+				  System.out.print("Please enter another name of airline: ");
+				  airline = reader.next();
+				  cityB = reader.next();
+				  query = "select * from Price "+
+						  "where ((departure_city = ? "+
+						  "AND arrival_city = ?) "+
+						  "OR (departure_city = ? "+
+						  "AND arrival_city = ?))" +
+						  "AND airline_id = (select airline_id from airline where airline_name = ?)";
+				  PreparedStatement pStatement = connection.prepareStatement(query);
+				  pStatement.setString(1, cityA);
+				  pStatement.setString(2, cityB);
+				  pStatement.setString(3, cityB);
+				  pStatement.setString(4, cityA);
+				  pStatement.setString(5, airline);
+				  try{
+					connection.setAutoCommit(false);
+					resultSet = pStatement.executeQuery();
+					rsmd = resultSet.getMetaData();
+					connection.commit();
+					int colNm = rsmd.getColumnCount();
+					while (resultSet.next()) {
+					  for (int i = 1; i <= colNm; i++) {
+						if(i>1) System.out.print(", ");
+						String colVal = resultSet.getString(i);
+						System.out.print(colVal + " " + rsmd.getColumnName(i));
+					  }
+					  System.out.println("");
+					}
+				  }
+				  catch (SQLException e){
+					System.out.println("Error: Cannot complete search");
+					System.err.println(e.toString());
+					try{
+					  connection.rollback();
+					}
+					catch(SQLException ee){
+					  System.err.println(ee.toString());
+					}
+				  }
 			}
             else if(n == 11){
                 System.out.println("Quiting");
