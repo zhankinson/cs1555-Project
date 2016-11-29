@@ -153,7 +153,7 @@ public class AdministratorInterface {
               catch(SQLException e){
                 System.out.println("Error: Load Unsuccessful");
                 try{
-                  connection.rollback()
+                  connection.rollback();
                 }
                 catch(SQLException ee){
                   System.err.println(ee.toString());
@@ -184,7 +184,7 @@ public class AdministratorInterface {
                 catch(SQLException e){
                   System.out.println("Error: Load Unsuccessful");
                   try{
-                    connection.rollback()
+                    connection.rollback();
                   }
                   catch(SQLException ee){
                     System.err.println(ee.toString());
@@ -202,11 +202,11 @@ public class AdministratorInterface {
                 highPrice = reader.next();
                 System.out.print("Low price: ");
                 lowPrice = reader.next();
-                query = "update Price set high_price = ?, low_price = ?
-                          where departure_city = ? and arrival_city = ?";
+                query = "update Price set high_price = ?, low_price = ? "+
+                        "where departure_city = ? and arrival_city = ?";
                 PreparedStatement pStatement = connection.prepareStatement(query);
-                pStatement.setInt(1, highPrice);
-                pStatement.setInt(2, lowPrice);
+                pStatement.setInt(1, Integer.parseInt(highPrice));
+                pStatement.setInt(2, Integer.parseInt(lowPrice));
                 pStatement.setString(3, departCity);
                 pStatement.setString(4, arriveCity);
                 try{
@@ -247,7 +247,7 @@ public class AdministratorInterface {
               catch(SQLException e){
                 System.out.println("Error: Load Unsuccessful");
                 try{
-                  connection.rollback()
+                  connection.rollback();
                 }
                 catch(SQLException ee){
                   System.err.println(ee.toString());
@@ -268,14 +268,14 @@ public class AdministratorInterface {
               catch (Exception e){
                 e.printStackTrace();
               }
-              query = "select salutation, first_name, last_name
-                      from Customer
-                      where cid = (select cid
-                                  from Reservation
-                                  where reservation_number = (select reservation_number
-                                                              from Reservation_detail
-                                                              where flight_number = ?
-                                                              AND flight_date = ?))";
+              query = "select salutation, first_name, last_name "+
+                      "from Customer"+
+                      "where cid = (select cid "+
+                                  "from Reservation "+
+                                  "where reservation_number = (select reservation_number "+
+                                                              "from Reservation_detail "+
+                                                              "where flight_number = ? "+
+                                                              "AND flight_date = ?))";
               PreparedStatement pStatement = connection.prepareStatement(query);
               pStatement.setString(1, flightNumber);
               pStatement.setDate(2, formatDate);
