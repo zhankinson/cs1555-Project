@@ -97,6 +97,7 @@ public class AdministratorInterface {
                 }
                 catch(SQLException e){
                   System.out.println("Error: Delete Unsuccessful");
+                  System.err.println(e.toString());
                   try {
                     connection.rollback();
                   }
@@ -130,6 +131,7 @@ public class AdministratorInterface {
               }
               catch(SQLException e){
                 System.out.println("Error: Load Unsuccessful");
+                System.err.println(e.toString());
                 try{
                   connection.rollback();
                 }
@@ -154,6 +156,7 @@ public class AdministratorInterface {
               }
               catch(SQLException e){
                 System.out.println("Error: Load Unsuccessful");
+                System.err.println(e.toString());
                 try{
                   connection.rollback();
                 }
@@ -185,6 +188,7 @@ public class AdministratorInterface {
                 }
                 catch(SQLException e){
                   System.out.println("Error: Load Unsuccessful");
+                  System.err.println(e.toString());
                   try{
                     connection.rollback();
                   }
@@ -248,6 +252,7 @@ public class AdministratorInterface {
               }
               catch(SQLException e){
                 System.out.println("Error: Load Unsuccessful");
+                System.err.println(e.toString());
                 try{
                   connection.rollback();
                 }
@@ -271,14 +276,14 @@ public class AdministratorInterface {
               catch (Exception e){
                 e.printStackTrace();
               }
-              query = "select salutation, first_name, last_name "+
-                      "from Customer"+
+              query = "select (salutation, first_name, last_name) "+
+                      "from Customer "+
                       "where cid = (select cid "+
                                   "from Reservation "+
                                   "where reservation_number = (select reservation_number "+
                                                               "from Reservation_detail "+
                                                               "where flight_number = ? "+
-                                                              "AND flight_date = to_date(\'?\')))";
+                                                              "AND flight_date = to_date(?, 'DD-MON-YYYY HH24:MI:SS')))";
               PreparedStatement pStatement = connection.prepareStatement(query);
               pStatement.setString(1, flightNumber);
               pStatement.setDate(2, formatDate);
@@ -299,6 +304,7 @@ public class AdministratorInterface {
               }
               catch(SQLException e){
                 System.out.println("Error: Cannot Generate Manifest");
+                System.err.println(e.toString());
                 try{
                   connection.rollback();
                 }

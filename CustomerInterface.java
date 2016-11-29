@@ -237,6 +237,7 @@ public class CustomerInterface {
               }
               catch (SQLException e){
                 System.out.println("Error: Cannot complete search");
+                System.err.println(e.toString());
                 try{
                   connection.rollback();
                 }
