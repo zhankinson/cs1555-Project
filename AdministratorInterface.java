@@ -13,6 +13,7 @@
 import java.sql.*;
 import java.util.Date;
 import java.util.Scanner;
+import java.text.SimpleDateFormat;
 
 public class AdministratorInterface {
 
@@ -37,8 +38,8 @@ public class AdministratorInterface {
     private boolean loop;
 
     public AdministratorInterface() throws SQLException{
-       username = "tik12"; //This is your username in oracle
-       password = "3886681"; //This is your password in oracle
+       username = "zah15"; //This is your username in oracle
+       password = "mzaarcchh27"; //This is your password in oracle
        try{
          //Register the oracle driver.  This needs the oracle files provided
          //in the oracle.zip file, unzipped into the local directory and
@@ -265,38 +266,36 @@ public class AdministratorInterface {
               System.out.println("Please supply a flight number and date");
               System.out.print("Flight number: ");
               flightNumber = reader.next();
-              System.out.print("Date (DD-MON-YY HH24:MI:SS): ");
+              System.out.print("Date (DD-Mon-YYYY HH24:MI:SS): ");
               flightDate = reader.next();
-              java.text.SimpleDateFormat df = new java.text.SimpleDateFormat("dd-MMM-yy HH24:mm:ss");
-              java.sql.Date formatDate = null;
-              try{
-                // preDate = new java.util.Date(flightDate);
-                formatDate = new java.sql.Date (df.parse(flightDate).getTime());
-              }
-              catch (Exception e){
-                e.printStackTrace();
-              }
-              query = "select (salutation, first_name, last_name) "+
-                      "from Customer "+
+              flightDate = flightDate+" "+reader.next();
+              // java.text.SimpleDateFormat df = new java.text.SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
+              // java.sql.Date formatDate = null;
+              // try{
+              //   // preDate = new java.util.Date(flightDate);
+              //   formatDate = new java.sql.Date (df.parse(flightDate).getTime());
+              // }
+              // catch (Exception e){
+              //   e.printStackTrace();
+              // }
+              query = "select * from Customer "+
                       "where cid = (select cid "+
                                   "from Reservation "+
                                   "where reservation_number = (select reservation_number "+
                                                               "from Reservation_detail "+
                                                               "where flight_number = ? "+
-                                                              "AND flight_date = to_date(?, 'DD-MON-YYYY HH24:MI:SS')))";
+                                                              "AND flight_date = ?))";
               PreparedStatement pStatement = connection.prepareStatement(query);
               pStatement.setString(1, flightNumber);
-              pStatement.setDate(2, formatDate);
+              pStatement.setString(2, flightDate);
               try{
                 connection.setAutoCommit(false);
                 resultSet = pStatement.executeQuery();
-                rsmd = resultSet.getMetaData();
                 connection.commit();
-                int colNm = rsmd.getColumnCount();
                 while (resultSet.next()) {
-                  System.out.println("Salutation: "+resultSet.getString(1));
-                  System.out.println("First Name: "+resultSet.getString(2));
-                  System.out.println("Last Name: "+resultSet.getString(3));
+                  System.out.println("Salutation: "+resultSet.getString(2));
+                  System.out.println("First Name: "+resultSet.getString(3));
+                  System.out.println("Last Name: "+resultSet.getString(4));
                 }
               }
               catch(SQLException e){
