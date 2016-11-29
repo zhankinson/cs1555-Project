@@ -45,10 +45,10 @@ public class CustomerInterface {
     //Variables for Task 4
     private String departCity;
     private String arriveCity;
-	
+
 	//variables for Task 5
 	private String airline;
-	
+
 	//variables for Task 10
 	private String reservationNumber;
 
@@ -265,19 +265,14 @@ public class CustomerInterface {
               try{
                 connection.setAutoCommit(false);
                 resultSet = pStatement.executeQuery();
-                rsmd = resultSet.getMetaData();
                 connection.commit();
-                int colNm = rsmd.getColumnCount();
                 while (resultSet.next()) {
-                  for (int i = 1; i <= colNm; i++) {
-                    System.out.println("Departure City: "+resultSet.getString(4));
-					System.out.println("Arrival City: "+resultSet.getString(5));
-					System.out.println("Flight Number: "+resultSet.getString(1));
-					System.out.println("Departure Time: "+resultSet.getString(6));
-					System.out.println("Arrival Time: "+resultSet.getString(7));
-					System.out.println("");
-                  }
-                  System.out.println("");
+                  System.out.println("Departure City: "+resultSet.getString(4));
+        					System.out.println("Arrival City: "+resultSet.getString(5));
+        					System.out.println("Flight Number: "+resultSet.getString(1));
+        					System.out.println("Departure Time: "+resultSet.getString(6));
+        					System.out.println("Arrival Time: "+resultSet.getString(7));
+        					System.out.println("");
                 }
               }
               catch(SQLException e){
@@ -295,10 +290,9 @@ public class CustomerInterface {
 				  cityA = reader.next();
 				  System.out.print("Please enter another city: ");
 				  cityB = reader.next();
-				  System.out.print("Please enter another name of airline: ");
+				  System.out.print("Please enter name of airline: ");
 				  airline = reader.next();
-				  cityB = reader.next();
-				  query = "select * from Price "+
+				  query = "select * from Flight "+
 						  "where ((departure_city = ? "+
 						  "AND arrival_city = ?) "+
 						  "OR (departure_city = ? "+
@@ -311,68 +305,65 @@ public class CustomerInterface {
 				  pStatement.setString(4, cityA);
 				  pStatement.setString(5, airline);
 				  try{
-					connection.setAutoCommit(false);
-					resultSet = pStatement.executeQuery();
-					rsmd = resultSet.getMetaData();
-					connection.commit();
-					int colNm = rsmd.getColumnCount();
-					while (resultSet.next()) {
-					  System.out.println("Departure City: "+resultSet.getString(1));
-					  System.out.println("Arrival City: "+resultSet.getString(2));
-					  System.out.println("High Price: "+resultSet.getString(4));
-					  System.out.println("Low Price: "+resultSet.getString(5));
-					  System.out.println("");
-					}
+  					connection.setAutoCommit(false);
+  					resultSet = pStatement.executeQuery();
+  					connection.commit();
+  					while (resultSet.next()) {
+  					  System.out.println("Airline ID: "+resultSet.getString(2));
+  					  System.out.println("Flight Number: "+resultSet.getString(1));
+  					  System.out.println("Departure City: "+resultSet.getString(3));
+  					  System.out.println("Arrival City: "+resultSet.getString(4));
+  					  System.out.println("Departure Time: "+resultSet.getString(5));
+  					  System.out.println("Arrival Time: "+resultSet.getString(6));
+  					  System.out.println("");
+  					}
 				  }
 				  catch (SQLException e){
-					System.out.println("Error: Cannot complete search");
-					System.err.println(e.toString());
-					try{
-					  connection.rollback();
-					}
-					catch(SQLException ee){
-					  System.err.println(ee.toString());
-					}
+  					System.out.println("Error: Cannot complete search");
+  					System.err.println(e.toString());
+  					try{
+  					  connection.rollback();
+  					}
+  					catch(SQLException ee){
+  					  System.err.println(ee.toString());
+  					}
 				  }
 			}
 			else if(n == 6){
-				
+
 			}
 			else if(n == 7){
-				
+
 			}
 			else if(n == 8){
-				
+
 			}
 			else if(n == 9){
-				
+
 			}
 			else if(n == 10){
 				System.out.println("Please Enter Your Reservation Number");
                 reservationNumber = input.nextLine();
-				
+
 				query = "update Reservation set ticketed = 'Y' where reservation_number = ?";
 				PreparedStatement pStatement = connection.prepareStatement(query);
 				pStatement.setString(1, reservationNumber);
-				
-				try{
-					connection.setAutoCommit(false);
-					resultSet = pStatement.executeQuery();
-					  System.out.println("Completed Ticketing");
-					}
-				  }
-				  catch (SQLException e){
-					System.out.println("Error: Cannot complete search");
-					System.err.println(e.toString());
-					try{
-					  connection.rollback();
-					}
-					catch(SQLException ee){
-					  System.err.println(ee.toString());
-					}
-				  }
-			  
-			  
+
+        try{
+          connection.setAutoCommit(false);
+          resultSet = pStatement.executeQuery();
+          System.out.println("Completed Ticketing");
+        }
+        catch (SQLException e){
+          System.out.println("Error: Cannot complete search");
+          System.err.println(e.toString());
+          try{
+            connection.rollback();
+          }
+          catch(SQLException ee){
+            System.err.println(ee.toString());
+          }
+        }
 			}
             else if(n == 11){
                 System.out.println("Quiting");
