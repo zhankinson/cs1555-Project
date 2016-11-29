@@ -45,6 +45,12 @@ public class CustomerInterface {
     //Variables for Task 4
     private String departCity;
     private String arriveCity;
+	
+	//variables for Task 5
+	private String airline;
+	
+	//variables for Task 10
+	private String reservationNumber;
 
     private boolean loop;
 
@@ -333,6 +339,45 @@ public class CustomerInterface {
 					  System.err.println(ee.toString());
 					}
 				  }
+			}
+			else if(n == 6){
+				
+			}
+			else if(n == 7){
+				
+			}
+			else if(n == 8){
+				
+			}
+			else if(n == 9){
+				
+			}
+			else if(n == 10){
+				System.out.println("Please Enter Your Reservation Number");
+                reservationNumber = input.nextLine();
+				
+				query = "update Reservation set ticketed = 'Y' where reservation_number = ?";
+				PreparedStatement pStatement = connection.prepareStatement(query);
+				pStatement.setString(1, reservationNumber);
+				
+				try{
+					connection.setAutoCommit(false);
+					resultSet = pStatement.executeQuery();
+					  System.out.println("Completed Ticketing");
+					}
+				  }
+				  catch (SQLException e){
+					System.out.println("Error: Cannot complete search");
+					System.err.println(e.toString());
+					try{
+					  connection.rollback();
+					}
+					catch(SQLException ee){
+					  System.err.println(ee.toString());
+					}
+				  }
+			  
+			  
 			}
             else if(n == 11){
                 System.out.println("Quiting");
