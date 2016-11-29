@@ -129,7 +129,7 @@ public class CustomerInterface {
                     statement = connection.createStatement();
                     resultSet = statement.executeQuery(query);
                     while(resultSet.next()){
-                        if(firstName.equals(resultSet.getString(3)) && lastName.equals(resultSet.getString(4))){
+                        if(firstName.equals(resultSet.getString(3)) && lastName.equals(resultSet.getString(4)) || resultSet.next() == null){
                             System.out.println("Your customer name already exists");
                             loop = false;
                             break;
@@ -282,6 +282,9 @@ public class CustomerInterface {
                 }
               }
             }
+			else if(n == 5){
+				
+			}
             else if(n == 11){
                 System.out.println("Quiting");
                 whileLoop = false;
