@@ -9,7 +9,7 @@
  *
  * @author Tim
  */
-
+import java.io.BufferedReader;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -18,6 +18,7 @@ public class CustomerInterface {
     /**
      * @param args the command line arguments
      */
+
     private Connection connection; //used to hold the jdbc connection to the DB
     private Statement statement; //used to create an instance of the connection
     private ResultSet resultSet; //used to hold the result of your query (if one
@@ -76,7 +77,8 @@ public class CustomerInterface {
                Ex.toString());
            Ex.printStackTrace();
        }
-
+	   
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Scanner reader = new Scanner(System.in);  // Reading from System.in
         int n, p;
         Scanner input = new Scanner(System.in);
@@ -292,7 +294,7 @@ public class CustomerInterface {
 				  System.out.print("Please enter another city: ");
 				  cityB = reader.next();
 				  System.out.print("Please enter name of airline: ");
-				  airline = reader.next();
+				  airline = br.readline();
 				  query = "select * from Flight "+
 						  "where ((departure_city = ? "+
 						  "AND arrival_city = ?) "+
@@ -382,7 +384,7 @@ public class CustomerInterface {
 				  System.out.print("Please enter the date: ");
 				  date = reader.next();
 				  System.out.print("Please enter name of airline: ");
-				  airline = reader.next();
+				  airline = br.readline();
 				  query = "select * from Flight "+
 						  "where ((departure_city = ? "+
 						  "AND arrival_city = ?) "+
