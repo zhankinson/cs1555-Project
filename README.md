@@ -10,3 +10,9 @@
 - Type `@project1-inserts.sql`
 - Type `@project1-triggers`
 - Database will then be created and populated with proper triggers in place
+
+- Open unix to where the java files are located
+- Type 'javac AdministratorInterface.java'
+- Type 'AdministratorInterface' to run administrator interface
+- Type 'javac customerInterface.java'
+- Type 'customerInterface' to run customer interface
