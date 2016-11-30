@@ -13,6 +13,14 @@ import java.io.BufferedReader;
 import java.sql.*;
 import java.util.Scanner;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+
+
 public class CustomerInterface {
 
     /**
@@ -58,6 +66,7 @@ public class CustomerInterface {
     private String ticketed;
     private String flightNumber;
     private String flightDate;
+	private String credNum;
     private int leg;
 
   	//variables for Task 10
@@ -87,6 +96,8 @@ public class CustomerInterface {
            Ex.printStackTrace();
        }
 
+	   DateFormat dateFormat = new SimpleDateFormat("DD-MON-YYYY HH24:MI:SS");
+	   
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Scanner reader = new Scanner(System.in);  // Reading from System.in
         int n, p;
@@ -433,13 +444,67 @@ public class CustomerInterface {
       				  }
       			}
       			else if(n == 8){
-              System.out.print("CID: ");
-              res_cid = reader.nextInt();
-              System.out.print("Flight Number: ");
-              flightNumber = reader.next();
-              System.out.print("Flight Date: ");
-              flightDate = reader.next();
+					  flightDate = 2;
+					  int legNum = 1;
+					  while(flightDate != 0 || legNum <= 4){
+						  System.out.print("CID: ");
+						  res_cid = reader.nextInt();
+						  System.out.print("Flight Number: ");
+						  flightNumber = reader.next();
+						  System.out.print("Flight Date: ");
+						  flightDate = br.readLine();
+						  query = "Select * from Customer where cid = ?";
+							PreparedStatement updateStatement = connection.prepareStatement(query);
+							updateStatement.setString(1, res_cid);
 
+							resultSet = updateStatement.executeQuery();
+							while(resultSet.next()){
+							   credNum = resultSet.getString(5));
+							}
+							
+							query = "Select * from Flight where flight_number = ?";
+							PreparedStatement updateStatement = connection.prepareStatement(query);
+							updateStatement.setString(1, flightNumber);
+
+							resultSet = updateStatement.executeQuery();
+							while(resultSet.next()){
+							   cityA = resultSet.getString(4));
+							   cityB = resultSet.getString(5));
+							}
+							
+							query = "Select * from Price where departure_city = ? AND arrival_city = ?";
+							PreparedStatement updateStatement = connection.prepareStatement(query);
+							updateStatement.setString(1, CityA);
+							updateStatement.setString(2, cityB);
+
+							resultSet = updateStatement.executeQuery();
+							while(resultSet.next()){
+							   cost = resultSet.getInt(high_price);
+							}
+							
+							Date date = new Date();
+							query = "insert into Reservation values (?, ?, ?, ?, to_date('?', 'DD-MON-YYYY HH24:MI:SS'), ?, ?, ?)";
+							PreparedStatement updateStatement = connection.prepareStatement(query);
+							updateStatement.setString(1, Integer.toString(resNumber));
+							updateStatement.setString(2, res_cid);
+							updateStatement.setInt(3, cost);
+							updateStatement.setString(4, credNum);
+							updateStatement.setString(5, dateFormat.format(date));
+							updateStatement.setString(6, 'N');
+							updateStatement.setString(7, cityA);
+							updateStatement.setString(8, cityB);
+							resultSet = updateStatement.executeQuery();
+							
+							query = "insert into Reservation_detail values (?, ?, to_date('', 'DD-MON-YYYY HH24:MI:SS'), ?)";
+							PreparedStatement updateStatement = connection.prepareStatement(query);
+							updateStatement.setString(1, Integer.toString(resNumber));
+							updateStatement.setString(2, flightNumber);
+							updateStatement.setInt(3, flightDate);
+							updateStatement.setString(4, Integer.toString(legNum));
+							
+							legNum++;
+							
+					  }
 
 
       			}
