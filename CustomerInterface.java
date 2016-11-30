@@ -444,9 +444,8 @@ public class CustomerInterface {
       				  }
       			}
       			else if(n == 8){
-					  flightDate = 2;
 					  int legNum = 1;
-					  while(flightDate != 0 || legNum <= 4){
+					  while(!(flightNumber.equals('0')) || legNum <= 4){
 						  System.out.print("CID: ");
 						  res_cid = reader.nextInt();
 						  System.out.print("Flight Number: ");
