@@ -76,8 +76,8 @@ public class AdministratorInterface {
     System.out.println("4.) Load/Change Pricing Info");
     System.out.println("5.) Load Plane info");
     System.out.println("6.) Generate Passenger Manifest");
-    System.out.println("7.) Quit");
-    System.out.println("9.) Show Tables");
+    System.out.println("7.) Show Tables");
+    System.out.println("8.) Quit");
     System.out.println("0.) Display Options");
 
     while(whileLoop){
@@ -92,10 +92,16 @@ public class AdministratorInterface {
         {
           System.out.println("Deleting all records...");
           st = connection.createStatement();
-          query = "TRUNCATE TABLE *";
           try{
             connection.setAutoCommit(false);
-            st.executeUpdate(query);
+            st.executeUpdate("delete from Date_info");
+            st.executeUpdate("delete from Reservation_detail");
+            st.executeUpdate("delete from Reservation");
+            st.executeUpdate("delete from Customer");
+            st.executeUpdate("delete from Price");
+            st.executeUpdate("delete from Flight");
+            st.executeUpdate("delete from Plane");
+            st.executeUpdate("delete from Airline");
             connection.commit();
             System.out.println("Delete Successful");
           }
@@ -188,7 +194,7 @@ public class AdministratorInterface {
           while(infile.ready())
           {
             String[] line = infile.readLine().split(", ");
-            String sql = "insert into Flight values ('"+line[0]+"', '"+line[1]+"', '"+line[2]+"', '"+line[3]+"', '"+line[4]"', '"+line[5]+"', '"+line[6]+"', '"+line[7]+"')";
+            String sql = "insert into Flight values ('"+line[0]+"', '"+line[1]+"', '"+line[2]+"', '"+line[3]+"', '"+line[4]+"', '"+line[5]+"', '"+line[6]+"', '"+line[7]+"')";
             connection.setAutoCommit(false);
             st.executeUpdate(sql);
             connection.commit();
@@ -227,6 +233,11 @@ public class AdministratorInterface {
             System.out.print(resultSet.getString(7) + " ");
             System.out.print(resultSet.getString(8) + "\n");
           }
+        }
+        catch(Exception se)
+        {
+          System.err.println(se.toString());
+        }
       }
       else if(n == 4){
         System.out.println("Please selection an option");
@@ -358,24 +369,36 @@ public class AdministratorInterface {
         }
       }
       else if(n == 7){
-        System.out.println("Quiting");
-        whileLoop = false;
-      }
-      else if(n == 8){
         System.out.println("Please Select a table");
         String table = reader.next();
-        query = "select * from ?";
-        PreparedStatement pStatement = connection.prepareStatement(query);
-        pStatement.setString(1, table);
+        table.trim();
+        String show = "select * from "+table;
+        PreparedStatement pStatement = connection.prepareStatement(show);
         try{
           connection.setAutoCommit(false);
           resultSet = pStatement.executeQuery();
+          rsmd = resultSet.getMetaData();
+          int colNum = rsmd.getColumnCount();
+          while(resultSet.next())
+          {
+            for(int i = 1; i <= colNum; i++)
+            {
+              if(i > 1) System.out.print(", ");
+              String colVal = resultSet.getString(i);
+              System.out.print(colVal);
+            }
+            System.out.println("");
+          }
           connection.commit();
         }
         catch(SQLException e){
           System.out.println("Error: Cannot Query Table "+table);
-          System.err.println(e.toString());
+          e.printStackTrace();
         }
+      }
+      else if(n == 8){
+        System.out.println("Quiting");
+        whileLoop = false;
       }
       else if(n == 0){
         System.out.println("1.) Erase Database");
@@ -384,8 +407,8 @@ public class AdministratorInterface {
         System.out.println("4.) Load/Change Pricing Info");
         System.out.println("5.) Load Plane info");
         System.out.println("6.) Generate Passenger Manifest");
-        System.out.println("7.) Quit");
-        System.out.println("8.) Show Tables");
+        System.out.println("7.) Show Tables");
+        System.out.println("8.) Quit");
         System.out.println("0.) Display Options");
       }
       else{
@@ -395,10 +418,10 @@ public class AdministratorInterface {
     connection.close();
   }
 
-  public static void main(String[] args) throws SQLException {
-    // TODO code application logic here
-    AdministratorInterface app = new AdministratorInterface();
-
-  }
+  // public static void main(String[] args) throws SQLException {
+  //   // TODO code application logic here
+  //   AdministratorInterface app = new AdministratorInterface();
+  //
+  // }
 
 }
