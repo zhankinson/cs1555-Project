@@ -279,6 +279,7 @@ public class CustomerInterface {
               System.out.print("Departure city: ");
               departCity = reader.next();
               System.out.print("Arrival city: ");
+			  System.out.println();
               arriveCity = reader.next();
               query = "select * "+
                       "from Flight "+
@@ -358,32 +359,32 @@ public class CustomerInterface {
       				  cityA = reader.next();
       				  System.out.print("Please enter another city: ");
       				  cityB = reader.next();
-      				  System.out.print("Please enter the date: ");
+      				  System.out.print("Please enter the initials for the day of the week(ie: M): ");
       				  airline = reader.next();
       				  query = "select * from Flight "+
       						  "where ((departure_city = ? "+
       						  "AND arrival_city = ?) "+
       						  "OR (departure_city = ? "+
-      						  "AND arrival_city = ?))" +
-      						  "AND departure_time = ?)";
+      						  "AND arrival_city = ?))";
       				  PreparedStatement pStatement = connection.prepareStatement(query);
       				  pStatement.setString(1, cityA);
       				  pStatement.setString(2, cityB);
       				  pStatement.setString(3, cityB);
       				  pStatement.setString(4, cityA);
-      				  pStatement.setString(5, airline);
       				  try{
         					connection.setAutoCommit(false);
         					resultSet = pStatement.executeQuery();
         					connection.commit();
         					while (resultSet.next()) {
-        					  System.out.println("Airline ID: "+resultSet.getString(2));
-        					  System.out.println("Flight Number: "+resultSet.getString(1));
-        					  System.out.println("Departure City: "+resultSet.getString(3));
-        					  System.out.println("Arrival City: "+resultSet.getString(4));
-        					  System.out.println("Departure Time: "+resultSet.getString(5));
-        					  System.out.println("Arrival Time: "+resultSet.getString(6));
-        					  System.out.println("");
+								if(resultSet.getString(8).contains(airline)){
+									System.out.println("Airline ID: "+resultSet.getString(2));
+									System.out.println("Flight Number: "+resultSet.getString(1));
+									System.out.println("Departure City: "+resultSet.getString(4));
+									System.out.println("Arrival City: "+resultSet.getString(5));
+									System.out.println("Departure Time: "+resultSet.getString(6));
+									System.out.println("Arrival Time: "+resultSet.getString(7));
+									System.out.println("");
+								}
         					}
       				  }
       				  catch (SQLException e){
@@ -402,35 +403,35 @@ public class CustomerInterface {
       				  cityA = reader.next();
       				  System.out.print("Please enter another city: ");
       				  cityB = reader.next();
-      				  System.out.print("Please enter the date: ");
+      				  System.out.print("Please enter the initials for the day of the week(ie: M): ");
       				  date = reader.next();
-      				  System.out.print("Please enter name of airline: ");
+					  System.out.print("Please enter name of airline: ");
       				  airline = br.readLine();
       				  query = "select * from Flight "+
-      						  "where ((departure_city = ? "+
+      						  "where (((departure_city = ? "+
       						  "AND arrival_city = ?) "+
       						  "OR (departure_city = ? "+
-      						  "AND arrival_city = ?))" +
-      						  "AND departure_time = ? AND (select airline_id from airline where airline_name = ?))";
+      						  "AND arrival_city = ?)) AND airline_id = (select airline_id from airline where airline_name = ?))";
       				  PreparedStatement pStatement = connection.prepareStatement(query);
       				  pStatement.setString(1, cityA);
       				  pStatement.setString(2, cityB);
       				  pStatement.setString(3, cityB);
       				  pStatement.setString(4, cityA);
-      				  pStatement.setString(5, date);
-      				  pStatement.setString(6, airline);
+					  pStatement.setString(5, airline);
       				  try{
         					connection.setAutoCommit(false);
         					resultSet = pStatement.executeQuery();
         					connection.commit();
         					while (resultSet.next()) {
-        					  System.out.println("Airline ID: "+resultSet.getString(2));
-        					  System.out.println("Flight Number: "+resultSet.getString(1));
-        					  System.out.println("Departure City: "+resultSet.getString(3));
-        					  System.out.println("Arrival City: "+resultSet.getString(4));
-        					  System.out.println("Departure Time: "+resultSet.getString(5));
-        					  System.out.println("Arrival Time: "+resultSet.getString(6));
-        					  System.out.println("");
+								if(resultSet.getString(8).contains(date)){
+									System.out.println("Airline ID: "+resultSet.getString(2));
+									System.out.println("Flight Number: "+resultSet.getString(1));
+									System.out.println("Departure City: "+resultSet.getString(4));
+									System.out.println("Arrival City: "+resultSet.getString(5));
+									System.out.println("Departure Time: "+resultSet.getString(6));
+									System.out.println("Arrival Time: "+resultSet.getString(7));
+									System.out.println("");
+								}
         					}
       				  }
       				  catch (SQLException e){
@@ -446,6 +447,7 @@ public class CustomerInterface {
       			}
       			else if(n == 8){
 					  int legNum = 1;
+					  String flightNumber = "2";
 					  while(!(flightNumber.equals('0')) || legNum <= 4){
 						  System.out.print("CID: ");
 						  res_cid = reader.nextInt();
@@ -511,7 +513,7 @@ public class CustomerInterface {
       				System.out.println("Please enter the Reservation Number");
                       reservationNumber = input.nextLine();
 
-                      query = "Select * from Reservation where reservation_number = ?";
+                      query = "Select * from totalReservation where reservation_number = ?";
                       PreparedStatement updateStatement = connection.prepareStatement(query);
                       updateStatement.setString(1, reservationNumber);
 
@@ -523,10 +525,13 @@ public class CustomerInterface {
                       while(resultSet.next()){
                          System.out.println("CID " + resultSet.getString(2));
                          System.out.println("Cost " + resultSet.getInt(3));
-                         System.out.println("Reservation Date " + resultSet.getDate(4));
-                         System.out.println("Ticketed " + resultSet.getString(5));
-                         System.out.println("Departure City " + resultSet.getDate(6));
-                         System.out.println("Arrival City " + resultSet.getString(7));
+                         System.out.println("Reservation Date " + resultSet.getString(5));
+                         System.out.println("Ticketed " + resultSet.getString(6));
+                         System.out.println("Departure City " + resultSet.getString(7));
+                         System.out.println("Arrival City " + resultSet.getString(8));
+						 System.out.println("Flight Number " + resultSet.getString(9));
+						 System.out.println("Flight Date "  + resultSet.getString(10));
+						 System.out.println("Leg " + resultSet.getString(11));
                          System.out.println("");
                       }
       			}

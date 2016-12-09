@@ -158,3 +158,9 @@ begin
 
 end;
 /
+
+create or replace view totalReservation
+as select a.reservation_number, a.cid, a.cost, a.credit_card_num, a.reservation_date, a.ticketed, a.start_city, a.end_city, b.flight_number, b.flight_date, b.leg
+from Reservation a, Reservation_detail b
+where (a.reservation_number = b.reservation_number);
+/
