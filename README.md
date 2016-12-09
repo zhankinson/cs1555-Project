@@ -16,3 +16,6 @@
 - Type 'AdministratorInterface' to run administrator interface
 - Type 'javac customerInterface.java'
 - Type 'customerInterface' to run customer interface
+
+assumptions:
+- each seat is a reservation
