@@ -565,10 +565,10 @@ public class CustomerInterface {
         }
     }
 
-    public static void main(String[] args) throws SQLException, IOException {
-        // TODO code application logic here
-        CustomerInterface app = new CustomerInterface();
-
-    }
+    // public static void main(String[] args) throws SQLException, IOException {
+    //     // TODO code application logic here
+    //     CustomerInterface app = new CustomerInterface();
+    //
+    // }
 
 }
