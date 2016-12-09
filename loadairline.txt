@@ -1,3 +1,11 @@
-11111, Fake Airlines, FAL, 1931
-11112, Not All Nippon Airways, NAA, 1952
-11113, Pseudo Delta Air Lines, PDA, 1924
+00000, Alaska Airlines, AKA, 1932
+00001, United Airlines, UAL, 1931
+00002, All Nippon Airways, ANA, 1952
+00003, Delta Air Lines, DAL, 1924
+00004, Jet Blue, JBA, 1998
+00005, American Airlines, AAL, 1930
+00006, Frontier Airlines, FAL, 1994
+00007, Southwest Airlines, SWA, 1967
+00008, Virgin Airlines, VAL, 1984
+00009, Spirit Airlines, SAL, 1980
+11111, Kang Hankinson Airlines, KHA, 2016
