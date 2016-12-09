@@ -39,9 +39,18 @@ public class AdministratorInterface {
 
   private boolean loop;
 
-  public AdministratorInterface() throws SQLException{
-    username = "zah15"; //This is your username in oracle
-    password = "mzaarcchh27"; //This is your password in oracle
+  public AdministratorInterface(String user, String pass) throws SQLException{
+    Scanner reader = new Scanner(System.in);  // Reading from System.in
+    String answer;
+    username = user;
+    password = pass;
+    // System.out.print("Please enter a Username: ");
+    // username = reader.next();
+    // System.out.print("Please enter a password: ");
+    // password = reader.next();
+
+    // username = "zah15"; //This is your username in oracle
+    // password = "mzaarcchh27"; //This is your password in oracle
     try{
       //Register the oracle driver.  This needs the oracle files provided
       //in the oracle.zip file, unzipped into the local directory and
@@ -61,10 +70,8 @@ public class AdministratorInterface {
       Ex.printStackTrace();
     }
 
-    Scanner reader = new Scanner(System.in);  // Reading from System.in
     int n, p;
     BufferedReader infile = null;
-    String answer;
 
     boolean whileLoop = true;
 
