@@ -213,6 +213,7 @@ insert into Airline values ('00006', 'Frontier Airlines', 'FAL', 1994);
 insert into Airline values ('00007', 'Southwest Airlines', 'SWA', 1967);
 insert into Airline values ('00008', 'Virgin Airlines', 'VAL', 1984);
 insert into Airline values ('00009', 'Spirit Airlines', 'SAL', 1980);
+insert into Airline values ('11111', 'Kang Hankinson Airlines', 'KHA', 2016);
 
 insert into Plane values('B747', 'Airbus', 400, to_date('10/01/2011', 'MM/DD/YYYY'), 2001, '00000');
 insert into Plane values('A320', 'Airbus', 155, to_date('10/01/2011', 'MM/DD/YYYY'), 2001, '00000');
