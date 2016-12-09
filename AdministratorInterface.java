@@ -249,15 +249,22 @@ public class AdministratorInterface {
         {
           System.out.print("Please supply a filename: ");
           filename = reader.next();
+          try {
+            infile = new BufferedReader(new FileReader(filename));
+          } catch (java.io.FileNotFoundException f){
+            System.out.println("Cannot Locate File: "+filename);
+            System.err.println(f.toString());
+          }
           st = connection.createStatement();
-          String sql = "load data infile '"+filename+
-          "' into table Price "+
-          " fields terminated by \',\' enclosed by \'\'\'"+
-          " lines terminated by \'\r\n\'";
           try{
-            connection.setAutoCommit(false);
-            st.executeUpdate(sql);
-            connection.commit();
+            while(infile.ready())
+            {
+              String[] line = infile.readLine().split(", ");
+              String sql = "insert into Price values ('"+line[0]+"', '"+line[1]+"', '"+line[2]+"', '"+line[3]+"', '"+line[4]+"')";
+              connection.setAutoCommit(false);
+              st.executeUpdate(sql);
+              connection.commit();
+            }
             System.out.println("Load Successful");
           }
           catch(SQLException e){
@@ -269,6 +276,29 @@ public class AdministratorInterface {
             catch(SQLException ee){
               System.err.println(ee.toString());
             }
+          }
+          catch(java.io.IOException eee){
+            System.out.println("Error: Load Unsuccessful");
+            System.err.println(eee.toString());
+          }
+
+          try{
+            String show = "select * from Price";
+            PreparedStatement pStatement = connection.prepareStatement(show);
+            connection.setAutoCommit(false);
+            resultSet = pStatement.executeQuery();
+            connection.commit();
+            while(resultSet.next())
+            {
+              System.out.print(resultSet.getString(1) + " ");
+              System.out.print(resultSet.getString(2) + " ");
+              System.out.print(resultSet.getString(3) + " ");
+              System.out.print(resultSet.getString(4) + " ");
+              System.out.print(resultSet.getString(5) + "\n");
+            }
+          }
+          catch(Exception se){
+            System.err.println(se.toString());
           }
         }
         else if(answer.compareTo("C") == 0)
@@ -313,15 +343,22 @@ public class AdministratorInterface {
       else if(n == 5){
         System.out.print("Please supply a filename: ");
         filename = reader.next();
+        try {
+          infile = new BufferedReader(new FileReader(filename));
+        } catch (java.io.FileNotFoundException f){
+          System.out.println("Cannot Locate File: "+filename);
+          System.err.println(f.toString());
+        }
         st = connection.createStatement();
-        String sql = "load data infile '"+filename+
-        "' into table Plane "+
-        " fields terminated by \',\' enclosed by \'\'\'"+
-        " lines terminated by \'\r\n\'";
         try{
-          connection.setAutoCommit(false);
-          st.executeUpdate(sql);
-          connection.commit();
+          while(infile.ready())
+          {
+            String[] line = infile.readLine().split(", ");
+            String sql = "insert into Plane values ('"+line[0]+"', '"+line[1]+"', '"+line[2]+"', to_date('"+line[3]+"', 'MM/DD/YYYY'), '"+line[4]+"', '"+line[5]+"')";
+            connection.setAutoCommit(false);
+            st.executeUpdate(sql);
+            connection.commit();
+          }
           System.out.println("Load Successful");
         }
         catch(SQLException e){
@@ -333,6 +370,31 @@ public class AdministratorInterface {
           catch(SQLException ee){
             System.err.println(ee.toString());
           }
+        }
+        catch(java.io.IOException eee){
+          System.out.println("Error: Load Unsuccessful");
+          System.err.println(eee.toString());
+        }
+
+        try{
+          String show = "select * from Plane";
+          PreparedStatement pStatement = connection.prepareStatement(show);
+          connection.setAutoCommit(false);
+          resultSet = pStatement.executeQuery();
+          connection.commit();
+          while(resultSet.next())
+          {
+            System.out.print(resultSet.getString(1) + " ");
+            System.out.print(resultSet.getString(2) + " ");
+            System.out.print(resultSet.getString(3) + " ");
+            System.out.print(resultSet.getString(4) + " ");
+            System.out.print(resultSet.getString(5) + " ");
+            System.out.print(resultSet.getString(6) + "\n");
+          }
+        }
+        catch (Exception se)
+        {
+          System.err.println(se.toString());
         }
       }
       else if(n == 6){

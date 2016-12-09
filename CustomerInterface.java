@@ -256,21 +256,13 @@ public class CustomerInterface {
                 connection.setAutoCommit(false);
                 resultSet = pStatement.executeQuery();
                 connection.commit();
-				int roundHighCost = 0;
-				int roundLowCost = 0;
                 while (resultSet.next()) {
                   System.out.println("Departure City: "+resultSet.getString(1));
                   System.out.println("Arrival City: "+resultSet.getString(2));
                   System.out.println("High Price: "+resultSet.getString(4));
-				  roundHighCost+= Integer.parseInt(resultSet.getString(4));
                   System.out.println("Low Price: "+resultSet.getString(5));
-				  roundLowCost+= Integer.parseInt(resultSet.getString(5));
                   System.out.println("");
-				  roundTrip++;
                 }
-				System.out.println("Round Trip Costs");
-				System.out.println("High Price: " + roundHighCost);
-				System.out.println("Low Price: " + roundLowCost);
               }
               catch (SQLException e){
                 System.out.println("Error: Cannot complete search");
