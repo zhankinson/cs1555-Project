@@ -29,7 +29,7 @@ public class actualdriver
         AdministratorInterface aapp = new AdministratorInterface(connection);
 
         // Erase Database
-        answer = input.readLine("Begin? Press enter: ");
+        answer = input.readLine("Erase Database? Press enter: ");
         if(answer != null)
         {
             System.out.println("Erasing Database");
@@ -37,7 +37,7 @@ public class actualdriver
         }
 
         // Load Airline Info
-        answer = input.readLine("Continue? Press Enter: ");
+        answer = input.readLine("Load Airlines? Press Enter: ");
         if(answer != null)
         {
             System.out.println("Loading Airline Info");
@@ -46,7 +46,7 @@ public class actualdriver
         }
 
         // Load Plane Info
-        answer = input.readLine("Continue? Press Enter: ");
+        answer = input.readLine("Load Planes? Press Enter: ");
         if(answer != null)
         {
             System.out.println("Loading Plane Info");
@@ -55,7 +55,7 @@ public class actualdriver
         }
 
         // Load Flight Schedule Info
-        answer = input.readLine("Continue? Press Enter: ");
+        answer = input.readLine("Load Flights? Press Enter: ");
         if(answer != null)
         {
             System.out.println("Loading Flight Schedule");
@@ -64,7 +64,7 @@ public class actualdriver
         }
 
         // Load Pricing Info
-        answer = input.readLine("Continue? Press Enter: ");
+        answer = input.readLine("Load Prices? Press Enter: ");
         if(answer != null)
         {
             System.out.println("Loading Price Info");
@@ -73,7 +73,7 @@ public class actualdriver
         }
 
         // Add Customers
-        answer = input.readLine("Continue? Press Enter: ");
+        answer = input.readLine("Add Customers? Press Enter: ");
         if(answer != null)
         {
             System.out.println("Adding Customer");
@@ -81,7 +81,7 @@ public class actualdriver
         }
 
         // Show customers
-        answer = input.readLine("Continue? Press Enter: ");
+        answer = input.readLine("Show Customers? Press Enter: ");
         if(answer != null)
         {
             System.out.println("Showing Customer Info");
@@ -89,7 +89,7 @@ public class actualdriver
         }
 
         // Find Routes
-        answer = input.readLine("Continue? Press Enter: ");
+        answer = input.readLine("Find Routes from JFK to SEA? Press Enter: ");
         if(answer != null)
         {
             System.out.println("Finding Routes");
@@ -97,7 +97,7 @@ public class actualdriver
         }
 
         // Find Routes Given Airline
-        answer = input.readLine("Continue? Press Enter: ");
+        answer = input.readLine("Find Routes from JFK to SEA on United Airlines? Press Enter: ");
         if(answer != null)
         {
             System.out.println("Finding Routes given Airline");
@@ -105,7 +105,7 @@ public class actualdriver
         }
 
         // Find Routes Given Date
-        answer = input.readLine("Continue? Press Enter: ");
+        answer = input.readLine("Find Routes from JFK to SEA on 19-MAY-19? Press Enter: ");
         if(answer != null)
         {
             System.out.println("Finding Routes on a given Date");
@@ -113,7 +113,7 @@ public class actualdriver
         }
 
         // Find Routes give date and airline_id
-        answer = input.readLine("Continue? Press Enter: ");
+        answer = input.readLine("Find Routes from JFK to SEA on 19-MAY-19 for United Airlines? Press Enter: ");
         if(answer != null)
         {
             System.out.println("Finding Routes given Date and Airline");
@@ -121,7 +121,7 @@ public class actualdriver
         }
 
         // Add Reservations
-        answer = input.readLine("Continue? Press Enter: ");
+        answer = input.readLine("Add Reservation for Customer added? Press Enter: ");
         if(answer != null)
         {
             System.out.println("Adding Reservation");
@@ -130,7 +130,7 @@ public class actualdriver
         }
 
         // Find Price Between cities
-        answer = input.readLine("Continue? Press Enter: ");
+        answer = input.readLine("Find price for flights between JFK to SEA? Press Enter: ");
         if(answer != null)
         {
             System.out.println("Finding Price of Reservation");
@@ -138,25 +138,24 @@ public class actualdriver
         }
 
         //Change existing price
-        answer = input.readLine("Continue? Press Enter: ");
+        answer = input.readLine("Change Price of flights between JFK and SEA for United Airlines? Press Enter: ");
         if(answer != null)
         {
             System.out.println("Changing Price of Ticket");
-            aapp.changePrice("JFK", "SEA", "00001", "1000", "500");
+            aapp.changePrice("JFK", "SEA", "00001", "2000", "1700");
             System.out.println("");
         }
 
         // Buy Ticket
-        answer = input.readLine("Continue? Press Enter: ");
+        answer = input.readLine("Buy Ticket? Press Enter: ");
         if(answer != null)
         {
             System.out.println("Buying Ticket");
             ccpp.buyReservation("11000");
-            System.out.println("");
         }
 
         // Show Reservation Info
-        answer = input.readLine("Continue? Press Enter: ");
+        answer = input.readLine("Show reservation info for newly purchased ticket? Press Enter: ");
         if(answer != null)
         {
             System.out.println("Showing Reservation Added");
@@ -165,7 +164,7 @@ public class actualdriver
         }
 
         //Generate Passenger Manifest for a specific flight on given date
-        answer = input.readLine("Continue? Press Enter: ");
+        answer = input.readLine("Generate Manifest for flight where tick was bought? Press Enter: ");
         if(answer != null)
         {
             System.out.println("Generating Passenger manifest for all flights on all dates");
