@@ -505,30 +505,28 @@ public class CustomerInterface {
 				
 				while (resultSet.next()) {
 					//sees if there is another upgradable plane or another seat
-					query = "select * from (select * from Plane where (plane_capacity > (select plane_capacity from Plane "+
-					  "where plane_type = ? and owner_id = ? ROWNUM <= 1) and owner_id = ?)) ORDER BY plane_capacity asc) where rownum <= 1";
+					query = "select * from (select * from Plane where (plane_capacity > (select plane_capacity from Plane where plane_type = ? and owner_id = ?)) ORDER BY plane_capacity asc) where rownum <= 1";
 					  pStatement = connection.prepareStatement(query);
 						pStatement.setString(1, resultSet.getString(3));
 						pStatement.setString(2, resultSet.getString(2));
-						pStatement.setString(3, resultSet.getString(2));
 					  connection.setAutoCommit(false);
 						resultSet1 = pStatement.executeQuery();
 						connection.commit();
-						System.out.println("bloo");
 					if(resultSet1.next()){
 						anotherPlane = true;
 					}
-					query = "select p.capacity, count(DISTINCT r.reservation_number) " +
-							"from Plane p, Reservation r, Reservation_detail, rd, Flight f " +
-							"where (r.reservation_number = rd.reservation_number AND rd.flight_number = f.flight_number AND f.plane_type = p.plane_type) AND plane_type = ? " +
-							"order by plane_capacity desc";
+					query = "select p.plane_capacity, count(DISTINCT r.reservation_number) " +
+							"from Plane p, Reservation r, Reservation_detail rd, Flight f " +
+							"where (r.reservation_number = rd.reservation_number AND rd.flight_number = f.flight_number AND f.plane_type = p.plane_type) AND p.plane_type = ? AND p.owner_id = ? "+
+							"group by p.plane_capacity";
 					  pStatement = connection.prepareStatement(query);
 						pStatement.setString(1, resultSet1.getString(3));
+						pStatement.setString(2, resultSet.getString(2));
 					  connection.setAutoCommit(false);
 						resultSet2 = pStatement.executeQuery();
 						connection.commit();
 					
-					if(!anotherPlane && Integer.parseInt(resultSet2.getString(1)) == Integer.parseInt(resultSet2.getString(2))){
+					if(anotherPlane || Integer.parseInt(resultSet2.getString(1)) > Integer.parseInt(resultSet2.getString(2))){
 						//sees if the date is in the schedule
 						if(resultSet.getString(8).contains(airline)){
 							System.out.println("Airline ID: "+resultSet.getString(2));
