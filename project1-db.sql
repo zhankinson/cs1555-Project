@@ -108,7 +108,7 @@ create table Reservation_detail(
     foreign key (flight_number) references Flight (flight_number)
 );
 
-create table Date_info(
+create table Our_Date(
   c_date date,
   constraint Date_PK
     primary key (c_date)
