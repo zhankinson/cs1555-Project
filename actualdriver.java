@@ -27,7 +27,9 @@ public class actualdriver
         }
         CustomerInterface ccpp = new CustomerInterface(connection);
 
-		ccpp.findReservation("000000001");
+		ccpp.addCustomer("John", "Johnson", "1234152512341234", "APR-2020", "Ridley st", "Lancaster", "PA", "1234123234", "john.johnson@gmail.com");
+		ccpp.showCustomer("John", "Johnson");
+		ccpp.findReservation("00199");
 
         AdministratorInterface aapp = new AdministratorInterface(connection);
         // Erase Database
