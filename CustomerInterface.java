@@ -622,27 +622,9 @@ public class CustomerInterface {
 
 	public void buyReservation(String reservationNumber) throws SQLException, IOException{
 		
-		 query = "Select ticketed From Reservation where reservation_number = ?";
-		  PreparedStatement updateStatement = connection.prepareStatement(query);
-		  updateStatement.setString(1, reservationNumber);
-
-		  resultSet1 = updateStatement.executeQuery();
-		  while(resultSet1.next()){
-			  if(resultSet1.getString(1).equals("Y")){
-				  System.out.println("This ticket has already been purchased");
-				  System.out.println("");
-			  }
-			  else{
-				  
-				 query = "Update Reservation set ticketed = 'Y' where reservation_number = ?";
-				  updateStatement = connection.prepareStatement(query);
-				  updateStatement.setString(1, reservationNumber);
-
-				  resultSet2 = updateStatement.executeQuery();
-				  System.out.println("Ticket Purchased ");
-				  System.out.println("");
-			  }
-		}
+		 resultSet = updateStatement.executeQuery();
+		  System.out.println("Ticket Purchased ");
+		  System.out.println("");
 
 	}
 
