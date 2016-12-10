@@ -656,7 +656,7 @@ public class CustomerInterface {
 			if(resultSet2.next()){
 				anotherPlane = true;
 			}
-			if(anotherplane && resultSet.next()){
+			if(anotherPlane && resultSet.next()){
 				if(anotherPlane || Integer.parseInt(resultSet1.getString(3)) > Integer.parseInt(resultSet.getString(1))){
 					if(leg.equals("2")){
 

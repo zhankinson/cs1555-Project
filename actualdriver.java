@@ -126,6 +126,7 @@ public class actualdriver
         {
             System.out.println("Adding Reservation");
             ccpp.addReservation("11000", "0000000000000000", "1", "000", "19-MAY-19 02:00:00");
+            System.out.println("");
         }
 
         // Find Price Between cities
@@ -142,6 +143,7 @@ public class actualdriver
         {
             System.out.println("Changing Price of Ticket");
             aapp.changePrice("JFK", "SEA", "00001", "1000", "500");
+            System.out.println("");
         }
 
         // Buy Ticket
@@ -150,6 +152,7 @@ public class actualdriver
         {
             System.out.println("Buying Ticket");
             ccpp.buyReservation("11000");
+            System.out.println("");
         }
 
         // Show Reservation Info
@@ -158,6 +161,7 @@ public class actualdriver
         {
             System.out.println("Showing Reservation Added");
             ccpp.findReservation("11000");
+            System.out.println("");
         }
 
         //Generate Passenger Manifest for a specific flight on given date

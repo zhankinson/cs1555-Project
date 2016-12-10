@@ -53,7 +53,6 @@ public class AdministratorInterface {
         try{
             st = connection.createStatement();
             connection.setAutoCommit(false);
-            st.executeUpdate("delete from Our_Date");
             st.executeUpdate("delete from Reservation_detail");
             st.executeUpdate("delete from Reservation");
             st.executeUpdate("delete from Customer");
