@@ -243,7 +243,7 @@ public class AdministratorInterface {
         }
     }
 
-    public void changePrice(String departCity, String arriveCity, String highPrice, String lowPrice, String airline)
+    public void changePrice(String departCity, String arriveCity, String airline, String highPrice, String lowPrice)
     {
         query = "update Price set high_price = ?, low_price = ? "+
         "where departure_city = ? and arrival_city = ? and airline_id = ?";
