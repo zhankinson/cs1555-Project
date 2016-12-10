@@ -6,7 +6,6 @@ public class actualdriver
 {
     public static void main(String[] args) throws Exception
     {
-        boolean proceed = true;
         Console input = System.console();
         String answer;
 
