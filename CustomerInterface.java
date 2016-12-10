@@ -99,7 +99,7 @@ public class CustomerInterface {
                Ex.toString());
            Ex.printStackTrace();
        }
-	   
+
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Scanner reader = new Scanner(System.in);  // Reading from System.in
         int n, p;
@@ -306,8 +306,8 @@ public class CustomerInterface {
 		*/
     }
 
-	public void addCustomer(String firstName, String lastName, String creditCard, String creditCardDate, String street, String city, String state, String phoneNumber, String email) throws SQLException, IOException{
-
+	public void addCustomer(String salutation, String firstName, String lastName, String creditCard, String creditCardDate, String street, String city, String state, String phoneNumber, String email) throws SQLException, IOException
+    {
 		java.text.SimpleDateFormat df = new java.text.SimpleDateFormat("MMM-yyyy");
 		  java.sql.Date expiration = null;
 		  try{
@@ -498,11 +498,11 @@ public class CustomerInterface {
 		  pStatement.setString(3, cityB);
 		  pStatement.setString(4, cityA);
 		  try{
-			  
+
 				connection.setAutoCommit(false);
 				resultSet = pStatement.executeQuery();
 				connection.commit();
-				
+
 				while (resultSet.next()) {
 					//sees if there is another upgradable plane or another seat
 					query = "select * from (select * from Plane where (plane_capacity > (select plane_capacity from Plane where plane_type = ? and owner_id = ?)) ORDER BY plane_capacity asc) where rownum <= 1";
@@ -525,7 +525,7 @@ public class CustomerInterface {
 					  connection.setAutoCommit(false);
 						resultSet2 = pStatement.executeQuery();
 						connection.commit();
-					
+
 					if(anotherPlane || Integer.parseInt(resultSet2.getString(1)) > Integer.parseInt(resultSet2.getString(2))){
 						//sees if the date is in the schedule
 						if(resultSet.getString(8).contains(date)){
@@ -573,11 +573,11 @@ public class CustomerInterface {
 		  pStatement.setString(4, cityA);
 		  pStatement.setString(5, airline);
 		  try{
-			  
+
 				connection.setAutoCommit(false);
 				resultSet = pStatement.executeQuery();
 				connection.commit();
-				
+
 				while (resultSet.next()) {
 					//sees if there is another upgradable plane or another seat
 					query = "select * from (select * from Plane where (plane_capacity > (select plane_capacity from Plane where plane_type = ? and owner_id = ?)) ORDER BY plane_capacity asc) where rownum <= 1";
@@ -600,7 +600,7 @@ public class CustomerInterface {
 					  connection.setAutoCommit(false);
 						resultSet2 = pStatement.executeQuery();
 						connection.commit();
-					
+
 					if(anotherPlane || Integer.parseInt(resultSet2.getString(1)) > Integer.parseInt(resultSet2.getString(2))){
 						//sees if the date is in the schedule
 						if(resultSet.getString(8).contains(date)){
@@ -639,7 +639,7 @@ public class CustomerInterface {
 
 		  resultSet = updateStatement.executeQuery();
 		while(resultSet.next()){
-			
+
 			 System.out.println("Info on " + reservationNumber);
 			 System.out.println("CID " + resultSet.getString(2));
 			 System.out.println("Cost " + resultSet.getInt(3));
@@ -666,7 +666,7 @@ public class CustomerInterface {
 				  System.out.println("");
 			  }
 			  else{
-				  
+
 				 query = "Update Reservation set ticketed = 'Y' where reservation_number = ?";
 				  updateStatement = connection.prepareStatement(query);
 				  updateStatement.setString(1, reservationNumber);
