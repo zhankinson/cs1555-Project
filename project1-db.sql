@@ -9,7 +9,7 @@ drop table Price cascade constraints;
 drop table Customer cascade constraints;
 drop table Reservation cascade constraints;
 drop table Reservation_detail cascade constraints;
-drop table Date_info cascade constraints;
+drop table Our_Date cascade constraints;
 
 create table Airline(
   airline_id varchar2(5) not NULL,
