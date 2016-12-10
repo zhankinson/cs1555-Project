@@ -26,7 +26,15 @@ public class actualdriver
         }
         CustomerInterface ccpp = new CustomerInterface(connection);
 
-		ccpp.findReservation("000000001");
+		ccpp.addCustomer("John", "Johnson", "1234152512341234", "APR-2020", "Ridley st", "Lancaster", "PA", "1234123234", "john.johnson@gmail.com");
+		ccpp.showCustomer("John", "Johnson");
+		ccpp.findPrice("PIT", "LAX");
+		ccpp.findRoutes("PIT", "LAX");
+		ccpp.findRoutesAirlines("PIT", "LAX", "Delta Air Lines");
+		ccpp.findRoutesDate("PIT", "LAX", "M");
+		ccpp.findRoutesDateAirline("PIT", "LAX", "M", "Delta Air Lines");
+		ccpp.findReservation("00199");
+		ccpp.buyReservation("00199");
 
         AdministratorInterface aapp = new AdministratorInterface(connection);
         // Erase Database
@@ -45,6 +53,7 @@ public class actualdriver
         // aapp.loadPrice("loadpricing.csv");
 
         // //Change existing price
+		/*
         do {
             aapp.changePrice("JFK", "SEA", "00001", "1000", "500");
             aapp.changePrice("BOS", "HAW", "00007", "1000", "500");
@@ -353,7 +362,7 @@ public class actualdriver
         } while(false);
         // String table = input.readLine("Please specify a table to display: ");
         // aapp.showTable(table);
-
+			*/
         connection.close();
     }
 }
