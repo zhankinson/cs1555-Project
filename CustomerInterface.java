@@ -204,8 +204,8 @@ public class CustomerInterface {
       				  System.out.print("Please enter another city: ");
       				  cityB = reader.next();
       				  System.out.print("Please enter the initials for the day of the week(ie: M): ");
-      				  date = reader.next();
-					  findRoutesDate(cityA, cityB, date);
+      				  airline = reader.next();
+					  findRoutesDate(cityA, cityB, airline);
       			}
       			else if(n == 7){
       				System.out.print("Please enter a 3-letter city (Example: PIT for Pittsburgh): ");
