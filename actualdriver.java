@@ -26,15 +26,15 @@ public class actualdriver
         }
         CustomerInterface ccpp = new CustomerInterface(connection);
 
-		ccpp.addCustomer("John", "Johnson", "1234152512341234", "APR-2020", "Ridley st", "Lancaster", "PA", "1234123234", "john.johnson@gmail.com");
-		ccpp.showCustomer("John", "Johnson");
-		ccpp.findPrice("PIT", "LAX");
-		ccpp.findRoutes("PIT", "LAX");
-		ccpp.findRoutesAirlines("PIT", "LAX", "Delta Air Lines");
-		ccpp.findRoutesDate("PIT", "LAX", "M");
-		ccpp.findRoutesDateAirline("PIT", "LAX", "M", "Delta Air Lines");
-		ccpp.findReservation("00199");
-		ccpp.buyReservation("00199");
+		//ccpp.addCustomer("John", "Johnson", "1234152512341234", "APR-2020", "Ridley st", "Lancaster", "PA", "1234123234", "john.johnson@gmail.com");
+		//ccpp.showCustomer("John", "Johnson");
+		//ccpp.findPrice("PIT", "LAX");
+		//ccpp.findRoutes("PIT", "LAX");
+		//ccpp.findRoutesAirlines("PIT", "LAX", "Delta Air Lines");
+		ccpp.findRoutesDate("JFK", "LON", "M");
+		//ccpp.findRoutesDateAirline("PIT", "LAX", "M", "Delta Air Lines");
+		//ccpp.findReservation("00199");
+		//ccpp.buyReservation("00199");
 
         AdministratorInterface aapp = new AdministratorInterface(connection);
         // Erase Database

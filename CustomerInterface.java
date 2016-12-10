@@ -204,8 +204,8 @@ public class CustomerInterface {
       				  System.out.print("Please enter another city: ");
       				  cityB = reader.next();
       				  System.out.print("Please enter the initials for the day of the week(ie: M): ");
-      				  airline = reader.next();
-					  findRoutesDate(cityA, cityB, airline);
+      				  date = reader.next();
+					  findRoutesDate(cityA, cityB, date);
       			}
       			else if(n == 7){
       				System.out.print("Please enter a 3-letter city (Example: PIT for Pittsburgh): ");
@@ -622,9 +622,23 @@ public class CustomerInterface {
 
 	public void buyReservation(String reservationNumber) throws SQLException, IOException{
 		
-		 resultSet = updateStatement.executeQuery();
-		  System.out.println("Ticket Purchased ");
-		  System.out.println("");
+		 resultSet1 = updateStatement.executeQuery();
+		  while(resultSet1.next()){
+			  if(resultSet1.getString(1).equals("Y")){
+				  System.out.println("This ticket has already been purchased");
+				  System.out.println("");
+			  }
+			  else{
+				  
+				 query = "Update Reservation set ticketed = 'Y' where reservation_number = ?";
+				  updateStatement = connection.prepareStatement(query);
+				  updateStatement.setString(1, reservationNumber);
+
+				  resultSet2 = updateStatement.executeQuery();
+				  System.out.println("Ticket Purchased ");
+				  System.out.println("");
+			  }
+		}
 
 	}
 
