@@ -76,7 +76,7 @@ end;
 
 create or replace trigger cancelReservation
 after insert or update or delete
-on Date_info
+on Our_Date
 for each row
 begin
 	--delete any with no printed tickets within 12 hours

@@ -88,7 +88,7 @@ public class AdministratorInterface {
             st = connection.createStatement();
             while(infile.ready())
             {
-                String[] line = infile.readLine().split(", ");
+                String[] line = infile.readLine().split(",");
                 String sql = "insert into Airline values ('"+line[0]+"', '"+line[1]+"', '"+line[2]+"', "+line[3]+")";
                 connection.setAutoCommit(false);
                 st.executeUpdate(sql);
@@ -142,7 +142,7 @@ public class AdministratorInterface {
             st = connection.createStatement();
             while(infile.ready())
             {
-                String[] line = infile.readLine().split(", ");
+                String[] line = infile.readLine().split(",");
                 String sql = "insert into Flight values ('"+line[0]+"', '"+line[1]+"', '"+line[2]+"', '"+line[3]+"', '"+line[4]+"', '"+line[5]+"', '"+line[6]+"', '"+line[7]+"')";
                 connection.setAutoCommit(false);
                 st.executeUpdate(sql);
@@ -201,7 +201,7 @@ public class AdministratorInterface {
             st = connection.createStatement();
             while(infile.ready())
             {
-                String[] line = infile.readLine().split(", ");
+                String[] line = infile.readLine().split(",");
                 String sql = "insert into Price values ('"+line[0]+"', '"+line[1]+"', '"+line[2]+"', '"+line[3]+"', '"+line[4]+"')";
                 connection.setAutoCommit(false);
                 st.executeUpdate(sql);
@@ -244,16 +244,17 @@ public class AdministratorInterface {
         }
     }
 
-    public void changePrice(String departCity, String arriveCity, String highPrice, String lowPrice)
+    public void changePrice(String departCity, String arriveCity, String highPrice, String lowPrice, String airline)
     {
         query = "update Price set high_price = ?, low_price = ? "+
-        "where departure_city = ? and arrival_city = ?";
+        "where departure_city = ? and arrival_city = ? and airline_id = ?";
         try{
             PreparedStatement pStatement = connection.prepareStatement(query);
             pStatement.setInt(1, Integer.parseInt(highPrice));
             pStatement.setInt(2, Integer.parseInt(lowPrice));
             pStatement.setString(3, departCity);
             pStatement.setString(4, arriveCity);
+            pStatement.setString(5, airline);
             connection.setAutoCommit(false);
             pStatement.executeUpdate();
             connection.commit();
@@ -282,7 +283,7 @@ public class AdministratorInterface {
             st = connection.createStatement();
             while(infile.ready())
             {
-                String[] line = infile.readLine().split(", ");
+                String[] line = infile.readLine().split(",");
                 String sql = "insert into Plane values ('"+line[0]+"', '"+line[1]+"', '"+line[2]+"', to_date('"+line[3]+"', 'MM/DD/YYYY'), '"+line[4]+"', '"+line[5]+"')";
                 connection.setAutoCommit(false);
                 st.executeUpdate(sql);
