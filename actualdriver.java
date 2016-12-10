@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 import java.sql.*;
 
-public class driver
+public class actualdriver
 {
     public static void main(String[] args) throws Exception
     {
@@ -20,8 +20,22 @@ public class driver
             answer = input.readLine();
             if(answer.compareTo("C") == 0)
             {
-                CustomerInterface capp = new CustomerInterface();
-                proceed = false;
+				try{
+                    DriverManager.registerDriver (new oracle.jdbc.driver.OracleDriver());
+                    String url = "jdbc:oracle:thin:@class3.cs.pitt.edu:1521:dbclass";
+                    connection = DriverManager.getConnection(url, username, password);
+                }
+                catch(Exception Ex)
+                {
+                    System.out.println("Error connecting to database.  Machine Error: " +
+                    Ex.toString());
+                    Ex.printStackTrace();
+                }
+                CustomerInterface ccpp = new CustomerInterface(connection);
+				
+				ccpp.findReservation("000000001");
+				
+				proceed = false; 
             }
             else if(answer.compareTo("A") == 0)
             {

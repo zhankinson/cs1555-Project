@@ -75,7 +75,9 @@ public class CustomerInterface {
 
     private boolean loop;
 
-    public CustomerInterface() throws SQLException, IOException{
+    public CustomerInterface(Connection link) throws SQLException, IOException{
+		this.connection = link;
+		/*
        username = "tik12"; //This is your username in oracle
        password = "3886681"; //This is your password in oracle
        try{
@@ -96,9 +98,7 @@ public class CustomerInterface {
                Ex.toString());
            Ex.printStackTrace();
        }
-
-	   DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy HH:MM:SS");
-
+	   
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Scanner reader = new Scanner(System.in);  // Reading from System.in
         int n, p;
@@ -336,6 +336,7 @@ public class CustomerInterface {
                 System.out.println("Wrong input please input something from 1-11");
             }
         }
+		*/
     }
 
 	public void addCustomer(String firstName, String lastName, String creditCard, String creditCardDate, String street, String city, String state, String phoneNumber, String email) throws SQLException, IOException{
