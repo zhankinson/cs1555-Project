@@ -349,6 +349,7 @@ public class CustomerInterface {
 
 		  updateStatement.executeUpdate();
 		  System.out.println("Your PittRewards number is " + Integer.toString(cid));
+		  System.out.println("");
 		  cid++;
 		}
 	}
@@ -374,6 +375,7 @@ public class CustomerInterface {
 		   System.out.println("Phone Number " + resultSet.getString(10));
 		   System.out.println("Email " + resultSet.getString(11));
 		   System.out.println("Frequent Miles " + resultSet.getString(12));
+		   System.out.println("");
 		}
 
 	}
@@ -565,20 +567,20 @@ public class CustomerInterface {
 		  updateStatement.setString(1, reservationNumber);
 
 		  resultSet = updateStatement.executeQuery();
-    while(resultSet.next()){
-		
-	 System.out.println("Info on " + reservationNumber);
-     System.out.println("CID " + resultSet.getString(2));
-     System.out.println("Cost " + resultSet.getInt(3));
-     System.out.println("Reservation Date " + resultSet.getString(5));
-     System.out.println("Ticketed " + resultSet.getString(6));
-     System.out.println("Departure City " + resultSet.getString(7));
-     System.out.println("Arrival City " + resultSet.getString(8));
-     System.out.println("Flight Number " + resultSet.getString(9));
-     System.out.println("Flight Date "  + resultSet.getString(10));
-     System.out.println("Leg " + resultSet.getString(11));
-     System.out.println("");
-    }
+		while(resultSet.next()){
+			
+			 System.out.println("Info on " + reservationNumber);
+			 System.out.println("CID " + resultSet.getString(2));
+			 System.out.println("Cost " + resultSet.getInt(3));
+			 System.out.println("Reservation Date " + resultSet.getString(5));
+			 System.out.println("Ticketed " + resultSet.getString(6));
+			 System.out.println("Departure City " + resultSet.getString(7));
+			 System.out.println("Arrival City " + resultSet.getString(8));
+			 System.out.println("Flight Number " + resultSet.getString(9));
+			 System.out.println("Flight Date "  + resultSet.getString(10));
+			 System.out.println("Leg " + resultSet.getString(11));
+			 System.out.println("");
+		}
 	}
 
 	public void buyReservation(String reservationNumber) throws SQLException, IOException{
@@ -588,6 +590,7 @@ public class CustomerInterface {
 
 		  resultSet = updateStatement.executeQuery();
 		  System.out.println("Ticket Purchased ");
+		  System.out.println("");
 
 	}
 
