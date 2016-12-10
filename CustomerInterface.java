@@ -681,6 +681,16 @@ public class CustomerInterface {
 						  updateStatement.setString(8, resultSet1.getString(5));
 						  updateStatement.executeQuery();
 						  connection.commit();
+						  
+						  query = "insert into Reservation_detail values (?, ?, to_date(?, 'DD-MON-YYYY HH24:MI:SS'), ?)";
+
+						  updateStatement = connection.prepareStatement(query);
+						  updateStatement.setString(1, Integer.toString(reservationID));
+						  updateStatement.setString(2, flightNumber);
+						  updateStatement.setString(3, userDate);
+						  updateStatement.setInt(4, Integer.parseInt(leg));
+						  updateStatement.executeQuery();
+						  connection.commit();
 					}
 					else if(leg.equals("1")){
 						//hold on to lowCost just in case user adds in another leg
@@ -699,6 +709,16 @@ public class CustomerInterface {
 						  updateStatement.setString(8, resultSet1.getString(5));
 						  updateStatement.executeQuery();
 						  connection.commit();
+						  
+						  query = "insert into Reservation_detail values (?, ?, to_date(?, 'DD-MON-YYYY HH24:MI:SS'), ?)";
+
+						  updateStatement = connection.prepareStatement(query);
+						  updateStatement.setString(1, Integer.toString(reservationID));
+						  updateStatement.setString(2, flightNumber);
+						  updateStatement.setString(3, userDate);
+						  updateStatement.setInt(4, Integer.parseInt(leg));
+						  updateStatement.executeQuery();
+						  connection.commit();
 					}
 					else{
 						query = "insert into Reservation values (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -712,6 +732,16 @@ public class CustomerInterface {
 						  updateStatement.setString(6, "N");
 						  updateStatement.setString(7, resultSet1.getString(4));
 						  updateStatement.setString(8, resultSet1.getString(5));
+						  updateStatement.executeQuery();
+						  connection.commit();
+						  
+						  query = "insert into Reservation_detail values (?, ?, to_date(?, 'DD-MON-YYYY HH24:MI:SS'), ?)";
+
+						  updateStatement = connection.prepareStatement(query);
+						  updateStatement.setString(1, Integer.toString(reservationID));
+						  updateStatement.setString(2, flightNumber);
+						  updateStatement.setString(3, userDate);
+						  updateStatement.setInt(4, Integer.parseInt(leg));
 						  updateStatement.executeQuery();
 						  connection.commit();
 					}
