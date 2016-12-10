@@ -879,3 +879,5 @@ insert into Reservation_detail values ('00196', '098', to_date('16-FEB-16 00:00:
 insert into Reservation_detail values ('00197', '098', to_date('16-FEB-16 00:00:00', 'DD-MON-YYYY HH24:MI:SS'), 1);
 insert into Reservation_detail values ('00198', '099', to_date('16-NOV-16 00:00:00', 'DD-MON-YYYY HH24:MI:SS'), 1);
 insert into Reservation_detail values ('00199', '099', to_date('16-NOV-16 00:00:00', 'DD-MON-YYYY HH24:MI:SS'), 1);
+
+insert into Our_Date values(to_date('01-NOV-95 00:00:00', 'DD-MON-YYYY HH24:MI:SS'));
