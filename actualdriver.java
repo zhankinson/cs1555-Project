@@ -31,10 +31,10 @@ public class actualdriver
 		//ccpp.findPrice("PIT", "LAX");
 		//ccpp.findRoutes("PIT", "LAX");
 		//ccpp.findRoutesAirlines("PIT", "LAX", "Delta Air Lines");
-		ccpp.findRoutesDate("JFK", "LON", "M");
-		//ccpp.findRoutesDateAirline("PIT", "LAX", "M", "Delta Air Lines");
-		//ccpp.findReservation("00199");
-		//ccpp.buyReservation("00199");
+		//ccpp.findRoutesDate("JFK", "LON", "S");
+		//ccpp.findRoutesDateAirline("JFK", "LON", "S", "Jet Blue");
+		ccpp.findReservation("00199");
+		ccpp.buyReservation("00199");
 
         AdministratorInterface aapp = new AdministratorInterface(connection);
         // Erase Database

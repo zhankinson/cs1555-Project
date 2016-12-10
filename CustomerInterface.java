@@ -485,7 +485,7 @@ public class CustomerInterface {
 		  }
 	}
 
-	public void findRoutesDate(String cityA, String cityB, String airline) throws SQLException, IOException{
+	public void findRoutesDate(String cityA, String cityB, String date) throws SQLException, IOException{
 		boolean anotherPlane = false;
 		query =  "select * from Flight "+
 				  "where ((departure_city = ? "+
@@ -528,13 +528,14 @@ public class CustomerInterface {
 					
 					if(anotherPlane || Integer.parseInt(resultSet2.getString(1)) > Integer.parseInt(resultSet2.getString(2))){
 						//sees if the date is in the schedule
-						if(resultSet.getString(8).contains(airline)){
+						if(resultSet.getString(8).contains(date)){
 							System.out.println("Airline ID: "+resultSet.getString(2));
 							System.out.println("Flight Number: "+resultSet.getString(1));
 							System.out.println("Departure City: "+resultSet.getString(4));
 							System.out.println("Arrival City: "+resultSet.getString(5));
 							System.out.println("Departure Time: "+resultSet.getString(6));
 							System.out.println("Arrival Time: "+resultSet.getString(7));
+							System.out.println("Weekly Schedule: "+resultSet.getString(8));
 							System.out.println("");
 						}
 					}
@@ -558,12 +559,13 @@ public class CustomerInterface {
 	}
 
 	public void findRoutesDateAirline(String cityA, String cityB, String date, String airline) throws SQLException, IOException{
-		
-		query = "select * from Flight "+
-				  "where (((departure_city = ? "+
+		boolean anotherPlane = false;
+		query =  "select * from Flight "+
+				  "where ((departure_city = ? "+
 				  "AND arrival_city = ?) "+
 				  "OR (departure_city = ? "+
-				  "AND arrival_city = ?)) AND airline_id = (select airline_id from airline where airline_name = ?))";
+				  "AND arrival_city = ?)) "+
+				  "AND airline_id = (select airline_id from airline where airline_name = ?)";
 		  PreparedStatement pStatement = connection.prepareStatement(query);
 		  pStatement.setString(1, cityA);
 		  pStatement.setString(2, cityB);
@@ -571,17 +573,49 @@ public class CustomerInterface {
 		  pStatement.setString(4, cityA);
 		  pStatement.setString(5, airline);
 		  try{
+			  
 				connection.setAutoCommit(false);
 				resultSet = pStatement.executeQuery();
 				connection.commit();
+				
 				while (resultSet.next()) {
-					if(resultSet.getString(8).contains(date)){
-						System.out.println("Airline ID: "+resultSet.getString(2));
+					//sees if there is another upgradable plane or another seat
+					query = "select * from (select * from Plane where (plane_capacity > (select plane_capacity from Plane where plane_type = ? and owner_id = ?)) ORDER BY plane_capacity asc) where rownum <= 1";
+					  pStatement = connection.prepareStatement(query);
+						pStatement.setString(1, resultSet.getString(3));
+						pStatement.setString(2, resultSet.getString(2));
+					  connection.setAutoCommit(false);
+						resultSet1 = pStatement.executeQuery();
+						connection.commit();
+					if(resultSet1.next()){
+						anotherPlane = true;
+					}
+					query = "select p.plane_capacity, count(DISTINCT r.reservation_number) " +
+							"from Plane p, Reservation r, Reservation_detail rd, Flight f " +
+							"where (r.reservation_number = rd.reservation_number AND rd.flight_number = f.flight_number AND f.plane_type = p.plane_type) AND p.plane_type = ? AND p.owner_id = ? "+
+							"group by p.plane_capacity";
+					  pStatement = connection.prepareStatement(query);
+						pStatement.setString(1, resultSet1.getString(3));
+						pStatement.setString(2, resultSet.getString(2));
+					  connection.setAutoCommit(false);
+						resultSet2 = pStatement.executeQuery();
+						connection.commit();
+					
+					if(anotherPlane || Integer.parseInt(resultSet2.getString(1)) > Integer.parseInt(resultSet2.getString(2))){
+						//sees if the date is in the schedule
+						if(resultSet.getString(8).contains(date)){
+							System.out.println("Airline ID: "+resultSet.getString(2));
+							System.out.println("Flight Number: "+resultSet.getString(1));
+							System.out.println("Departure City: "+resultSet.getString(4));
+							System.out.println("Arrival City: "+resultSet.getString(5));
+							System.out.println("Departure Time: "+resultSet.getString(6));
+							System.out.println("Arrival Time: "+resultSet.getString(7));
+							System.out.println("");
+						}
+					}
+					else{
 						System.out.println("Flight Number: "+resultSet.getString(1));
-						System.out.println("Departure City: "+resultSet.getString(4));
-						System.out.println("Arrival City: "+resultSet.getString(5));
-						System.out.println("Departure Time: "+resultSet.getString(6));
-						System.out.println("Arrival Time: "+resultSet.getString(7));
+						System.out.println("Seats not available ");
 						System.out.println("");
 					}
 				}
@@ -621,10 +655,13 @@ public class CustomerInterface {
 	}
 
 	public void buyReservation(String reservationNumber) throws SQLException, IOException{
-		
+		query = "Select * from totalReservation where reservation_number = ?";
+		  PreparedStatement updateStatement = connection.prepareStatement(query);
+		  updateStatement.setString(1, reservationNumber);
+
 		 resultSet1 = updateStatement.executeQuery();
 		  while(resultSet1.next()){
-			  if(resultSet1.getString(1).equals("Y")){
+			  if(resultSet1.getString(6).equals("Y")){
 				  System.out.println("This ticket has already been purchased");
 				  System.out.println("");
 			  }
