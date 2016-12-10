@@ -475,7 +475,7 @@ public class CustomerInterface {
 							}
 
 							query = "Select * from Price where departure_city = ? AND arrival_city = ?";
-						 updateStatement = connection.prepareStatement(query);
+							updateStatement = connection.prepareStatement(query);
 							updateStatement.setString(1, cityA);
 							updateStatement.setString(2, cityB);
 
