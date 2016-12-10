@@ -600,11 +600,9 @@ public class CustomerInterface {
 		  updateStatement.setString(1, reservationNumber);
 
 		  resultSet = updateStatement.executeQuery();
-		  System.out.println("Info on " + reservationNumber);
-		if(resultSet == null){
-			System.out.println("Reservation number does not exist");
-		}
     while(resultSet.next()){
+		
+	 System.out.println("Info on " + reservationNumber);
      System.out.println("CID " + resultSet.getString(2));
      System.out.println("Cost " + resultSet.getInt(3));
      System.out.println("Reservation Date " + resultSet.getString(5));
