@@ -33,8 +33,9 @@ public class actualdriver
 		//ccpp.findRoutesAirlines("PIT", "LAX", "Delta Air Lines");
 		//ccpp.findRoutesDate("JFK", "LON", "S");
 		//ccpp.findRoutesDateAirline("JFK", "LON", "S", "Jet Blue");
-		ccpp.findReservation("00199");
-		ccpp.buyReservation("00199");
+		ccpp.addReservation("00000", "1234123412341234", "1", "000", "19-MAY-19 02:00:00");
+		//ccpp.findReservation("00199");
+		//ccpp.buyReservation("00199");
 
         AdministratorInterface aapp = new AdministratorInterface(connection);
         // Erase Database
