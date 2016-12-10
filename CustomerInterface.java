@@ -167,31 +167,31 @@ public class CustomerInterface {
                   creditCard = input.nextLine();
                   System.out.println("Please Enter Your Credit Card Expiration Date (MON-YYYY)");
                   creditCardDate = input.nextLine();
-                  
-				  
+
+
 				  addCustomer(firstName, lastName, creditCard, creditCardDate, street, city, state, phoneNumber, email);
-				  
-				  
-                  
-                
+
+
+
+
             }
             else if(n == 2){
                 System.out.println("Please Enter the First Name to search");
                 firstName = input.nextLine();
                 System.out.println("Please Enter the Last Name to search");
                 lastName = input.nextLine();
-				
+
 				showCustomer(firstName, lastName);
-                
+
             }
             else if(n == 3){
               System.out.print("Please enter a 3-letter city (Example: PIT for Pittsburgh): ");
               cityA = reader.next();
               System.out.print("Please enter another city: ");
               cityB = reader.next();
-			  
+
 			  findPrice(cityA, cityB);
-             
+
             }
             else if(n == 4){
               System.out.print("Departure city: ");
@@ -199,7 +199,7 @@ public class CustomerInterface {
               System.out.print("Arrival city: ");
 			  System.out.println();
               arriveCity = reader.next();
-			  
+
               findRoutes(departCity, arriveCity);
             }
       			else if(n == 5){
@@ -209,9 +209,9 @@ public class CustomerInterface {
       				  cityB = reader.next();
       				  System.out.print("Please enter name of airline: ");
       				  airline = br.readLine();
-					  
+
 					  findRoutesAirlines(cityA, cityB, airline);
-      				  
+
       			}
       			else if(n == 6){
       				System.out.print("Please enter a 3-letter city (Example: PIT for Pittsburgh): ");
@@ -220,7 +220,7 @@ public class CustomerInterface {
       				  cityB = reader.next();
       				  System.out.print("Please enter the initials for the day of the week(ie: M): ");
       				  airline = reader.next();
-      				  
+
 					  findRoutesDate(cityA, cityB, airline);
       			}
       			else if(n == 7){
@@ -232,9 +232,9 @@ public class CustomerInterface {
       				  date = reader.next();
 					  System.out.print("Please enter name of airline: ");
       				  airline = br.readLine();
-					  
+
 					  findRoutesDateAirline(cityA, cityB, date, airline);
-      				  
+
       			}
       			else if(n == 8){
 					  int legNum = 1;
@@ -303,16 +303,16 @@ public class CustomerInterface {
       			else if(n == 9){
       				System.out.println("Please enter the Reservation Number");
                       reservationNumber = input.nextLine();
-					  
-					  findReservation(reservationNumber); 
 
-                      
+					  findReservation(reservationNumber);
+
+
       			}
       			else if(n == 10){
       				System.out.println("Please enter the Reservation Number");
                       reservationNumber = input.nextLine();
 
-                      buyReservation(reservationNumber); 
+                      buyReservation(reservationNumber);
       			}
             else if(n == 11){
                 System.out.println("Quiting");
@@ -337,9 +337,9 @@ public class CustomerInterface {
             }
         }
     }
-	
+
 	public void addCustomer(String firstName, String lastName, String creditCard, String creditCardDate, String street, String city, String state, String phoneNumber, String email) throws SQLException, IOException{
-		
+
 		java.text.SimpleDateFormat df = new java.text.SimpleDateFormat("MMM-yyyy");
 		  java.sql.Date expiration = null;
 		  try{
@@ -348,12 +348,12 @@ public class CustomerInterface {
 		  catch (Exception e){
 			e.printStackTrace();
 		  }
-				  
+
 		query = "Select * from Customer";
 		statement = connection.createStatement();
 		resultSet = statement.executeQuery(query);
 		boolean found = false;
-		
+
 		while(resultSet.next()){
 			if(firstName.equals(resultSet.getString(3)) && lastName.equals(resultSet.getString(4))){
 				System.out.println("Your customer name already exists");
@@ -364,7 +364,7 @@ public class CustomerInterface {
 		if(found){
 		}
 		else{
-		
+
 		  query = "insert into Customer values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		  PreparedStatement updateStatement = connection.prepareStatement(query);
@@ -386,7 +386,7 @@ public class CustomerInterface {
 		  cid++;
 		}
 	}
-	
+
 	public void showCustomer(String firstName, String lastName) throws SQLException, IOException{
 		query = "Select * from Customer where first_name = ? and last_name = ?";
 		PreparedStatement updateStatement = connection.prepareStatement(query);
@@ -409,9 +409,9 @@ public class CustomerInterface {
 		   System.out.println("Email " + resultSet.getString(11));
 		   System.out.println("Frequent Miles " + resultSet.getString(12));
 		}
-		
+
 	}
-	
+
 	public void findPrice(String cityA, String cityB) throws SQLException, IOException{
 		try{
 		  query = "select * from Price where (departure_city = ? AND arrival_city = ?) OR (departure_city = ? AND arrival_city = ?)";
@@ -420,7 +420,7 @@ public class CustomerInterface {
 		  pStatement.setString(2, cityB);
 		  pStatement.setString(3, cityB);
 		  pStatement.setString(4, cityA);
-		  
+
 			connection.setAutoCommit(false);
 			resultSet = pStatement.executeQuery();
 			connection.commit();
@@ -443,7 +443,7 @@ public class CustomerInterface {
 			}
 		  }
 	}
-	
+
 	public void findRoutes(String departCity, String arriveCity) throws SQLException, IOException{
 		query = "select * "+
 				  "from Flight "+
@@ -474,7 +474,7 @@ public class CustomerInterface {
 			}
 		  }
 	}
-	
+
 	public void findRoutesAirlines(String cityA, String cityB, String airline) throws SQLException, IOException{
 		query = "select * from Flight "+
 				  "where ((departure_city = ? "+
@@ -513,7 +513,7 @@ public class CustomerInterface {
 				}
 		  }
 	}
-	
+
 	public void findRoutesDate(String CityA, String cityB, String airline) throws SQLException, IOException{
 		query = "select * from Flight "+
 				  "where ((departure_city = ? "+
@@ -552,7 +552,7 @@ public class CustomerInterface {
 				}
 		  }
 	}
-	
+
 	public void findRoutesDateAirline(String cityA, String cityB, String date, String airline) throws SQLException, IOException{
 		query = "select * from Flight "+
 				  "where (((departure_city = ? "+
@@ -592,7 +592,7 @@ public class CustomerInterface {
 				}
 		  }
 	}
-	
+
 	public void findReservation(String reservationNumber) throws SQLException, IOException{
 		query = "Select * from totalReservation where reservation_number = ?";
 		  PreparedStatement updateStatement = connection.prepareStatement(query);
@@ -603,20 +603,20 @@ public class CustomerInterface {
 		if(resultSet == null){
 			System.out.println("Reservation number does not exist");
 		}
-		  while(resultSet.next()){
-			 System.out.println("CID " + resultSet.getString(2));
-			 System.out.println("Cost " + resultSet.getInt(3));
-			 System.out.println("Reservation Date " + resultSet.getString(5));
-			 System.out.println("Ticketed " + resultSet.getString(6));
-			 System.out.println("Departure City " + resultSet.getString(7));
-			 System.out.println("Arrival City " + resultSet.getString(8));
-			 System.out.println("Flight Number " + resultSet.getString(9));
-			 System.out.println("Flight Date "  + resultSet.getString(10));
-			 System.out.println("Leg " + resultSet.getString(11));
-			 System.out.println("");
-		  }
+    while(resultSet.next()){
+     System.out.println("CID " + resultSet.getString(2));
+     System.out.println("Cost " + resultSet.getInt(3));
+     System.out.println("Reservation Date " + resultSet.getString(5));
+     System.out.println("Ticketed " + resultSet.getString(6));
+     System.out.println("Departure City " + resultSet.getString(7));
+     System.out.println("Arrival City " + resultSet.getString(8));
+     System.out.println("Flight Number " + resultSet.getString(9));
+     System.out.println("Flight Date "  + resultSet.getString(10));
+     System.out.println("Leg " + resultSet.getString(11));
+     System.out.println("");
+    }
 	}
-	
+
 	public void buyReservation(String reservationNumber) throws SQLException, IOException{
 		 query = "Update Reservation set ticketed = 'Y' where reservation_number = ?";
 		  PreparedStatement updateStatement = connection.prepareStatement(query);
@@ -624,7 +624,7 @@ public class CustomerInterface {
 
 		  resultSet = updateStatement.executeQuery();
 		  System.out.println("Ticket Purchased ");
-					  
+
 	}
 
     // public static void main(String[] args) throws SQLException, IOException {
