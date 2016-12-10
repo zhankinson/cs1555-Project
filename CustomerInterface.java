@@ -619,7 +619,6 @@ public class CustomerInterface {
 			pStatement.setString(1, userDate);
 			pStatement.setString(2, flightNumber);
 			resultSet = pStatement.executeQuery();
-			resultSet.next();
 
 			//see capacity
 			query = "select p.owner_id, p.plane_type, p.plane_capacity, f.departure_city, f.arrival_city from plane p, flight f where p.plane_type = f.plane_type and p.owner_id = f.airline_id and f.flight_number = ?";
@@ -657,71 +656,91 @@ public class CustomerInterface {
 			if(resultSet2.next()){
 				anotherPlane = true;
 			}
-			if(anotherPlane || Integer.parseInt(resultSet1.getString(3)) > Integer.parseInt(resultSet.getString(1)) || resultSet == null){
-				if(leg.equals("2")){
+			if(anotherplane && resultSet.next()){
+				if(anotherPlane || Integer.parseInt(resultSet1.getString(3)) > Integer.parseInt(resultSet.getString(1))){
+					if(leg.equals("2")){
 
 
-					query = "update Reservation set cost = ? where reservation_number = ?";
+						query = "update Reservation set cost = ? where reservation_number = ?";
 
-					  PreparedStatement updateStatement = connection.prepareStatement(query);
-					  updateStatement.setString(2, Integer.toString(reservationID-1));
-					  updateStatement.setInt(1, resultSet4.getInt(2));
+						  PreparedStatement updateStatement = connection.prepareStatement(query);
+						  updateStatement.setString(2, Integer.toString(reservationID-1));
+						  updateStatement.setInt(1, resultSet4.getInt(2));
 
 
-					query = "insert into Reservation values (?, ?, ?, ?, ?, ?, ?, ?)";
+						query = "insert into Reservation values (?, ?, ?, ?, ?, ?, ?, ?)";
 
-					  updateStatement = connection.prepareStatement(query);
-					  updateStatement.setString(1, Integer.toString(reservationID));
-					  updateStatement.setString(2, firstName);
-					  updateStatement.setInt(3, resultSet4.getInt(2));
-					  updateStatement.setString(4, creditCard);
-					  updateStatement.setDate(5, resultSet3.getDate(1));
-					  updateStatement.setString(6, "N");
-					  updateStatement.setString(7, resultSet1.getString(4));
-					  updateStatement.setString(8, resultSet1.getString(5));
-					  updateStatement.executeQuery();
-					  connection.commit();
-				}
-				else if(leg.equals("1")){
-					//hold on to lowCost just in case user adds in another leg
-					lowCost = resultSet4.getInt(2);
+						  updateStatement = connection.prepareStatement(query);
+						  updateStatement.setString(1, Integer.toString(reservationID));
+						  updateStatement.setString(2, firstName);
+						  updateStatement.setInt(3, resultSet4.getInt(2));
+						  updateStatement.setString(4, creditCard);
+						  updateStatement.setDate(5, resultSet3.getDate(1));
+						  updateStatement.setString(6, "N");
+						  updateStatement.setString(7, resultSet1.getString(4));
+						  updateStatement.setString(8, resultSet1.getString(5));
+						  updateStatement.executeQuery();
+						  connection.commit();
+					}
+					else if(leg.equals("1")){
+						//hold on to lowCost just in case user adds in another leg
+						lowCost = resultSet4.getInt(2);
 
-					query = "insert into Reservation values (?, ?, ?, ?, ?, ?, ?, ?)";
+						query = "insert into Reservation values (?, ?, ?, ?, ?, ?, ?, ?)";
 
-					  PreparedStatement updateStatement = connection.prepareStatement(query);
-					  updateStatement.setString(1, Integer.toString(reservationID));
-					  updateStatement.setString(2, firstName);
-					  updateStatement.setInt(3, resultSet4.getInt(1));
-					  updateStatement.setString(4, creditCard);
-					  updateStatement.setDate(5, resultSet3.getDate(1));
-					  updateStatement.setString(6, "N");
-					  updateStatement.setString(7, resultSet1.getString(4));
-					  updateStatement.setString(8, resultSet1.getString(5));
-					  updateStatement.executeQuery();
-					  connection.commit();
+						  PreparedStatement updateStatement = connection.prepareStatement(query);
+						  updateStatement.setString(1, Integer.toString(reservationID));
+						  updateStatement.setString(2, firstName);
+						  updateStatement.setInt(3, resultSet4.getInt(1));
+						  updateStatement.setString(4, creditCard);
+						  updateStatement.setDate(5, resultSet3.getDate(1));
+						  updateStatement.setString(6, "N");
+						  updateStatement.setString(7, resultSet1.getString(4));
+						  updateStatement.setString(8, resultSet1.getString(5));
+						  updateStatement.executeQuery();
+						  connection.commit();
+					}
+					else{
+						query = "insert into Reservation values (?, ?, ?, ?, ?, ?, ?, ?)";
+
+						  PreparedStatement updateStatement = connection.prepareStatement(query);
+						  updateStatement.setString(1, Integer.toString(reservationID));
+						  updateStatement.setString(2, firstName);
+						  updateStatement.setInt(3, resultSet4.getInt(2));
+						  updateStatement.setString(4, creditCard);
+						  updateStatement.setDate(5, resultSet3.getDate(1));
+						  updateStatement.setString(6, "N");
+						  updateStatement.setString(7, resultSet1.getString(4));
+						  updateStatement.setString(8, resultSet1.getString(5));
+						  updateStatement.executeQuery();
+						  connection.commit();
+					}
+
+
 				}
 				else{
-					query = "insert into Reservation values (?, ?, ?, ?, ?, ?, ?, ?)";
-
-					  PreparedStatement updateStatement = connection.prepareStatement(query);
-					  updateStatement.setString(1, Integer.toString(reservationID));
-					  updateStatement.setString(2, firstName);
-					  updateStatement.setInt(3, resultSet4.getInt(2));
-					  updateStatement.setString(4, creditCard);
-					  updateStatement.setDate(5, resultSet3.getDate(1));
-					  updateStatement.setString(6, "N");
-					  updateStatement.setString(7, resultSet1.getString(4));
-					  updateStatement.setString(8, resultSet1.getString(5));
-					  updateStatement.executeQuery();
-					  connection.commit();
+					System.out.println("Seats not available for flight " + flightNumber);
+					System.out.println("");
+					reservationID++;
 				}
-
-
 			}
 			else{
-				System.out.println("Seats not available for flight " + flightNumber);
-				System.out.println("");
-				reservationID++;
+				//hold on to lowCost just in case user adds in another leg
+				lowCost = resultSet4.getInt(2);
+
+				query = "insert into Reservation values (?, ?, ?, ?, ?, ?, ?, ?)";
+
+				  PreparedStatement updateStatement = connection.prepareStatement(query);
+				  updateStatement.setString(1, Integer.toString(reservationID));
+				  updateStatement.setString(2, firstName);
+				  updateStatement.setInt(3, resultSet4.getInt(1));
+				  updateStatement.setString(4, creditCard);
+				  updateStatement.setDate(5, resultSet3.getDate(1));
+				  updateStatement.setString(6, "N");
+				  updateStatement.setString(7, resultSet1.getString(4));
+				  updateStatement.setString(8, resultSet1.getString(5));
+				  updateStatement.executeQuery();
+				  connection.commit();
 			}
 			System.out.println("Reservations made, your reservation number: " + Integer.toString(reservationID));
 			reservationID++;
