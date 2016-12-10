@@ -9,7 +9,7 @@ drop table Price cascade constraints;
 drop table Customer cascade constraints;
 drop table Reservation cascade constraints;
 drop table Reservation_detail cascade constraints;
-drop table Date_info cascade constraints;
+drop table Our_Date cascade constraints;
 
 create table Airline(
   airline_id varchar2(5) not NULL,
@@ -108,7 +108,7 @@ create table Reservation_detail(
     foreign key (flight_number) references Flight (flight_number)
 );
 
-create table Date_info(
+create table Our_Date(
   c_date date,
   constraint Date_PK
     primary key (c_date)
