@@ -463,151 +463,177 @@ public class CustomerInterface {
 		  }
 	}
 
-	public void findRoutesDate(String cityA, String cityB, String date) throws SQLException, IOException{
+	public void findRoutesDate(String cityA, String cityB, String userDate) throws SQLException, IOException{
 		boolean anotherPlane = false;
-		query =  "select * from Flight "+
-				  "where ((departure_city = ? "+
-				  "AND arrival_city = ?) "+
-				  "OR (departure_city = ? "+
-				  "AND arrival_city = ?))";
-		  PreparedStatement pStatement = connection.prepareStatement(query);
-		  pStatement.setString(1, cityA);
-		  pStatement.setString(2, cityB);
-		  pStatement.setString(3, cityB);
-		  pStatement.setString(4, cityA);
-		  try{
-
-				connection.setAutoCommit(false);
+		// try{
+		  
+			//see capacity
+			query = "select p.owner_id, p.plane_type, p.plane_capacity, f.flight_number, f.departure_city, f.arrival_city, f.departure_time, f.arrival_time from plane p, flight f, airline a where p.plane_type = f.plane_type and p.owner_id = f.airline_id and a.airline_id = f.airline_id and ((f.departure_city = ? AND f.arrival_city = ?) or (f.departure_city = ? AND f.arrival_city = ?))";
+			PreparedStatement pStatement = connection.prepareStatement(query);
+			pStatement.setString(1, cityA);
+			pStatement.setString(2, cityB);
+			pStatement.setString(3, cityB);
+			pStatement.setString(4, cityA);
+			resultSet1 = pStatement.executeQuery();
+			while(resultSet1.next()){
+			
+				//see taken seats
+			    query = "select count(reservation_number) from Reservation_detail where flight_date = to_date(?, 'DD-MON-YYYY HH24:MI:SS') AND flight_number = ? group by flight_number";
+			    pStatement = connection.prepareStatement(query);
+				pStatement.setString(1, userDate);
+				pStatement.setString(2, resultSet1.getString(4));
 				resultSet = pStatement.executeQuery();
+
+
+				//sees if there is another upgradable plane or another seat
+				query = "select * from (select * from Plane where (plane_capacity > (select plane_capacity from Plane where plane_type = ? and owner_id = ?)) ORDER BY plane_capacity asc) where rownum <= 1";
+				pStatement = connection.prepareStatement(query);
+				pStatement.setString(2, resultSet1.getString(1));
+				pStatement.setString(1, resultSet1.getString(2));
+				connection.setAutoCommit(false);
+				resultSet2 = pStatement.executeQuery();
 				connection.commit();
 
-				while (resultSet.next()) {
-					//sees if there is another upgradable plane or another seat
-					query = "select * from (select * from Plane where (plane_capacity > (select plane_capacity from Plane where plane_type = ? and owner_id = ?)) ORDER BY plane_capacity asc) where rownum <= 1";
-					  pStatement = connection.prepareStatement(query);
-						pStatement.setString(1, resultSet.getString(3));
-						pStatement.setString(2, resultSet.getString(2));
-					  connection.setAutoCommit(false);
-						resultSet1 = pStatement.executeQuery();
-						connection.commit();
-					if(resultSet1.next()){
-						anotherPlane = true;
-					}
-					query = "select p.plane_capacity, count(DISTINCT r.reservation_number) " +
-							"from Plane p, Reservation r, Reservation_detail rd, Flight f " +
-							"where (r.reservation_number = rd.reservation_number AND rd.flight_number = f.flight_number AND f.plane_type = p.plane_type) AND p.plane_type = ? AND p.owner_id = ? "+
-							"group by p.plane_capacity";
-					  pStatement = connection.prepareStatement(query);
-						pStatement.setString(1, resultSet1.getString(3));
-						pStatement.setString(2, resultSet.getString(2));
-					  connection.setAutoCommit(false);
-						resultSet2 = pStatement.executeQuery();
-						connection.commit();
+				//get costs
+				query = "select high_price, low_price from Price where departure_city = ? and arrival_city = ? and airline_id = ?";
+				pStatement = connection.prepareStatement(query);
+				pStatement.setString(1, resultSet1.getString(4));
+				pStatement.setString(2, resultSet1.getString(5));
+				pStatement.setString(3, resultSet1.getString(1));
+				resultSet4 = pStatement.executeQuery();
+				resultSet4.next();
 
-					if(anotherPlane || Integer.parseInt(resultSet2.getString(1)) > Integer.parseInt(resultSet2.getString(2))){
-						//sees if the date is in the schedule
-						if(resultSet.getString(8).contains(date)){
-							System.out.println("Airline ID: "+resultSet.getString(2));
-							System.out.println("Flight Number: "+resultSet.getString(1));
-							System.out.println("Departure City: "+resultSet.getString(4));
-							System.out.println("Arrival City: "+resultSet.getString(5));
-							System.out.println("Departure Time: "+resultSet.getString(6));
-							System.out.println("Arrival Time: "+resultSet.getString(7));
-							System.out.println("Weekly Schedule: "+resultSet.getString(8));
-							System.out.println("");
-						}
+				//get present date
+				query = "select c_date from Our_Date where rownum<=1";
+				pStatement = connection.prepareStatement(query);
+				resultSet3 = pStatement.executeQuery();
+				resultSet3.next();
+
+
+				if(resultSet2.next()){
+					anotherPlane = true;
+				}
+				if(anotherPlane && resultSet.next()){
+					if(anotherPlane || Integer.parseInt(resultSet1.getString(3)) > Integer.parseInt(resultSet.getString(1))){
+						System.out.println("Airline ID: "+resultSet1.getString(1));
+						System.out.println("Flight Number: "+resultSet1.getString(4));
+						System.out.println("Departure City: "+resultSet1.getString(5));
+						System.out.println("Arrival City: "+resultSet1.getString(6));
+						System.out.println("Departure Time: "+resultSet1.getString(7));
+						System.out.println("Arrival Time: "+resultSet1.getString(8));
+						System.out.println("");
+
+
 					}
 					else{
-						System.out.println("Flight Number: "+resultSet.getString(1));
-						System.out.println("Seats not available ");
+						System.out.println("Seats not available for flight " + resultSet1.getString(4));
 						System.out.println("");
+						reservationID++;
 					}
 				}
-		  }
-		  catch (SQLException e){
-				System.out.println("Error: Cannot complete search");
-				System.err.println(e.toString());
-				try{
-				  connection.rollback();
+				//no seats so start the flight
+				else{
+					System.out.println("Airline ID: "+resultSet1.getString(1));
+					System.out.println("Flight Number: "+resultSet1.getString(4));
+					System.out.println("Departure City: "+resultSet1.getString(5));
+					System.out.println("Arrival City: "+resultSet1.getString(6));
+					System.out.println("Departure Time: "+resultSet1.getString(7));
+					System.out.println("Arrival Time: "+resultSet1.getString(8));
+					System.out.println("");
 				}
-				catch(SQLException ee){
-				  System.err.println(ee.toString());
-				}
-		  }
+			}
+		// }
+		// catch (SQLException e){
+		// 	System.out.println("No matches to your flights;");
+        //
+		//   }
 	}
 
-	public void findRoutesDateAirline(String cityA, String cityB, String date, String airline) throws SQLException, IOException{
+	public void findRoutesDateAirline(String cityA, String cityB, String airline, String userDate) throws SQLException, IOException{
 		boolean anotherPlane = false;
-		query =  "select * from Flight "+
-				  "where ((departure_city = ? "+
-				  "AND arrival_city = ?) "+
-				  "OR (departure_city = ? "+
-				  "AND arrival_city = ?)) "+
-				  "AND airline_id = (select airline_id from airline where airline_name = ?)";
-		  PreparedStatement pStatement = connection.prepareStatement(query);
-		  pStatement.setString(1, cityA);
-		  pStatement.setString(2, cityB);
-		  pStatement.setString(3, cityB);
-		  pStatement.setString(4, cityA);
-		  pStatement.setString(5, airline);
-		  try{
-
-				connection.setAutoCommit(false);
+		// try{
+		  
+			//see capacity
+			query = "select p.owner_id, p.plane_type, p.plane_capacity, f.flight_number, f.departure_city, f.arrival_city, f.departure_time, f.arrival_time from plane p, flight f, airline a where p.plane_type = f.plane_type and p.owner_id = f.airline_id and a.airline_id = f.airline_id and a.airline_name = ? and ((f.departure_city = ? AND f.arrival_city = ?) or (f.departure_city = ? AND f.arrival_city = ?))";
+			PreparedStatement pStatement = connection.prepareStatement(query);
+			pStatement.setString(1, airline);
+			pStatement.setString(2, cityA);
+			pStatement.setString(3, cityB);
+			pStatement.setString(4, cityB);
+			pStatement.setString(5, cityA);
+			resultSet1 = pStatement.executeQuery();
+			while(resultSet1.next()){
+			
+				//see taken seats
+			    query = "select count(reservation_number) from Reservation_detail where flight_date = to_date(?, 'DD-MON-YYYY HH24:MI:SS') AND flight_number = ? group by flight_number";
+			    pStatement = connection.prepareStatement(query);
+				pStatement.setString(1, userDate);
+				pStatement.setString(2, resultSet1.getString(4));
 				resultSet = pStatement.executeQuery();
+
+
+				//sees if there is another upgradable plane or another seat
+				query = "select * from (select * from Plane where (plane_capacity > (select plane_capacity from Plane where plane_type = ? and owner_id = ?)) ORDER BY plane_capacity asc) where rownum <= 1";
+				pStatement = connection.prepareStatement(query);
+				pStatement.setString(2, resultSet1.getString(1));
+				pStatement.setString(1, resultSet1.getString(2));
+				connection.setAutoCommit(false);
+				resultSet2 = pStatement.executeQuery();
 				connection.commit();
 
-				while (resultSet.next()) {
-					//sees if there is another upgradable plane or another seat
-					query = "select * from (select * from Plane where (plane_capacity > (select plane_capacity from Plane where plane_type = ? and owner_id = ?)) ORDER BY plane_capacity asc) where rownum <= 1";
-					  pStatement = connection.prepareStatement(query);
-						pStatement.setString(1, resultSet.getString(3));
-						pStatement.setString(2, resultSet.getString(2));
-					  connection.setAutoCommit(false);
-						resultSet1 = pStatement.executeQuery();
-						connection.commit();
-					if(resultSet1.next()){
-						anotherPlane = true;
-					}
-					query = "select p.plane_capacity, count(DISTINCT r.reservation_number) " +
-							"from Plane p, Reservation r, Reservation_detail rd, Flight f " +
-							"where (r.reservation_number = rd.reservation_number AND rd.flight_number = f.flight_number AND f.plane_type = p.plane_type) AND p.plane_type = ? AND p.owner_id = ? "+
-							"group by p.plane_capacity";
-					  pStatement = connection.prepareStatement(query);
-						pStatement.setString(1, resultSet1.getString(3));
-						pStatement.setString(2, resultSet.getString(2));
-					  connection.setAutoCommit(false);
-						resultSet2 = pStatement.executeQuery();
-						connection.commit();
+				//get costs
+				query = "select high_price, low_price from Price where departure_city = ? and arrival_city = ? and airline_id = ?";
+				pStatement = connection.prepareStatement(query);
+				pStatement.setString(1, resultSet1.getString(4));
+				pStatement.setString(2, resultSet1.getString(5));
+				pStatement.setString(3, resultSet1.getString(1));
+				resultSet4 = pStatement.executeQuery();
+				resultSet4.next();
 
-					if(anotherPlane || Integer.parseInt(resultSet2.getString(1)) > Integer.parseInt(resultSet2.getString(2))){
-						//sees if the date is in the schedule
-						if(resultSet.getString(8).contains(date)){
-							System.out.println("Airline ID: "+resultSet.getString(2));
-							System.out.println("Flight Number: "+resultSet.getString(1));
-							System.out.println("Departure City: "+resultSet.getString(4));
-							System.out.println("Arrival City: "+resultSet.getString(5));
-							System.out.println("Departure Time: "+resultSet.getString(6));
-							System.out.println("Arrival Time: "+resultSet.getString(7));
-							System.out.println("");
-						}
+				//get present date
+				query = "select c_date from Our_Date where rownum<=1";
+				pStatement = connection.prepareStatement(query);
+				resultSet3 = pStatement.executeQuery();
+				resultSet3.next();
+
+
+				if(resultSet2.next()){
+					anotherPlane = true;
+				}
+				if(anotherPlane && resultSet.next()){
+					if(anotherPlane || Integer.parseInt(resultSet1.getString(3)) > Integer.parseInt(resultSet.getString(1))){
+						System.out.println("Airline ID: "+resultSet1.getString(1));
+						System.out.println("Flight Number: "+resultSet1.getString(4));
+						System.out.println("Departure City: "+resultSet1.getString(5));
+						System.out.println("Arrival City: "+resultSet1.getString(6));
+						System.out.println("Departure Time: "+resultSet1.getString(7));
+						System.out.println("Arrival Time: "+resultSet1.getString(8));
+						System.out.println("");
+
+
 					}
 					else{
-						System.out.println("Flight Number: "+resultSet.getString(1));
-						System.out.println("Seats not available ");
+						System.out.println("Seats not available for flight " + resultSet1.getString(4));
 						System.out.println("");
+						reservationID++;
 					}
 				}
-		  }
-		  catch (SQLException e){
-				System.out.println("Error: Cannot complete search");
-				System.err.println(e.toString());
-				try{
-				  connection.rollback();
+				//no seats so start the flight
+				else{
+					System.out.println("Airline ID: "+resultSet1.getString(1));
+					System.out.println("Flight Number: "+resultSet1.getString(4));
+					System.out.println("Departure City: "+resultSet1.getString(5));
+					System.out.println("Arrival City: "+resultSet1.getString(6));
+					System.out.println("Departure Time: "+resultSet1.getString(7));
+					System.out.println("Arrival Time: "+resultSet1.getString(8));
+					System.out.println("");
 				}
-				catch(SQLException ee){
-				  System.err.println(ee.toString());
-				}
-		  }
+			}
+		// }
+		// catch (SQLException e){
+		// 	System.out.println("No matches to your flights;");
+        //
+		//   }
 	}
 
 	public void addReservation(String firstName, String creditCard, String leg, String flightNumber, String userDate) throws SQLException, IOException{

@@ -27,7 +27,7 @@ public class actualdriver
 
         CustomerInterface ccpp = new CustomerInterface(connection);
         AdministratorInterface aapp = new AdministratorInterface(connection);
-
+		/*
         // Erase Database
         answer = input.readLine("Erase Database? Press enter: ");
         if(answer != null)
@@ -103,21 +103,21 @@ public class actualdriver
             System.out.println("Finding Routes given Airline");
             ccpp.findRoutesAirlines("JFK", "SEA", "United Airlines");
         }
-
+		*/
         // Find Routes Given Date
         answer = input.readLine("Find Routes from JFK to SEA on 19-MAY-19? Press Enter: ");
         if(answer != null)
         {
             System.out.println("Finding Routes on a given Date");
-            ccpp.findRoutesDate("JFK", "SEA", "M");
+            ccpp.findRoutesDate("JFK", "SEA", "19-MAY-19 02:00:00");
         }
-
+		
         // Find Routes give date and airline_id
         answer = input.readLine("Find Routes from JFK to SEA on 19-MAY-19 for United Airlines? Press Enter: ");
         if(answer != null)
         {
             System.out.println("Finding Routes given Date and Airline");
-            ccpp.findRoutesDateAirline("JFK", "SEA", "M", "United Airlines");
+            ccpp.findRoutesDateAirline("JFK", "SEA", "United Airlines", "19-MAY-19 02:00:00");
         }
 
         // Add Reservations
