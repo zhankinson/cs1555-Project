@@ -372,7 +372,7 @@ public class CustomerInterface {
 		//   }
 	}
 
-	public void findRoutesDateAirline(String cityA, String cityB, String airline, String userDate) throws SQLException, IOException{
+	public void findRoutesDateAirline(String cityA, String cityB, String userDate, String airline) throws SQLException, IOException{
 		boolean anotherPlane = false;
 		// try{
 
@@ -667,16 +667,11 @@ public class CustomerInterface {
         resultSet2.close();
         resultSet3.close();
         resultSet4.close();
-		// }
-		// catch (SQLException e){
-		// 	System.out.println("No matches to your flights;");
-        //
-		//   }
 	}
 
 	public void findReservation(String reservationNumber) throws SQLException, IOException{
 		query = "Select * from totalReservation where reservation_number = ?";
-		   updateStatement = connection.prepareStatement(query);
+		  updateStatement = connection.prepareStatement(query);
 		  updateStatement.setString(1, reservationNumber);
 
 		  resultSet = updateStatement.executeQuery();
@@ -720,7 +715,9 @@ public class CustomerInterface {
 				  System.out.println("");
 			  }
 		}
+        updateStatement.close();
         resultSet1.close();
+        resultSet2.close();
 	}
 
     // public static void main(String[] args) throws SQLException, IOException {

@@ -5,17 +5,17 @@
 - Tim Kang
 
 ### To Run
-- Run sqlplus from directory containing sql frequent_miles
-- Type `@project1-db.sql`
-- Type `@project1-inserts.sql`
-- Type `@project1-triggers`
+- Run sqlplus from directory containing run.sql
+- Type `@run.sql`
 - Database will then be created and populated with proper triggers in place
 
 - Open unix to where the java files are located
-- Type 'javac AdministratorInterface.java'
-- Type 'AdministratorInterface' to run administrator interface
-- Type 'javac customerInterface.java'
-- Type 'customerInterface' to run customer interface
+- Type `javac driver.java`
+- Type `java driver`
 
 assumptions:
-- each seat is a reservation
+- reservation tells when flight date occurs
+
+to note:
+- we would have included more data in our benchmark but we ran into "maximum open cursors exceed" exceptions
+- cid and reservation id are created concurrently
