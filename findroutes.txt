@@ -1,202 +1,515 @@
-ccpp.findReservation('11000);
-ccpp.findReservation('11001);
-ccpp.findReservation('11002);
-ccpp.findReservation('11003);
-ccpp.findReservation('11004);
-ccpp.findReservation('11005);
-ccpp.findReservation('11006);
-ccpp.findReservation('11007);
-ccpp.findReservation('11008);
-ccpp.findReservation('11009);
-ccpp.findReservation('11010);
-ccpp.findReservation('11011);
-ccpp.findReservation('11012);
-ccpp.findReservation('11013);
-ccpp.findReservation('11014);
-ccpp.findReservation('11015);
-ccpp.findReservation('11016);
-ccpp.findReservation('11017);
-ccpp.findReservation('11018);
-ccpp.findReservation('11019);
-ccpp.findReservation('11020);
-ccpp.findReservation('11021);
-ccpp.findReservation('11022);
-ccpp.findReservation('11023);
-ccpp.findReservation('11024);
-ccpp.findReservation('11025);
-ccpp.findReservation('11026);
-ccpp.findReservation('11027);
-ccpp.findReservation('11028);
-ccpp.findReservation('11029);
-ccpp.findReservation('11030);
-ccpp.findReservation('11031);
-ccpp.findReservation('11032);
-ccpp.findReservation('11033);
-ccpp.findReservation('11034);
-ccpp.findReservation('11035);
-ccpp.findReservation('11036);
-ccpp.findReservation('11037);
-ccpp.findReservation('11038);
-ccpp.findReservation('11039);
-ccpp.findReservation('11040);
-ccpp.findReservation('11041);
-ccpp.findReservation('11042);
-ccpp.findReservation('11043);
-ccpp.findReservation('11044);
-ccpp.findReservation('11045);
-ccpp.findReservation('11046);
-ccpp.findReservation('11047);
-ccpp.findReservation('11048);
-ccpp.findReservation('11049);
-ccpp.findReservation('11050);
-ccpp.findReservation('11051);
-ccpp.findReservation('11052);
-ccpp.findReservation('11053);
-ccpp.findReservation('11054);
-ccpp.findReservation('11055);
-ccpp.findReservation('11056);
-ccpp.findReservation('11057);
-ccpp.findReservation('11058);
-ccpp.findReservation('11059);
-ccpp.findReservation('11060);
-ccpp.findReservation('11061);
-ccpp.findReservation('11062);
-ccpp.findReservation('11063);
-ccpp.findReservation('11064);
-ccpp.findReservation('11065);
-ccpp.findReservation('11066);
-ccpp.findReservation('11067);
-ccpp.findReservation('11068);
-ccpp.findReservation('11069);
-ccpp.findReservation('11070);
-ccpp.findReservation('11071);
-ccpp.findReservation('11072);
-ccpp.findReservation('11073);
-ccpp.findReservation('11074);
-ccpp.findReservation('11075);
-ccpp.findReservation('11076);
-ccpp.findReservation('11077);
-ccpp.findReservation('11078);
-ccpp.findReservation('11079);
-ccpp.findReservation('11080);
-ccpp.findReservation('11081);
-ccpp.findReservation('11082);
-ccpp.findReservation('11083);
-ccpp.findReservation('11084);
-ccpp.findReservation('11085);
-ccpp.findReservation('11086);
-ccpp.findReservation('11087);
-ccpp.findReservation('11088);
-ccpp.findReservation('11089);
-ccpp.findReservation('11090);
-ccpp.findReservation('11091);
-ccpp.findReservation('11092);
-ccpp.findReservation('11093);
-ccpp.findReservation('11094);
-ccpp.findReservation('11095);
-ccpp.findReservation('11096);
-ccpp.findReservation('11097);
-ccpp.findReservation('11098);
-ccpp.findReservation('11099);
+insert into Flight values ('000', '00006', 'B737', 'HAW', 'LON', '0500', '0500', 'SMTWTFS');
+insert into Flight values ('001', '00003', 'B737', 'LAX', 'PIT', '0300', '0600', 'SMTWTFS');
+insert into Flight values ('002', '00000', 'A320', 'BOS', 'SEA', '0200', '0500', '-MTWTF-');
+insert into Flight values ('003', '00002', 'B747', 'SCN', 'BOS', '1000', '0700', 'SMTWTFS');
+insert into Flight values ('004', '00000', 'A320', 'LON', 'SEA', '0200', '1200', 'SMTWTFS');
+insert into Flight values ('005', '00004', 'A350', 'PIT', 'LON', '0500', '1500', 'SMTWTFS');
+insert into Flight values ('006', '00005', 'A350', 'LAX', 'LON', '0500', '1900', 'SMTWTFS');
+insert into Flight values ('007', '00001', 'A350', 'SCN', 'MIA', '0800', '0600', '-MTWTF-');
+insert into Flight values ('008', '00005', 'A320', 'JFK', 'PIT', '0300', '0000', 'S-----S');
+insert into Flight values ('009', '00003', 'A350', 'JFK', 'SEA', '0200', '1600', '-MTWTF-');
+insert into Flight values ('010', '00002', 'B737', 'SEA', 'PIT', '0300', '1500', 'S-----S');
+insert into Flight values ('011', '00000', 'B737', 'AUS', 'PHI', '0400', '1400', '-MTWTF-');
+insert into Flight values ('012', '00005', 'B737', 'AUS', 'BOS', '1000', '0900', '-MTWTF-');
+insert into Flight values ('013', '00001', 'B737', 'SCN', 'BOS', '1000', '0900', 'S-----S');
+insert into Flight values ('014', '00009', 'A350', 'PIT', 'LON', '0500', '0200', '-MTWTF-');
+insert into Flight values ('015', '00007', 'E145', 'LON', 'LAX', '0000', '0300', 'SMTWTFS');
+insert into Flight values ('016', '00000', 'B737', 'PAR', 'HAW', '0700', '1700', '-MTWTF-');
+insert into Flight values ('017', '00008', 'A350', 'LAX', 'PIT', '0300', '1000', 'SMTWTFS');
+insert into Flight values ('018', '00004', 'E145', 'PHI', 'BOS', '1000', '0400', 'SMTWTFS');
+insert into Flight values ('019', '00000', 'E145', 'LAX', 'MIA', '0800', '0300', '-M-W-F-');
+insert into Flight values ('020', '00002', 'A320', 'JFK', 'LON', '0500', '1000', 'S-----S');
+insert into Flight values ('021', '00007', 'A320', 'JFK', 'MIA', '0800', '1000', 'SMTWTFS');
+insert into Flight values ('022', '00001', 'B737', 'HAW', 'LAX', '0000', '1500', '-MTWTF-');
+insert into Flight values ('023', '00008', 'E145', 'LON', 'MIA', '0800', '2100', 'S-----S');
+insert into Flight values ('024', '00000', 'B747', 'LAX', 'LON', '0500', '0200', '-M-W-F-');
+insert into Flight values ('025', '00003', 'A320', 'AUS', 'LAX', '0000', '1300', 'S-----S');
+insert into Flight values ('026', '00006', 'E145', 'PHI', 'BOS', '1000', '0700', '-M-W-F-');
+insert into Flight values ('027', '00003', 'B747', 'PHI', 'JFK', '0100', '2200', 'SMTWTFS');
+insert into Flight values ('028', '00003', 'B737', 'HAW', 'PAR', '0600', '1700', '-MTWTF-');
+insert into Flight values ('029', '00004', 'E145', 'PIT', 'MIA', '0800', '1000', '-M-W-F-');
+insert into Flight values ('030', '00000', 'E145', 'PIT', 'SEA', '0200', '2300', '-MTWTF-');
+insert into Flight values ('031', '00001', 'E145', 'PHI', 'AUS', '0900', '0200', 'SMTWTFS');
+insert into Flight values ('032', '00001', 'B747', 'PAR', 'MIA', '0800', '1900', '-M-W-F-');
+insert into Flight values ('033', '00004', 'A320', 'SCN', 'BOS', '1000', '0500', '-MTWTF-');
+insert into Flight values ('034', '00000', 'E145', 'PAR', 'SEA', '0200', '0300', 'SMTWTFS');
+insert into Flight values ('035', '00003', 'A350', 'LON', 'JFK', '0100', '0000', '-M-W-F-');
+insert into Flight values ('036', '00009', 'E145', 'LON', 'SEA', '0200', '2300', 'S-----S');
+insert into Flight values ('037', '00008', 'A350', 'LON', 'JFK', '0100', '0500', 'S-----S');
+insert into Flight values ('038', '00004', 'A350', 'BOS', 'JFK', '0100', '1300', '-M-W-F-');
+insert into Flight values ('039', '00003', 'A350', 'PIT', 'PAR', '0600', '0300', '-MTWTF-');
+insert into Flight values ('040', '00003', 'A350', 'LAX', 'AUS', '0900', '2000', '-M-W-F-');
+insert into Flight values ('041', '00006', 'E145', 'HAW', 'PAR', '0600', '0300', 'SMTWTFS');
+insert into Flight values ('042', '00004', 'E145', 'AUS', 'PAR', '0600', '1800', 'SMTWTFS');
+insert into Flight values ('043', '00007', 'A320', 'AUS', 'PAR', '0600', '0900', '-M-W-F-');
+insert into Flight values ('044', '00003', 'B747', 'PAR', 'PHI', '0400', '1600', 'SMTWTFS');
+insert into Flight values ('045', '00007', 'A320', 'PIT', 'LAX', '0000', '0900', 'SMTWTFS');
+insert into Flight values ('046', '00005', 'B747', 'HAW', 'MIA', '0800', '0200', '-MTWTF-');
+insert into Flight values ('047', '00006', 'A320', 'SEA', 'PAR', '0600', '1700', '-M-W-F-');
+insert into Flight values ('048', '00004', 'B747', 'PAR', 'AUS', '0900', '2300', '-MTWTF-');
+insert into Flight values ('049', '00003', 'A320', 'SEA', 'PIT', '0300', '1800', '-MTWTF-');
 
 
-ccpp.buyReservation('11000')
-ccpp.buyReservation('11001')
-ccpp.buyReservation('11002')
-ccpp.buyReservation('11003')
-ccpp.buyReservation('11004')
-ccpp.buyReservation('11005')
-ccpp.buyReservation('11006')
-ccpp.buyReservation('11007')
-ccpp.buyReservation('11008')
-ccpp.buyReservation('11009')
-ccpp.buyReservation('11010')
-ccpp.buyReservation('11011')
-ccpp.buyReservation('11012')
-ccpp.buyReservation('11013')
-ccpp.buyReservation('11014')
-ccpp.buyReservation('11015')
-ccpp.buyReservation('11016')
-ccpp.buyReservation('11017')
-ccpp.buyReservation('11018')
-ccpp.buyReservation('11019')
-ccpp.buyReservation('11020')
-ccpp.buyReservation('11021')
-ccpp.buyReservation('11022')
-ccpp.buyReservation('11023')
-ccpp.buyReservation('11024')
-ccpp.buyReservation('11025')
-ccpp.buyReservation('11026')
-ccpp.buyReservation('11027')
-ccpp.buyReservation('11028')
-ccpp.buyReservation('11029')
-ccpp.buyReservation('11030')
-ccpp.buyReservation('11031')
-ccpp.buyReservation('11032')
-ccpp.buyReservation('11033')
-ccpp.buyReservation('11034')
-ccpp.buyReservation('11035')
-ccpp.buyReservation('11036')
-ccpp.buyReservation('11037')
-ccpp.buyReservation('11038')
-ccpp.buyReservation('11039')
-ccpp.buyReservation('11040')
-ccpp.buyReservation('11041')
-ccpp.buyReservation('11042')
-ccpp.buyReservation('11043')
-ccpp.buyReservation('11044')
-ccpp.buyReservation('11045')
-ccpp.buyReservation('11046')
-ccpp.buyReservation('11047')
-ccpp.buyReservation('11048')
-ccpp.buyReservation('11049')
-ccpp.buyReservation('11050')
-ccpp.buyReservation('11051')
-ccpp.buyReservation('11052')
-ccpp.buyReservation('11053')
-ccpp.buyReservation('11054')
-ccpp.buyReservation('11055')
-ccpp.buyReservation('11056')
-ccpp.buyReservation('11057')
-ccpp.buyReservation('11058')
-ccpp.buyReservation('11059')
-ccpp.buyReservation('11060')
-ccpp.buyReservation('11061')
-ccpp.buyReservation('11062')
-ccpp.buyReservation('11063')
-ccpp.buyReservation('11064')
-ccpp.buyReservation('11065')
-ccpp.buyReservation('11066')
-ccpp.buyReservation('11067')
-ccpp.buyReservation('11068')
-ccpp.buyReservation('11069')
-ccpp.buyReservation('11070')
-ccpp.buyReservation('11071')
-ccpp.buyReservation('11072')
-ccpp.buyReservation('11073')
-ccpp.buyReservation('11074')
-ccpp.buyReservation('11075')
-ccpp.buyReservation('11076')
-ccpp.buyReservation('11077')
-ccpp.buyReservation('11078')
-ccpp.buyReservation('11079')
-ccpp.buyReservation('11080')
-ccpp.buyReservation('11081')
-ccpp.buyReservation('11082')
-ccpp.buyReservation('11083')
-ccpp.buyReservation('11084')
-ccpp.buyReservation('11085')
-ccpp.buyReservation('11086')
-ccpp.buyReservation('11087')
-ccpp.buyReservation('11088')
-ccpp.buyReservation('11089')
-ccpp.buyReservation('11090')
-ccpp.buyReservation('11091')
-ccpp.buyReservation('11092')
-ccpp.buyReservation('11093')
-ccpp.buyReservation('11094')
-ccpp.buyReservation('11095')
-ccpp.buyReservation('11096')
-ccpp.buyReservation('11097')
-ccpp.buyReservation('11098')
-ccpp.buyReservation('11099')
+insert into Price values ('HAW', 'LON', '00006', '500', '250');
+insert into Price values ('LAX', 'PIT', '00003', '500', '250');
+insert into Price values ('BOS', 'SEA', '00000', '500', '250');
+insert into Price values ('SCN', 'BOS', '00002', '1000', '750');
+insert into Price values ('LON', 'SEA', '00000', '1000', '750');
+insert into Price values ('PIT', 'LON', '00004', '500', '250');
+insert into Price values ('LAX', 'LON', '00005', '500', '250');
+insert into Price values ('SCN', 'MIA', '00001', '1000', '750');
+insert into Price values ('JFK', 'PIT', '00005', '500', '250');
+insert into Price values ('JFK', 'SEA', '00003', '500', '250');
+insert into Price values ('SEA', 'PIT', '00002', '500', '250');
+insert into Price values ('AUS', 'PHI', '00000', '500', '250');
+insert into Price values ('AUS', 'BOS', '00005', '500', '250');
+insert into Price values ('SCN', 'BOS', '00001', '1000', '750');
+insert into Price values ('PIT', 'LON', '00009', '500', '250');
+insert into Price values ('LON', 'LAX', '00007', '1000', '750');
+insert into Price values ('PAR', 'HAW', '00000', '500', '250');
+insert into Price values ('LAX', 'PIT', '00008', '500', '250');
+insert into Price values ('PHI', 'BOS', '00004', '500', '250');
+insert into Price values ('LAX', 'MIA', '00000', '500', '250');
+insert into Price values ('JFK', 'LON', '00002', '500', '250');
+insert into Price values ('JFK', 'MIA', '00007', '500', '250');
+insert into Price values ('HAW', 'LAX', '00001', '500', '250');
+insert into Price values ('LON', 'MIA', '00008', '1000', '750');
+insert into Price values ('LAX', 'LON', '00000', '500', '250');
+insert into Price values ('AUS', 'LAX', '00003', '500', '250');
+insert into Price values ('PHI', 'BOS', '00006', '500', '250');
+insert into Price values ('PHI', 'JFK', '00003', '500', '250');
+insert into Price values ('HAW', 'PAR', '00003', '500', '250');
+insert into Price values ('PIT', 'MIA', '00004', '500', '250');
+insert into Price values ('PIT', 'SEA', '00000', '500', '250');
+insert into Price values ('PHI', 'AUS', '00001', '500', '250');
+insert into Price values ('PAR', 'MIA', '00001', '500', '250');
+insert into Price values ('SCN', 'BOS', '00004', '1000', '750');
+insert into Price values ('PAR', 'SEA', '00000', '500', '250');
+insert into Price values ('LON', 'JFK', '00003', '1000', '750');
+insert into Price values ('LON', 'SEA', '00009', '1000', '750');
+insert into Price values ('LON', 'JFK', '00008', '1000', '750');
+insert into Price values ('BOS', 'JFK', '00004', '500', '250');
+insert into Price values ('PIT', 'PAR', '00003', '500', '250');
+insert into Price values ('LAX', 'AUS', '00003', '500', '250');
+insert into Price values ('HAW', 'PAR', '00006', '500', '250');
+insert into Price values ('AUS', 'PAR', '00004', '500', '250');
+insert into Price values ('AUS', 'PAR', '00007', '500', '250');
+insert into Price values ('PAR', 'PHI', '00003', '500', '250');
+insert into Price values ('PIT', 'LAX', '00007', '500', '250');
+insert into Price values ('HAW', 'MIA', '00005', '500', '250');
+insert into Price values ('SEA', 'PAR', '00006', '500', '250');
+insert into Price values ('PAR', 'AUS', '00004', '500', '250');
+insert into Price values ('SEA', 'PIT', '00003', '500', '250');
+
+
+ccpp.findPrices('HAW', 'LON');
+ccpp.findPrices('LAX', 'PIT');
+ccpp.findPrices('BOS', 'SEA');
+ccpp.findPrices('SCN', 'BOS');
+ccpp.findPrices('LON', 'SEA');
+ccpp.findPrices('PIT', 'LON');
+ccpp.findPrices('LAX', 'LON');
+ccpp.findPrices('SCN', 'MIA');
+ccpp.findPrices('JFK', 'PIT');
+ccpp.findPrices('JFK', 'SEA');
+ccpp.findPrices('SEA', 'PIT');
+ccpp.findPrices('AUS', 'PHI');
+ccpp.findPrices('AUS', 'BOS');
+ccpp.findPrices('SCN', 'BOS');
+ccpp.findPrices('PIT', 'LON');
+ccpp.findPrices('LON', 'LAX');
+ccpp.findPrices('PAR', 'HAW');
+ccpp.findPrices('LAX', 'PIT');
+ccpp.findPrices('PHI', 'BOS');
+ccpp.findPrices('LAX', 'MIA');
+ccpp.findPrices('JFK', 'LON');
+ccpp.findPrices('JFK', 'MIA');
+ccpp.findPrices('HAW', 'LAX');
+ccpp.findPrices('LON', 'MIA');
+ccpp.findPrices('LAX', 'LON');
+ccpp.findPrices('AUS', 'LAX');
+ccpp.findPrices('PHI', 'BOS');
+ccpp.findPrices('PHI', 'JFK');
+ccpp.findPrices('HAW', 'PAR');
+ccpp.findPrices('PIT', 'MIA');
+ccpp.findPrices('PIT', 'SEA');
+ccpp.findPrices('PHI', 'AUS');
+ccpp.findPrices('PAR', 'MIA');
+ccpp.findPrices('SCN', 'BOS');
+ccpp.findPrices('PAR', 'SEA');
+ccpp.findPrices('LON', 'JFK');
+ccpp.findPrices('LON', 'SEA');
+ccpp.findPrices('LON', 'JFK');
+ccpp.findPrices('BOS', 'JFK');
+ccpp.findPrices('PIT', 'PAR');
+ccpp.findPrices('LAX', 'AUS');
+ccpp.findPrices('HAW', 'PAR');
+ccpp.findPrices('AUS', 'PAR');
+ccpp.findPrices('AUS', 'PAR');
+ccpp.findPrices('PAR', 'PHI');
+ccpp.findPrices('PIT', 'LAX');
+ccpp.findPrices('HAW', 'MIA');
+ccpp.findPrices('SEA', 'PAR');
+ccpp.findPrices('PAR', 'AUS');
+ccpp.findPrices('SEA', 'PIT');
+
+
+ccpp.findRoutes('HAW', 'LON');
+ccpp.findRoutes('LAX', 'PIT');
+ccpp.findRoutes('BOS', 'SEA');
+ccpp.findRoutes('SCN', 'BOS');
+ccpp.findRoutes('LON', 'SEA');
+ccpp.findRoutes('PIT', 'LON');
+ccpp.findRoutes('LAX', 'LON');
+ccpp.findRoutes('SCN', 'MIA');
+ccpp.findRoutes('JFK', 'PIT');
+ccpp.findRoutes('JFK', 'SEA');
+ccpp.findRoutes('SEA', 'PIT');
+ccpp.findRoutes('AUS', 'PHI');
+ccpp.findRoutes('AUS', 'BOS');
+ccpp.findRoutes('SCN', 'BOS');
+ccpp.findRoutes('PIT', 'LON');
+ccpp.findRoutes('LON', 'LAX');
+ccpp.findRoutes('PAR', 'HAW');
+ccpp.findRoutes('LAX', 'PIT');
+ccpp.findRoutes('PHI', 'BOS');
+ccpp.findRoutes('LAX', 'MIA');
+ccpp.findRoutes('JFK', 'LON');
+ccpp.findRoutes('JFK', 'MIA');
+ccpp.findRoutes('HAW', 'LAX');
+ccpp.findRoutes('LON', 'MIA');
+ccpp.findRoutes('LAX', 'LON');
+ccpp.findRoutes('AUS', 'LAX');
+ccpp.findRoutes('PHI', 'BOS');
+ccpp.findRoutes('PHI', 'JFK');
+ccpp.findRoutes('HAW', 'PAR');
+ccpp.findRoutes('PIT', 'MIA');
+ccpp.findRoutes('PIT', 'SEA');
+ccpp.findRoutes('PHI', 'AUS');
+ccpp.findRoutes('PAR', 'MIA');
+ccpp.findRoutes('SCN', 'BOS');
+ccpp.findRoutes('PAR', 'SEA');
+ccpp.findRoutes('LON', 'JFK');
+ccpp.findRoutes('LON', 'SEA');
+ccpp.findRoutes('LON', 'JFK');
+ccpp.findRoutes('BOS', 'JFK');
+ccpp.findRoutes('PIT', 'PAR');
+ccpp.findRoutes('LAX', 'AUS');
+ccpp.findRoutes('HAW', 'PAR');
+ccpp.findRoutes('AUS', 'PAR');
+ccpp.findRoutes('AUS', 'PAR');
+ccpp.findRoutes('PAR', 'PHI');
+ccpp.findRoutes('PIT', 'LAX');
+ccpp.findRoutes('HAW', 'MIA');
+ccpp.findRoutes('SEA', 'PAR');
+ccpp.findRoutes('PAR', 'AUS');
+ccpp.findRoutes('SEA', 'PIT');
+
+//change to findRoutesAirline
+ccpp.findPrices('HAW', 'LON', '00006');
+ccpp.findPrices('LAX', 'PIT', '00003');
+ccpp.findPrices('BOS', 'SEA', '00000');
+ccpp.findPrices('SCN', 'BOS', '00002');
+ccpp.findPrices('LON', 'SEA', '00000');
+ccpp.findPrices('PIT', 'LON', '00004');
+ccpp.findPrices('LAX', 'LON', '00005');
+ccpp.findPrices('SCN', 'MIA', '00001');
+ccpp.findPrices('JFK', 'PIT', '00005');
+ccpp.findPrices('JFK', 'SEA', '00003');
+ccpp.findPrices('SEA', 'PIT', '00002');
+ccpp.findPrices('AUS', 'PHI', '00000');
+ccpp.findPrices('AUS', 'BOS', '00005');
+ccpp.findPrices('SCN', 'BOS', '00001');
+ccpp.findPrices('PIT', 'LON', '00009');
+ccpp.findPrices('LON', 'LAX', '00007');
+ccpp.findPrices('PAR', 'HAW', '00000');
+ccpp.findPrices('LAX', 'PIT', '00008');
+ccpp.findPrices('PHI', 'BOS', '00004');
+ccpp.findPrices('LAX', 'MIA', '00000');
+ccpp.findPrices('JFK', 'LON', '00002');
+ccpp.findPrices('JFK', 'MIA', '00007');
+ccpp.findPrices('HAW', 'LAX', '00001');
+ccpp.findPrices('LON', 'MIA', '00008');
+ccpp.findPrices('LAX', 'LON', '00000');
+ccpp.findPrices('AUS', 'LAX', '00003');
+ccpp.findPrices('PHI', 'BOS', '00006');
+ccpp.findPrices('PHI', 'JFK', '00003');
+ccpp.findPrices('HAW', 'PAR', '00003');
+ccpp.findPrices('PIT', 'MIA', '00004');
+ccpp.findPrices('PIT', 'SEA', '00000');
+ccpp.findPrices('PHI', 'AUS', '00001');
+ccpp.findPrices('PAR', 'MIA', '00001');
+ccpp.findPrices('SCN', 'BOS', '00004');
+ccpp.findPrices('PAR', 'SEA', '00000');
+ccpp.findPrices('LON', 'JFK', '00003');
+ccpp.findPrices('LON', 'SEA', '00009');
+ccpp.findPrices('LON', 'JFK', '00008');
+ccpp.findPrices('BOS', 'JFK', '00004');
+ccpp.findPrices('PIT', 'PAR', '00003');
+ccpp.findPrices('LAX', 'AUS', '00003');
+ccpp.findPrices('HAW', 'PAR', '00006');
+ccpp.findPrices('AUS', 'PAR', '00004');
+ccpp.findPrices('AUS', 'PAR', '00007');
+ccpp.findPrices('PAR', 'PHI', '00003');
+ccpp.findPrices('PIT', 'LAX', '00007');
+ccpp.findPrices('HAW', 'MIA', '00005');
+ccpp.findPrices('SEA', 'PAR', '00006');
+ccpp.findPrices('PAR', 'AUS', '00004');
+ccpp.findPrices('SEA', 'PIT', '00003');
+
+
+
+ccpp.findRoutesDate('HAW', 'LON', 05-MAY-05 00:00:00');
+ccpp.findRoutesDate('LAX', 'PIT', 11-AUG-11 00:00:00');
+ccpp.findRoutesDate('BOS', 'SEA', 17-JUL-17 01:00:00');
+ccpp.findRoutesDate('SCN', 'BOS', 18-AUG-18 00:00:00');
+ccpp.findRoutesDate('LON', 'SEA', 15-MAY-15 00:00:00');
+ccpp.findRoutesDate('PIT', 'LON', 19-AUG-19 00:00:00');
+ccpp.findRoutesDate('LAX', 'LON', 02-AUG-02 00:00:00');
+ccpp.findRoutesDate('SCN', 'MIA', 07-NOV-07 01:00:00');
+ccpp.findRoutesDate('JFK', 'PIT', 17-APR-17 03:00:00');
+ccpp.findRoutesDate('JFK', 'SEA', 14-OCT-14 01:00:00');
+ccpp.findRoutesDate('SEA', 'PIT', 14-NOV-14 03:00:00');
+ccpp.findRoutesDate('AUS', 'PHI', 02-AUG-02 01:00:00');
+ccpp.findRoutesDate('AUS', 'BOS', 05-AUG-05 01:00:00');
+ccpp.findRoutesDate('SCN', 'BOS', 14-JUN-14 03:00:00');
+ccpp.findRoutesDate('PIT', 'LON', 10-AUG-10 01:00:00');
+ccpp.findRoutesDate('LON', 'LAX', 10-OCT-10 00:00:00');
+ccpp.findRoutesDate('PAR', 'HAW', 16-JAN-16 01:00:00');
+ccpp.findRoutesDate('LAX', 'PIT', 17-FEB-17 00:00:00');
+ccpp.findRoutesDate('PHI', 'BOS', 06-MAY-06 00:00:00');
+ccpp.findRoutesDate('LAX', 'MIA', 19-APR-19 02:00:00');
+ccpp.findRoutesDate('JFK', 'LON', 09-JUL-09 03:00:00');
+ccpp.findRoutesDate('JFK', 'MIA', 20-JUN-20 00:00:00');
+ccpp.findRoutesDate('HAW', 'LAX', 15-JAN-15 01:00:00');
+ccpp.findRoutesDate('LON', 'MIA', 20-AUG-20 03:00:00');
+ccpp.findRoutesDate('LAX', 'LON', 19-APR-19 02:00:00');
+ccpp.findRoutesDate('AUS', 'LAX', 02-AUG-02 03:00:00');
+ccpp.findRoutesDate('PHI', 'BOS', 13-OCT-13 02:00:00');
+ccpp.findRoutesDate('PHI', 'JFK', 16-AUG-16 00:00:00');
+ccpp.findRoutesDate('HAW', 'PAR', 01-SEP-01 01:00:00');
+ccpp.findRoutesDate('PIT', 'MIA', 08-OCT-08 02:00:00');
+ccpp.findRoutesDate('PIT', 'SEA', 17-JUL-17 01:00:00');
+ccpp.findRoutesDate('PHI', 'AUS', 17-MAR-17 00:00:00');
+ccpp.findRoutesDate('PAR', 'MIA', 11-AUG-11 02:00:00');
+ccpp.findRoutesDate('SCN', 'BOS', 15-NOV-15 01:00:00');
+ccpp.findRoutesDate('PAR', 'SEA', 06-OCT-06 00:00:00');
+ccpp.findRoutesDate('LON', 'JFK', 03-AUG-03 02:00:00');
+ccpp.findRoutesDate('LON', 'SEA', 18-JAN-18 03:00:00');
+ccpp.findRoutesDate('LON', 'JFK', 02-MAR-02 03:00:00');
+ccpp.findRoutesDate('BOS', 'JFK', 01-MAR-01 02:00:00');
+ccpp.findRoutesDate('PIT', 'PAR', 07-AUG-07 01:00:00');
+ccpp.findRoutesDate('LAX', 'AUS', 06-JUN-06 02:00:00');
+ccpp.findRoutesDate('HAW', 'PAR', 13-OCT-13 00:00:00');
+ccpp.findRoutesDate('AUS', 'PAR', 10-JAN-10 00:00:00');
+ccpp.findRoutesDate('AUS', 'PAR', 15-SEP-15 02:00:00');
+ccpp.findRoutesDate('PAR', 'PHI', 03-APR-03 00:00:00');
+ccpp.findRoutesDate('PIT', 'LAX', 01-NOV-01 00:00:00');
+ccpp.findRoutesDate('HAW', 'MIA', 18-NOV-18 01:00:00');
+ccpp.findRoutesDate('SEA', 'PAR', 05-APR-05 02:00:00');
+ccpp.findRoutesDate('PAR', 'AUS', 08-DEC-08 01:00:00');
+ccpp.findRoutesDate('SEA', 'PIT', 07-MAY-07 01:00:00');
+
+ccpp.findRoutesDateAirline('HAW', 'LON', 05-MAY-05 00:00:00', '00006');'
+ccpp.findRoutesDateAirline('LAX', 'PIT', 11-AUG-11 00:00:00', '00003');'
+ccpp.findRoutesDateAirline('BOS', 'SEA', 17-JUL-17 01:00:00', '00000');'
+ccpp.findRoutesDateAirline('SCN', 'BOS', 18-AUG-18 00:00:00', '00002');'
+ccpp.findRoutesDateAirline('LON', 'SEA', 15-MAY-15 00:00:00', '00000');'
+ccpp.findRoutesDateAirline('PIT', 'LON', 19-AUG-19 00:00:00', '00004');'
+ccpp.findRoutesDateAirline('LAX', 'LON', 02-AUG-02 00:00:00', '00005');'
+ccpp.findRoutesDateAirline('SCN', 'MIA', 07-NOV-07 01:00:00', '00001');'
+ccpp.findRoutesDateAirline('JFK', 'PIT', 17-APR-17 03:00:00', '00005');'
+ccpp.findRoutesDateAirline('JFK', 'SEA', 14-OCT-14 01:00:00', '00003');'
+ccpp.findRoutesDateAirline('SEA', 'PIT', 14-NOV-14 03:00:00', '00002');'
+ccpp.findRoutesDateAirline('AUS', 'PHI', 02-AUG-02 01:00:00', '00000');'
+ccpp.findRoutesDateAirline('AUS', 'BOS', 05-AUG-05 01:00:00', '00005');'
+ccpp.findRoutesDateAirline('SCN', 'BOS', 14-JUN-14 03:00:00', '00001');'
+ccpp.findRoutesDateAirline('PIT', 'LON', 10-AUG-10 01:00:00', '00009');'
+ccpp.findRoutesDateAirline('LON', 'LAX', 10-OCT-10 00:00:00', '00007');'
+ccpp.findRoutesDateAirline('PAR', 'HAW', 16-JAN-16 01:00:00', '00000');'
+ccpp.findRoutesDateAirline('LAX', 'PIT', 17-FEB-17 00:00:00', '00008');'
+ccpp.findRoutesDateAirline('PHI', 'BOS', 06-MAY-06 00:00:00', '00004');'
+ccpp.findRoutesDateAirline('LAX', 'MIA', 19-APR-19 02:00:00', '00000');'
+ccpp.findRoutesDateAirline('JFK', 'LON', 09-JUL-09 03:00:00', '00002');'
+ccpp.findRoutesDateAirline('JFK', 'MIA', 20-JUN-20 00:00:00', '00007');'
+ccpp.findRoutesDateAirline('HAW', 'LAX', 15-JAN-15 01:00:00', '00001');'
+ccpp.findRoutesDateAirline('LON', 'MIA', 20-AUG-20 03:00:00', '00008');'
+ccpp.findRoutesDateAirline('LAX', 'LON', 19-APR-19 02:00:00', '00000');'
+ccpp.findRoutesDateAirline('AUS', 'LAX', 02-AUG-02 03:00:00', '00003');'
+ccpp.findRoutesDateAirline('PHI', 'BOS', 13-OCT-13 02:00:00', '00006');'
+ccpp.findRoutesDateAirline('PHI', 'JFK', 16-AUG-16 00:00:00', '00003');'
+ccpp.findRoutesDateAirline('HAW', 'PAR', 01-SEP-01 01:00:00', '00003');'
+ccpp.findRoutesDateAirline('PIT', 'MIA', 08-OCT-08 02:00:00', '00004');'
+ccpp.findRoutesDateAirline('PIT', 'SEA', 17-JUL-17 01:00:00', '00000');'
+ccpp.findRoutesDateAirline('PHI', 'AUS', 17-MAR-17 00:00:00', '00001');'
+ccpp.findRoutesDateAirline('PAR', 'MIA', 11-AUG-11 02:00:00', '00001');'
+ccpp.findRoutesDateAirline('SCN', 'BOS', 15-NOV-15 01:00:00', '00004');'
+ccpp.findRoutesDateAirline('PAR', 'SEA', 06-OCT-06 00:00:00', '00000');'
+ccpp.findRoutesDateAirline('LON', 'JFK', 03-AUG-03 02:00:00', '00003');'
+ccpp.findRoutesDateAirline('LON', 'SEA', 18-JAN-18 03:00:00', '00009');'
+ccpp.findRoutesDateAirline('LON', 'JFK', 02-MAR-02 03:00:00', '00008');'
+ccpp.findRoutesDateAirline('BOS', 'JFK', 01-MAR-01 02:00:00', '00004');'
+ccpp.findRoutesDateAirline('PIT', 'PAR', 07-AUG-07 01:00:00', '00003');'
+ccpp.findRoutesDateAirline('LAX', 'AUS', 06-JUN-06 02:00:00', '00003');'
+ccpp.findRoutesDateAirline('HAW', 'PAR', 13-OCT-13 00:00:00', '00006');'
+ccpp.findRoutesDateAirline('AUS', 'PAR', 10-JAN-10 00:00:00', '00004');'
+ccpp.findRoutesDateAirline('AUS', 'PAR', 15-SEP-15 02:00:00', '00007');'
+ccpp.findRoutesDateAirline('PAR', 'PHI', 03-APR-03 00:00:00', '00003');'
+ccpp.findRoutesDateAirline('PIT', 'LAX', 01-NOV-01 00:00:00', '00007');'
+ccpp.findRoutesDateAirline('HAW', 'MIA', 18-NOV-18 01:00:00', '00005');'
+ccpp.findRoutesDateAirline('SEA', 'PAR', 05-APR-05 02:00:00', '00006');'
+ccpp.findRoutesDateAirline('PAR', 'AUS', 08-DEC-08 01:00:00', '00004');'
+ccpp.findRoutesDateAirline('SEA', 'PIT', 07-MAY-07 01:00:00', '00003');'
+
+ccpp.addReservation('00000', '000000000000000', '1', '000', 05-MAY-05 00:00:00');
+ccpp.addReservation('00001', '000000000000001', '1', '001', 11-AUG-11 00:00:00');
+ccpp.addReservation('00002', '000000000000002', '1', '002', 17-JUL-17 01:00:00');
+ccpp.addReservation('00003', '000000000000003', '1', '003', 18-AUG-18 00:00:00');
+ccpp.addReservation('00004', '000000000000004', '1', '004', 15-MAY-15 00:00:00');
+ccpp.addReservation('00005', '000000000000005', '1', '005', 19-AUG-19 00:00:00');
+ccpp.addReservation('00006', '000000000000006', '1', '006', 02-AUG-02 00:00:00');
+ccpp.addReservation('00007', '000000000000007', '1', '007', 07-NOV-07 01:00:00');
+ccpp.addReservation('00008', '000000000000008', '1', '008', 17-APR-17 03:00:00');
+ccpp.addReservation('00009', '000000000000009', '1', '009', 14-OCT-14 01:00:00');
+ccpp.addReservation('00010', '000000000000010', '1', '010', 14-NOV-14 03:00:00');
+ccpp.addReservation('00011', '000000000000011', '1', '011', 02-AUG-02 01:00:00');
+ccpp.addReservation('00012', '000000000000012', '1', '012', 05-AUG-05 01:00:00');
+ccpp.addReservation('00013', '000000000000013', '1', '013', 14-JUN-14 03:00:00');
+ccpp.addReservation('00014', '000000000000014', '1', '014', 10-AUG-10 01:00:00');
+ccpp.addReservation('00015', '000000000000015', '1', '015', 10-OCT-10 00:00:00');
+ccpp.addReservation('00016', '000000000000016', '1', '016', 16-JAN-16 01:00:00');
+ccpp.addReservation('00017', '000000000000017', '1', '017', 17-FEB-17 00:00:00');
+ccpp.addReservation('00018', '000000000000018', '1', '018', 06-MAY-06 00:00:00');
+ccpp.addReservation('00019', '000000000000019', '1', '019', 19-APR-19 02:00:00');
+ccpp.addReservation('00020', '000000000000020', '1', '020', 09-JUL-09 03:00:00');
+ccpp.addReservation('00021', '000000000000021', '1', '021', 20-JUN-20 00:00:00');
+ccpp.addReservation('00022', '000000000000022', '1', '022', 15-JAN-15 01:00:00');
+ccpp.addReservation('00023', '000000000000023', '1', '023', 20-AUG-20 03:00:00');
+ccpp.addReservation('00024', '000000000000024', '1', '024', 19-APR-19 02:00:00');
+ccpp.addReservation('00025', '000000000000025', '1', '025', 02-AUG-02 03:00:00');
+ccpp.addReservation('00026', '000000000000026', '1', '026', 13-OCT-13 02:00:00');
+ccpp.addReservation('00027', '000000000000027', '1', '027', 16-AUG-16 00:00:00');
+ccpp.addReservation('00028', '000000000000028', '1', '028', 01-SEP-01 01:00:00');
+ccpp.addReservation('00029', '000000000000029', '1', '029', 08-OCT-08 02:00:00');
+ccpp.addReservation('00030', '000000000000030', '1', '030', 17-JUL-17 01:00:00');
+ccpp.addReservation('00031', '000000000000031', '1', '031', 17-MAR-17 00:00:00');
+ccpp.addReservation('00032', '000000000000032', '1', '032', 11-AUG-11 02:00:00');
+ccpp.addReservation('00033', '000000000000033', '1', '033', 15-NOV-15 01:00:00');
+ccpp.addReservation('00034', '000000000000034', '1', '034', 06-OCT-06 00:00:00');
+ccpp.addReservation('00035', '000000000000035', '1', '035', 03-AUG-03 02:00:00');
+ccpp.addReservation('00036', '000000000000036', '1', '036', 18-JAN-18 03:00:00');
+ccpp.addReservation('00037', '000000000000037', '1', '037', 02-MAR-02 03:00:00');
+ccpp.addReservation('00038', '000000000000038', '1', '038', 01-MAR-01 02:00:00');
+ccpp.addReservation('00039', '000000000000039', '1', '039', 07-AUG-07 01:00:00');
+ccpp.addReservation('00040', '000000000000040', '1', '040', 06-JUN-06 02:00:00');
+ccpp.addReservation('00041', '000000000000041', '1', '041', 13-OCT-13 00:00:00');
+ccpp.addReservation('00042', '000000000000042', '1', '042', 10-JAN-10 00:00:00');
+ccpp.addReservation('00043', '000000000000043', '1', '043', 15-SEP-15 02:00:00');
+ccpp.addReservation('00044', '000000000000044', '1', '044', 03-APR-03 00:00:00');
+ccpp.addReservation('00045', '000000000000045', '1', '045', 01-NOV-01 00:00:00');
+ccpp.addReservation('00046', '000000000000046', '1', '046', 18-NOV-18 01:00:00');
+ccpp.addReservation('00047', '000000000000047', '1', '047', 05-APR-05 02:00:00');
+ccpp.addReservation('00048', '000000000000048', '1', '048', 08-DEC-08 01:00:00');
+ccpp.addReservation('00049', '000000000000049', '1', '049', 07-MAY-07 01:00:00');
+
+ccpp.findReservation('000);
+ccpp.findReservation('001);
+ccpp.findReservation('002);
+ccpp.findReservation('003);
+ccpp.findReservation('004);
+ccpp.findReservation('005);
+ccpp.findReservation('006);
+ccpp.findReservation('007);
+ccpp.findReservation('008);
+ccpp.findReservation('009);
+ccpp.findReservation('010);
+ccpp.findReservation('011);
+ccpp.findReservation('012);
+ccpp.findReservation('013);
+ccpp.findReservation('014);
+ccpp.findReservation('015);
+ccpp.findReservation('016);
+ccpp.findReservation('017);
+ccpp.findReservation('018);
+ccpp.findReservation('019);
+ccpp.findReservation('020);
+ccpp.findReservation('021);
+ccpp.findReservation('022);
+ccpp.findReservation('023);
+ccpp.findReservation('024);
+ccpp.findReservation('025);
+ccpp.findReservation('026);
+ccpp.findReservation('027);
+ccpp.findReservation('028);
+ccpp.findReservation('029);
+ccpp.findReservation('030);
+ccpp.findReservation('031);
+ccpp.findReservation('032);
+ccpp.findReservation('033);
+ccpp.findReservation('034);
+ccpp.findReservation('035);
+ccpp.findReservation('036);
+ccpp.findReservation('037);
+ccpp.findReservation('038);
+ccpp.findReservation('039);
+ccpp.findReservation('040);
+ccpp.findReservation('041);
+ccpp.findReservation('042);
+ccpp.findReservation('043);
+ccpp.findReservation('044);
+ccpp.findReservation('045);
+ccpp.findReservation('046);
+ccpp.findReservation('047);
+ccpp.findReservation('048);
+ccpp.findReservation('049);
+
+ccpp.buyReservation('000')
+ccpp.buyReservation('001')
+ccpp.buyReservation('002')
+ccpp.buyReservation('003')
+ccpp.buyReservation('004')
+ccpp.buyReservation('005')
+ccpp.buyReservation('006')
+ccpp.buyReservation('007')
+ccpp.buyReservation('008')
+ccpp.buyReservation('009')
+ccpp.buyReservation('010')
+ccpp.buyReservation('011')
+ccpp.buyReservation('012')
+ccpp.buyReservation('013')
+ccpp.buyReservation('014')
+ccpp.buyReservation('015')
+ccpp.buyReservation('016')
+ccpp.buyReservation('017')
+ccpp.buyReservation('018')
+ccpp.buyReservation('019')
+ccpp.buyReservation('020')
+ccpp.buyReservation('021')
+ccpp.buyReservation('022')
+ccpp.buyReservation('023')
+ccpp.buyReservation('024')
+ccpp.buyReservation('025')
+ccpp.buyReservation('026')
+ccpp.buyReservation('027')
+ccpp.buyReservation('028')
+ccpp.buyReservation('029')
+ccpp.buyReservation('030')
+ccpp.buyReservation('031')
+ccpp.buyReservation('032')
+ccpp.buyReservation('033')
+ccpp.buyReservation('034')
+ccpp.buyReservation('035')
+ccpp.buyReservation('036')
+ccpp.buyReservation('037')
+ccpp.buyReservation('038')
+ccpp.buyReservation('039')
+ccpp.buyReservation('040')
+ccpp.buyReservation('041')
+ccpp.buyReservation('042')
+ccpp.buyReservation('043')
+ccpp.buyReservation('044')
+ccpp.buyReservation('045')
+ccpp.buyReservation('046')
+ccpp.buyReservation('047')
+ccpp.buyReservation('048')
+ccpp.buyReservation('049')
