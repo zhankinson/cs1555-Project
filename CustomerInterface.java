@@ -84,204 +84,6 @@ public class CustomerInterface {
 	public CustomerInterface(Connection link) throws SQLException, IOException{
 		this.connection = link;
 
-		/*
-       username = "tik12"; //This is your username in oracle
-       password = "3886681"; //This is your password in oracle
-       try{
-         //Register the oracle driver.  This needs the oracle files provided
-         //in the oracle.zip file, unzipped into the local directory and
-         //the class path set to include the local directory
-         DriverManager.registerDriver (new oracle.jdbc.driver.OracleDriver());
-         //This is the location of the database.  This is the database in oracle
-         //provided to the class
-         String url = "jdbc:oracle:thin:@class3.cs.pitt.edu:1521:dbclass";
-         connection = DriverManager.getConnection(url, username, password);
-         //create a connection to DB on class3.cs.pitt.edu
-       }
-       catch(Exception Ex)
-       { //What to do with any exceptions
-         System.out.println("Error connecting to database.  Machine Error: " +
-               Ex.toString());
-           Ex.printStackTrace();
-       }
-
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        Scanner reader = new Scanner(System.in);  // Reading from System.in
-        int n, p;
-        Scanner input = new Scanner(System.in);
-        String answer;
-        boolean whileLoop = true;
-        System.out.println("Hello Customer to the future of flight");
-        System.out.println("Here are you options for the menu (type 1-11)");
-        System.out.println("1.) Add Customer");
-        System.out.println("2.) Show Customer Info");
-        System.out.println("3.) Find Price of Flight");
-        System.out.println("4.) Find All Routes from a City");
-        System.out.println("5.) Find All Routes from a City, given the air lines");
-        System.out.println("6.) Find all routes with available seats between two cities on a given date");
-        System.out.println("7.) For a given airline, find all routes with available seats between two cities on given date");
-        System.out.println("8.) Add Reservation");
-        System.out.println("9.) Show reservation info");
-        System.out.println("10.) Buy ticket fro existing reservation");
-        System.out.println("11.) Quit");
-        System.out.println("0.) Display Options");
-        while(whileLoop){
-            System.out.println("Enter a number: ");
-            n = reader.nextInt(); // Scans the next token of the input as an int.
-            if(n == 1){
-                loop = true;
-                while(loop){
-                    System.out.println("1.) Mr");
-                    System.out.println("2.) Ms");
-                    System.out.println("3.) Mrs");
-                    System.out.println("Enter a number for your salutation: ");
-                    p = reader.nextInt();
-                    if(p == 1){
-                        salutation = "Mr";
-                        loop = false;
-                    }
-                    else if(p == 2){
-                        salutation = "Ms";
-                        loop = false;
-                    }
-                    else if(p == 3){
-                        salutation = "Mrs";
-                        loop = false;
-                    }
-                    else{
-                        System.out.println("Please select a valid input");
-                    }
-                }
-				System.out.println("Please Enter Your First Name");
-                  firstName = input.nextLine();
-				  System.out.println("Please Enter Your Last Name");
-                  lastName = input.nextLine();
-                  System.out.println("Please Enter Your Street Address");
-                  street = input.nextLine();
-                  System.out.println("Please Enter Your City");
-                  city = input.nextLine();
-                  System.out.println("Please Enter Your State");
-                  state = input.nextLine();
-                  System.out.println("Please Enter Your Phone Number");
-                  phoneNumber = input.nextLine();
-                  System.out.println("Please Enter Your Email Address");
-                  email = input.nextLine();
-                  System.out.println("Please Enter Your Credit Card Number");
-                  creditCard = input.nextLine();
-                  System.out.println("Please Enter Your Credit Card Expiration Date (MON-YYYY)");
-                  creditCardDate = input.nextLine();
-				  addCustomer(firstName, lastName, creditCard, creditCardDate, street, city, state, phoneNumber, email);
-            }
-            else if(n == 2){
-                System.out.println("Please Enter the First Name to search");
-                firstName = input.nextLine();
-                System.out.println("Please Enter the Last Name to search");
-                lastName = input.nextLine();
-				showCustomer(firstName, lastName);
-            }
-            else if(n == 3){
-              System.out.print("Please enter a 3-letter city (Example: PIT for Pittsburgh): ");
-              cityA = reader.next();
-              System.out.print("Please enter another city: ");
-              cityB = reader.next();
-			  findPrice(cityA, cityB);
-            }
-            else if(n == 4){
-              System.out.print("Departure city: ");
-              departCity = reader.next();
-              System.out.print("Arrival city: ");
-			  System.out.println();
-              arriveCity = reader.next();
-              findRoutes(departCity, arriveCity);
-            }
-      			else if(n == 5){
-      				System.out.print("Please enter a 3-letter city (Example: PIT for Pittsburgh): ");
-      				  cityA = reader.next();
-      				  System.out.print("Please enter another city: ");
-      				  cityB = reader.next();
-      				  System.out.print("Please enter name of airline: ");
-      				  airline = br.readLine();
-					  findRoutesAirlines(cityA, cityB, airline);
-      			}
-      			else if(n == 6){
-      				System.out.print("Please enter a 3-letter city (Example: PIT for Pittsburgh): ");
-      				  cityA = reader.next();
-      				  System.out.print("Please enter another city: ");
-      				  cityB = reader.next();
-      				  System.out.print("Please enter the initials for the day of the week(ie: M): ");
-      				  date = reader.next();
-					  findRoutesDate(cityA, cityB, date);
-      			}
-      			else if(n == 7){
-      				System.out.print("Please enter a 3-letter city (Example: PIT for Pittsburgh): ");
-      				  cityA = reader.next();
-      				  System.out.print("Please enter another city: ");
-      				  cityB = reader.next();
-      				  System.out.print("Please enter the initials for the day of the week(ie: M): ");
-      				  date = reader.next();
-					  System.out.print("Please enter name of airline: ");
-      				  airline = br.readLine();
-					  findRoutesDateAirline(cityA, cityB, date, airline);
-      			}
-      			else if(n == 8){
-					  String leg = "5";
-					  boolean anotherPlane = false;
-					  System.out.println("Please Enter Your CID");
-					  firstName = input.nextLine();
-					  System.out.println("Please Enter Your Credit Card Number");
-					  creditCard = input.nextLine();
-					  String flightNumber;
-					  String userDate;
-					  while(!leg.equals("0")){
-
-						  System.out.print("Please the Leg of the trip: ");
-						  leg = reader.next();
-						  if(leg.equals("0"))
-							  break;
-						  System.out.print("Please enter the flight_number: ");
-						  flightNumber = reader.next();
-						  System.out.print("Please enter the date of the trip (DD-MON-YYYY HH24:MI:SS): ");
-						  userDate = br.readLine();
-
-						  addReservation(firstName, creditCard, leg, flightNumber, userDate);
-
-					  }
-
-      			}
-      			else if(n == 9){
-      				System.out.println("Please enter the Reservation Number");
-                      reservationNumber = input.nextLine();
-					  findReservation(reservationNumber);
-      			}
-      			else if(n == 10){
-      				System.out.println("Please enter the Reservation Number");
-                      reservationNumber = input.nextLine();
-                      buyReservation(reservationNumber);
-      			}
-            else if(n == 11){
-                System.out.println("Quiting");
-                whileLoop = false;
-            }
-            else if(n == 0){
-              System.out.println("1.) Add Customer");
-              System.out.println("2.) Show Customer Info");
-              System.out.println("3.) Find Price of Flight");
-              System.out.println("4.) Find All Routes from a City");
-              System.out.println("5.) Find All Routes from a City, given the Airport");
-              System.out.println("6.) Find all routes with available seats between two cities on a given date");
-              System.out.println("7.) For a given airline, find all routes with available seats between two cities on given date");
-              System.out.println("8.) Add Reservation");
-              System.out.println("9.) Show reservation info");
-              System.out.println("10.) Buy ticket fro existing reservation");
-              System.out.println("11.) Quit");
-              System.out.println("0.) Display Options");
-            }
-            else{
-                System.out.println("Wrong input please input something from 1-11");
-            }
-        }
-		*/
-
     }
 
 	public void addCustomer(String salutation, String firstName, String lastName, String creditCard, String creditCardDate, String street, String city, String state, String phoneNumber, String email) throws SQLException, IOException
@@ -333,6 +135,8 @@ public class CustomerInterface {
 		  System.out.println("");
 		  cid++;
 		}
+        connection.commit();
+
 	}
 
 	public void showCustomer(String firstName, String lastName) throws SQLException, IOException{
@@ -358,7 +162,7 @@ public class CustomerInterface {
 		   System.out.println("Frequent Miles " + resultSet.getString(12));
 		   System.out.println("");
 		}
-
+        connection.commit();
 	}
 
 	public void findPrice(String cityA, String cityB) throws SQLException, IOException{
@@ -440,7 +244,6 @@ public class CustomerInterface {
 		  try{
 				connection.setAutoCommit(false);
 				resultSet = pStatement.executeQuery();
-				connection.commit();
 				while (resultSet.next()) {
 				  System.out.println("Airline ID: "+resultSet.getString(2));
 				  System.out.println("Flight Number: "+resultSet.getString(1));
@@ -450,6 +253,7 @@ public class CustomerInterface {
 				  System.out.println("Arrival Time: "+resultSet.getString(7));
 				  System.out.println("");
 				}
+                connection.commit();
 		  }
 		  catch (SQLException e){
 				System.out.println("Error: Cannot complete search");
@@ -536,7 +340,7 @@ public class CustomerInterface {
 		  }
 	}
 
-	public void findRoutesDateAirline(String cityA, String cityB, String date, String airline) throws SQLException, IOException{
+	public void findRoutesDateAirline(String cityA, String cityB, String airline, String date) throws SQLException, IOException{
 		boolean anotherPlane = false;
 		query =  "select * from Flight "+
 				  "where ((departure_city = ? "+
