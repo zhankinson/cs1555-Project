@@ -393,28 +393,33 @@ public class CustomerInterface {
 		  }
 	}
 
-	public void findRoutes(String departCity, String arriveCity) throws SQLException, IOException{
-		query = "select * "+
-				  "from Flight "+
-				  "where departure_city = ? AND arrival_city = ?";
+	public void findRoutes(String cityA, String cityB) throws SQLException, IOException{
+		  query = "select * from Flight where ((departure_city = ? AND arrival_city = ?) OR (departure_city = ? AND arrival_city = ?)) OR (departure_city = (select departure_city from flight where arrival_city = ? AND rownum <= 1 and arrival_city = (select arrival_city from flight where departure_city = ? and rownum<=1))) OR (departure_city = (select departure_city from flight where arrival_city = ? AND rownum <= 1 AND arrival_city = (select arrival_city from flight where departure_city = ? and rownum<=1)))";
 		  PreparedStatement pStatement = connection.prepareStatement(query);
-		  pStatement.setString(1, departCity);
-		  pStatement.setString(2, arriveCity);
+		  pStatement.setString(1, cityA);
+		  pStatement.setString(2, cityB);
+		  pStatement.setString(3, cityB);
+		  pStatement.setString(4, cityA);
+		  pStatement.setString(5, cityA);
+		  pStatement.setString(6, cityB);
+		  pStatement.setString(7, cityB);
+		  pStatement.setString(8, cityA);
 		  try{
 			connection.setAutoCommit(false);
 			resultSet = pStatement.executeQuery();
 			connection.commit();
 			while (resultSet.next()) {
 				System.out.println("Departure City: "+resultSet.getString(4));
-						System.out.println("Arrival City: "+resultSet.getString(5));
-						System.out.println("Flight Number: "+resultSet.getString(1));
-						System.out.println("Departure Time: "+resultSet.getString(6));
-						System.out.println("Arrival Time: "+resultSet.getString(7));
-						System.out.println("");
+				System.out.println("Arrival City: "+resultSet.getString(5));
+				System.out.println("Flight Number: "+resultSet.getString(1));
+				System.out.println("Departure Time: "+resultSet.getString(6));
+				System.out.println("Arrival Time: "+resultSet.getString(7));
+				System.out.println("");
 			}
 		  }
-		  catch(SQLException e){
+		  catch (SQLException e){
 			System.out.println("Error: Cannot complete search");
+			System.err.println(e.toString());
 			try{
 			  connection.rollback();
 			}
@@ -425,18 +430,17 @@ public class CustomerInterface {
 	}
 
 	public void findRoutesAirlines(String cityA, String cityB, String airline) throws SQLException, IOException{
-		query = "select * from Flight "+
-				  "where ((departure_city = ? "+
-				  "AND arrival_city = ?) "+
-				  "OR (departure_city = ? "+
-				  "AND arrival_city = ?))" +
-				  "AND airline_id = (select airline_id from airline where airline_name = ?)";
+		 query = "select * from Flight where ((departure_city = ? AND arrival_city = ?) OR (departure_city = ? AND arrival_city = ?)) OR (departure_city = (select departure_city from flight where arrival_city = ? AND rownum <= 1 and arrival_city = (select arrival_city from flight where departure_city = ? and rownum<=1))) OR (departure_city = (select departure_city from flight where arrival_city = ? AND rownum <= 1 AND arrival_city = (select arrival_city from flight where departure_city = ? and rownum<=1))) AND airline_id = (select airline_id from airline where airline_name = ?)";
 		  PreparedStatement pStatement = connection.prepareStatement(query);
 		  pStatement.setString(1, cityA);
 		  pStatement.setString(2, cityB);
 		  pStatement.setString(3, cityB);
 		  pStatement.setString(4, cityA);
-		  pStatement.setString(5, airline);
+		  pStatement.setString(5, cityA);
+		  pStatement.setString(6, cityB);
+		  pStatement.setString(7, cityB);
+		  pStatement.setString(8, cityA);
+		  pStatement.setString(9, airline);
 		  try{
 				connection.setAutoCommit(false);
 				resultSet = pStatement.executeQuery();
