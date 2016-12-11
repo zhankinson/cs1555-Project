@@ -23,6 +23,7 @@ public class AdministratorInterface {
     * @param args the command line arguments
     */
     private static Statement st; //used to create an instance of the connection
+    private static PreparedStatement pStatement;
     private static ResultSet resultSet; //used to hold the result of your query (if one
     private static ResultSetMetaData rsmd; // exists)
     private static String query;  //this will hold the query we are using
@@ -47,7 +48,7 @@ public class AdministratorInterface {
         this.connection = link;
     }
 
-    public void eraseDB()
+    public void eraseDB() throws Exception
     {
         System.out.println("Deleting all records...");
         try{
@@ -73,9 +74,10 @@ public class AdministratorInterface {
                 System.err.println(ee.toString());
             }
         }
+        st.close();
     }
 
-    public void loadAirline(String filename)
+    public void loadAirline(String filename) throws Exception
     {
         try {
             infile = new BufferedReader(new FileReader(filename));
@@ -112,7 +114,7 @@ public class AdministratorInterface {
 
         try{
             String show = "select * from Airline";
-            PreparedStatement pStatement = connection.prepareStatement(show);
+            pStatement = connection.prepareStatement(show);
             connection.setAutoCommit(false);
             resultSet = pStatement.executeQuery();
             connection.commit();
@@ -127,9 +129,13 @@ public class AdministratorInterface {
         catch(Exception se){
             System.err.println(se.toString());
         }
+        st.close();
+        pStatement.close();
+        resultSet.close();
+        infile.close();
     }
 
-    public void loadSchedule(String filename)
+    public void loadSchedule(String filename) throws Exception
     {
         try {
             infile = new BufferedReader(new FileReader(filename));
@@ -148,6 +154,7 @@ public class AdministratorInterface {
                 connection.commit();
             }
             System.out.println("Load Successful");
+            st.close();
         }
         catch(SQLException e){
             System.out.println("Error: Load Unsuccessful");
@@ -166,7 +173,7 @@ public class AdministratorInterface {
 
         try{
             String show = "select * from Flight";
-            PreparedStatement pStatement = connection.prepareStatement(show);
+            pStatement = connection.prepareStatement(show);
             connection.setAutoCommit(false);
             resultSet = pStatement.executeQuery();
             connection.commit();
@@ -181,6 +188,8 @@ public class AdministratorInterface {
                 System.out.print(resultSet.getString(7) + " ");
                 System.out.print(resultSet.getString(8) + "\n");
             }
+            pStatement.close();
+            resultSet.close();
         }
         catch(Exception se)
         {
@@ -188,7 +197,7 @@ public class AdministratorInterface {
         }
     }
 
-    public void loadPrice(String filename)
+    public void loadPrice(String filename) throws Exception
     {
         try {
             infile = new BufferedReader(new FileReader(filename));
@@ -207,6 +216,7 @@ public class AdministratorInterface {
                 connection.commit();
             }
             System.out.println("Load Successful");
+            st.close();
         }
         catch(SQLException e){
             System.out.println("Error: Load Unsuccessful");
@@ -225,7 +235,7 @@ public class AdministratorInterface {
 
         try{
             String show = "select * from Price";
-            PreparedStatement pStatement = connection.prepareStatement(show);
+            pStatement = connection.prepareStatement(show);
             connection.setAutoCommit(false);
             resultSet = pStatement.executeQuery();
             connection.commit();
@@ -237,18 +247,21 @@ public class AdministratorInterface {
                 System.out.print(resultSet.getString(4) + " ");
                 System.out.print(resultSet.getString(5) + "\n");
             }
+            pStatement.close();
+            resultSet.close();
         }
         catch(Exception se){
             System.err.println(se.toString());
         }
+        infile.close();
     }
 
-    public void changePrice(String departCity, String arriveCity, String airline, String highPrice, String lowPrice)
+    public void changePrice(String departCity, String arriveCity, String airline, String highPrice, String lowPrice) throws Exception
     {
         query = "update Price set high_price = ?, low_price = ? "+
         "where departure_city = ? and arrival_city = ? and airline_id = ?";
         try{
-            PreparedStatement pStatement = connection.prepareStatement(query);
+            pStatement = connection.prepareStatement(query);
             pStatement.setInt(1, Integer.parseInt(highPrice));
             pStatement.setInt(2, Integer.parseInt(lowPrice));
             pStatement.setString(3, departCity);
@@ -258,6 +271,7 @@ public class AdministratorInterface {
             pStatement.executeUpdate();
             connection.commit();
             System.out.println("Update Successful");
+            pStatement.close();
         }
         catch(SQLException e){
             System.out.println("Error: Update Unsuccessful");
@@ -270,7 +284,7 @@ public class AdministratorInterface {
         }
     }
 
-    public void loadPlane(String filename)
+    public void loadPlane(String filename) throws Exception
     {
         try {
             infile = new BufferedReader(new FileReader(filename));
@@ -289,6 +303,7 @@ public class AdministratorInterface {
                 connection.commit();
             }
             System.out.println("Load Successful");
+            st.close();
         }
         catch(SQLException e){
             System.out.println("Error: Load Unsuccessful");
@@ -307,7 +322,7 @@ public class AdministratorInterface {
 
         try{
             String show = "select * from Plane";
-            PreparedStatement pStatement = connection.prepareStatement(show);
+            pStatement = connection.prepareStatement(show);
             connection.setAutoCommit(false);
             resultSet = pStatement.executeQuery();
             connection.commit();
@@ -320,11 +335,14 @@ public class AdministratorInterface {
                 System.out.print(resultSet.getString(5) + " ");
                 System.out.print(resultSet.getString(6) + "\n");
             }
+            pStatement.close();
+            resultSet.close();
         }
         catch (Exception se)
         {
             System.err.println(se.toString());
         }
+        infile.close();
     }
 
     public void generateManifest(String flightNumber, String flightDate)
@@ -332,7 +350,7 @@ public class AdministratorInterface {
         query = "select * from Customer c, Reservation r, Reservation_detail res "+
         "where c.cid = r.cid AND r.reservation_number = res.reservation_number AND res.flight_number = ? AND res.flight_date = to_date('"+flightDate+"', 'DD-MON-YYYY HH24:MI:SS')";
         try{
-            PreparedStatement pStatement = connection.prepareStatement(query);
+            pStatement = connection.prepareStatement(query);
             pStatement.setString(1, flightNumber);
             connection.setAutoCommit(false);
             resultSet = pStatement.executeQuery();
@@ -343,6 +361,8 @@ public class AdministratorInterface {
                 System.out.println("Last Name: "+resultSet.getString(4));
                 System.out.println("");
             }
+            pStatement.close();
+            resultSet.close();
         }
         catch(SQLException e){
             System.out.println("Error: Cannot Generate Manifest");
@@ -360,7 +380,7 @@ public class AdministratorInterface {
     {
         String show = "select * from "+table;
         try{
-            PreparedStatement pStatement = connection.prepareStatement(show);
+            pStatement = connection.prepareStatement(show);
             connection.setAutoCommit(false);
             resultSet = pStatement.executeQuery();
             rsmd = resultSet.getMetaData();
@@ -376,6 +396,8 @@ public class AdministratorInterface {
                 System.out.println("");
             }
             connection.commit();
+            pStatement.close();
+            resultSet.close();
         }
         catch(SQLException e){
             System.out.println("Error: Cannot Query Table "+table);
